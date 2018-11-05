@@ -20,13 +20,18 @@ class Molecule(object):
 
     def stability(self):
         stability = 0
+
+        #spagetti
         for amino_acid in self.sequence:
-            for amino_acid2 in self.sequence:
-                if amino_acid != amino_acid2:
-                    rest = (amino_acid.coordinates[0] - amino_acid2.coordinates[0], amino_acid.coordinates[1] - amino_acid2.coordinates[1])
-                    if abs(rest[0]) == 1 or abs(rest[1]) == 1:
-                        stability = stability - 1
+            if amino_acid.kind == 'H':
+                for amino_acid2 in self.sequence:
+                    if amino_acid2.kind == 'H':
+                        if amino_acid != amino_acid2:
+                            rest = (amino_acid.coordinates[0] - amino_acid2.coordinates[0], amino_acid.coordinates[1] - amino_acid2.coordinates[1])
+                            if abs(rest[0]) == 1 or abs(rest[1]) == 1:
+                                stability = stability - 1
         return stability
+
 if __name__ == '__main__':
-    molecule = Molecule('AAAAA')
+    molecule = Molecule('HHPHHHPH')
     print(molecule.stability())
