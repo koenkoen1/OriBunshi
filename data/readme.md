@@ -1,2 +1,2 @@
-# Code
-Hier leg ik uit welke code waar te vinden is.
+# Data
+Hier leg ik uit welke data waar te vinden is, en in welke format het opgeslagen is.
