@@ -3,5 +3,8 @@ class Amino_Acid(object):
         self.kind = kind
         self.coordinates = coordinates
 
+    def __str__(self):
+        return str(self.kind)
+        
     def move(self, coordinates):
         self.coordinates = coordinates
