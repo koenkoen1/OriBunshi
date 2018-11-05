@@ -18,6 +18,15 @@ class Molecule(object):
             string = string + str(amino_acid)
         return string
 
+    def stability(self):
+        stability = 0
+        for amino_acid in self.sequence:
+            for amino_acid2 in self.sequence:
+                if amino_acid != amino_acid2:
+                    rest = (amino_acid.coordinates[0] - amino_acid2.coordinates[0], amino_acid.coordinates[1] - amino_acid2.coordinates[1])
+                    if abs(rest[0]) == 1 or abs(rest[1]) == 1:
+                        stability = stability - 1
+        return stability
 if __name__ == '__main__':
     molecule = Molecule('AAAAA')
-    print(molecule)
+    print(molecule.stability())
