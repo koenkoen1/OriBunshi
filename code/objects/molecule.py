@@ -25,11 +25,10 @@ class Molecule(object):
         for amino_acid in self.sequence:
             if amino_acid.kind == 'H':
                 for amino_acid2 in self.sequence:
-                    if amino_acid2.kind == 'H':
-                        if amino_acid != amino_acid2:
-                            rest = (amino_acid.coordinates[0] - amino_acid2.coordinates[0], amino_acid.coordinates[1] - amino_acid2.coordinates[1])
-                            if abs(rest[0]) == 1 or abs(rest[1]) == 1:
-                                stability = stability - 1
+                    if amino_acid2.kind == 'H' and amino_acid != amino_acid2 and abs(self.sequence.index(amino_acid2) - self.sequence.index(amino_acid)) != 1:
+                        rest = (amino_acid.coordinates[0] - amino_acid2.coordinates[0], amino_acid.coordinates[1] - amino_acid2.coordinates[1])
+                        if abs(rest[0]) == 1 or abs(rest[1]) == 1:
+                            stability = stability - 1
         return stability
 
 if __name__ == '__main__':
