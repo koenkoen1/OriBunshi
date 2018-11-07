@@ -10,7 +10,11 @@ def main():
     with open('data/input.txt', 'r') as input:
         line = input.readline()
         mol = Molecule(line)
+        print(mol.stability())
         print(mol)
-
+        mol.turn(2, 'Left')
+        mol.turn(3, 'Left')
+        print(mol)
+        print(mol.stability())
 if __name__ == "__main__":
     main()
