@@ -52,6 +52,13 @@ class Molecule(object):
             self.sequence[nodelocation].coordinates = (relativex, relativey)
         return
 
+    def check_vadility(self):
+        for amino_acid in self.sequence:
+            for amino_acid2 in self.sequence:
+                if amino_acid != amino_acid2:
+                    if amino_acid.coordinates == amino_acid2.coordinates:
+                        return False
+        return True
 
 
 if __name__ == '__main__':
