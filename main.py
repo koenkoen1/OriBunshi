@@ -20,30 +20,37 @@ def main():
     sequence = load_sequence()
     molecule = Molecule(sequence)
 
-    # ask for user input
-    command = input("command: ").split()
+    while True:
+        # ask for user input
+        command = input("command: ").split()
 
-    if (len(command) == 3):
-        # check whether id is a number and convert to int
-        try:
-            id = int(command[1])
-        except ValueError:
-            print("id was not a number")
+        if command[0] == "quit":
+            break
 
-        # convert direction to required format
-        direction = command[2].lower().capitalize()
+        elif command[0] == "draw":
+            molecule.draw()
 
-        # turn molecule at position 'id' towards direction 'direction'
-        if command[0] == "turn" and direction in directions:
-            if id < len(sequence):
-                molecule.turn(id, direction)
-                print(f"stability: {molecule.stability()}")
+        elif (len(command) == 3):
+            # check whether id is a number and convert to int
+            try:
+                id = int(command[1]) - 1
+            except ValueError:
+                print("id was not a number")
+
+            # convert direction to required format
+            direction = command[2].lower().capitalize()
+
+            # turn molecule at position 'id' towards direction 'direction'
+            if command[0] == "turn" and direction in directions:
+                if id < len(sequence) and id > -1:
+                    molecule.turn(id, direction)
+                    print(f"stability: {molecule.stability()}")
+                else:
+                    print("id too high for sequence")
             else:
-                print("id too high for sequence")
+                print("use: turn id direction")
         else:
-            print("use: turn id direction")
-    else:
-        print("use: turn id direction")
+            print("invalid command")
 
 
 if __name__ == "__main__":
