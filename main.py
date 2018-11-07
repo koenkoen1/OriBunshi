@@ -9,16 +9,6 @@ directions = ["left", "right"]
 
 def main():
     # gib fir lin
-    with open('data/input.txt', 'r') as input:
-        line = input.readline()
-        mol = Molecule(line)
-        print(mol.stability())
-        print(mol)
-        mol.turn(2, 'Left')
-        mol.turn(3, 'Left')
-        print(mol)
-        print(mol.stability())
-        mol.draw()
     with open('data/input.txt', 'r') as f:
         line = f.readline()
         print(f"current sequence is {line}")
