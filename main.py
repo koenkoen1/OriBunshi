@@ -5,31 +5,45 @@ sys.path.append(os.path.join(directory, "code", "objects"))
 
 from molecule import Molecule
 
-directions = ["left", "right"]
+directions = ["Left", "Right"]
 
-def main():
-    # gib fir lin
+def load_sequence():
+    """
+    gib fir lin
+    """
     with open('data/input.txt', 'r') as f:
         line = f.readline()
         print(f"current sequence is {line}")
-        molecule = Molecule(line)
-        command = input("command: ")
+        return line
 
+def main():
+    sequence = load_sequence()
+    molecule = Molecule(sequence)
+
+    # ask for user input
+    command = input("command: ").split()
+
+    if (len(command) == 3):
+        # check whether id is a number and convert to int
         try:
-            command = command.split()
-        except:
-            print("use: turn id direction")
+            id = int(command[1])
+        except ValueError:
+            print("id was not a number")
 
-        if (command[0] == "turn" and len(command) == 3 and
-            command[2] in directions):
-            try:
-                id = int(command[1])
-                molecule.turn(id, command[2])
-                print(molecule.stability())
-            except ValueError:
-                print("id was not a number")
+        # convert direction to required format
+        direction = command[2].lower().capitalize()
+
+        # turn molecule at position 'id' towards direction 'direction'
+        if command[0] == "turn" and direction in directions:
+            if id < len(sequence):
+                molecule.turn(id, direction)
+                print(f"stability: {molecule.stability()}")
+            else:
+                print("id too high for sequence")
         else:
             print("use: turn id direction")
+    else:
+        print("use: turn id direction")
 
 
 if __name__ == "__main__":
