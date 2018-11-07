@@ -1,4 +1,5 @@
 from amino_acid import Amino_Acid
+import matplotlib.pyplot as plt
 
 class Molecule(object):
 
@@ -46,11 +47,14 @@ class Molecule(object):
             if direction == 'Left':
                 relativex = -relativey + relativelocation[0]
                 relativey = temp  + relativelocation[1]
-            if direction == 'Right':
+            elif direction == 'Right':
                 relativex = relativey + relativelocation[0]
                 relativey = -temp + relativelocation[1]
+            else:
+                return False
+
             self.sequence[nodelocation].coordinates = (relativex, relativey)
-        return
+        return True
 
     def check_vadility(self):
         for amino_acid in self.sequence:
@@ -58,9 +62,28 @@ class Molecule(object):
                 if amino_acid != amino_acid2:
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         return False
+
+    def draw(self):
+        oldx = 100
+        oldy = 100
+        xcoordinates = []
+        ycoordinates = []
+        for amino_acid in self.sequence:
+            xcoordinates.append(amino_acid.coordinates[0])
+            ycoordinates.append(amino_acid.coordinates[1])
+        plt.plot(xcoordinates, ycoordinates, c='black')
+        for amino_acid in self.sequence:
+                        # if  oldy != 100:
+            #     plt.plot([amino_acid.coordinates[0], oldx], [amino_acid.coordinates[1], oldy], c='black')
+            # oldx = amino_acid.coordinates[0]
+            # oldy = amino_acid.coordinates[1]
+            if amino_acid.kind == 'H':
+                color = 'r'
+            else:
+                color = 'b'
+
+            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1], '-o', c=color)
+
+
+        plt.show()
         return True
-
-
-if __name__ == '__main__':
-    molecule = Molecule('HHPHHHPH')
-    print(molecule.stability())

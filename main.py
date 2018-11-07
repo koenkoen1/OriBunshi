@@ -16,5 +16,6 @@ def main():
         mol.turn(3, 'Left')
         print(mol)
         print(mol.stability())
+        mol.draw()
 if __name__ == "__main__":
     main()
