@@ -28,4 +28,4 @@ def randomturns(molecule)
             lowest = molecule.stability()
             lowestmolecule = copy.deepcopy(molecule.sequence)
         i = i + 1
-    return molecule
+        molecule = lowestmolecule
