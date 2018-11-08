@@ -2,8 +2,10 @@ import os, sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
+sys.path.append(os.path.join(directory, "code", "algorithms"))
 
 from molecule import Molecule
+from max_stab import spiralfold
 
 directions = ["Left", "Right"]
 
@@ -26,6 +28,15 @@ def main():
 
         if command[0] == "quit":
             break
+
+        if command[0] == "max":
+            testseq = ""
+            for i in sequence:
+                testseq += "H"
+            testmol = Molecule(testseq)
+            spiralfold(testmol, len(sequence))
+            print(f"stability: {testmol.stability()}")
+            testmol.draw()
 
         elif command[0] == "draw":
             molecule.draw()
