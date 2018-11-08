@@ -9,7 +9,7 @@ directions = ["Left", "Right"]
 
 def load_sequence():
     """
-    gib fir lin
+    gives first line of input.txt
     """
     with open('data/input.txt', 'r') as f:
         line = f.readline()
