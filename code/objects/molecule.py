@@ -19,6 +19,7 @@ class Molecule(object):
             string = string + str(amino_acid)
         return string
 
+    # returns the stability of the molecule
     def stability(self):
         stability = 0
 
@@ -56,13 +57,16 @@ class Molecule(object):
             self.sequence[nodelocation].coordinates = (relativex, relativey)
         return True
 
+    # Checks for nodes with the same coordinates
     def check_vadility(self):
         for amino_acid in self.sequence:
             for amino_acid2 in self.sequence:
                 if amino_acid != amino_acid2:
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         return False
+        return True
 
+    # Draws an image of the molecule on screen
     def draw(self):
         oldx = 100
         oldy = 100
@@ -73,10 +77,6 @@ class Molecule(object):
             ycoordinates.append(amino_acid.coordinates[1])
         plt.plot(xcoordinates, ycoordinates, c='black')
         for amino_acid in self.sequence:
-                        # if  oldy != 100:
-            #     plt.plot([amino_acid.coordinates[0], oldx], [amino_acid.coordinates[1], oldy], c='black')
-            # oldx = amino_acid.coordinates[0]
-            # oldy = amino_acid.coordinates[1]
             if amino_acid.kind == 'H':
                 color = 'r'
             else:

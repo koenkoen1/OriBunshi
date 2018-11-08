@@ -14,11 +14,6 @@ def load_sequence():
     with open('data/input.txt', 'r') as f:
         line = f.readline()
         print(f"current sequence is {line}")
-<<<<<<< HEAD
-        molecule = Molecule(line)
-        molecule.draw()
-        command = input("command: ")
-=======
         return line
 
 def main():
@@ -28,7 +23,6 @@ def main():
     while True:
         # ask for user input
         command = input("command: ").split()
->>>>>>> 950c2644df55b566f29084958f4afebb268516b0
 
         if command[0] == "quit":
             break
@@ -51,6 +45,7 @@ def main():
                 if id < len(sequence) and id > -1:
                     molecule.turn(id, direction)
                     print(f"stability: {molecule.stability()}")
+                    print(f"valid?: {molecule.check_vadility()}")
                 else:
                     print("id too high for sequence")
             else:
