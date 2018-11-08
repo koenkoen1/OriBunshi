@@ -8,10 +8,10 @@ from molecule import Molecule
 
 import random
 import copy
-def randomturns(molecule)
+def randomturns(molecule, x):
     i = 0
     lowest = 1
-    while i < 5000000:
+    while i < x:
         print(i)
         backupmolecule = molecule
         randomnode = random.randint(0, len(molecule.sequence) - 1)
@@ -24,7 +24,6 @@ def randomturns(molecule)
         if not molecule.check_vadility():
             molecule = backupmolecule
         elif lowest > molecule.stability():
-            print('HOI')
             lowest = molecule.stability()
             lowestmolecule = copy.deepcopy(molecule.sequence)
         i = i + 1

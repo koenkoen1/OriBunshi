@@ -5,7 +5,7 @@ sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
 
 from molecule import Molecule
-from max_stab import spiralfold
+from randomturns import randomturns
 
 directions = ["Left", "Right"]
 
@@ -29,14 +29,11 @@ def main():
         if command[0] == "quit":
             break
 
-        if command[0] == "max":
-            testseq = ""
-            for i in sequence:
-                testseq += "H"
-            testmol = Molecule(testseq)
-            spiralfold(testmol, len(sequence))
-            print(f"stability: {testmol.stability()}")
-            testmol.draw()
+        if len(command) == 2 and command[0] == "random":
+            try:
+                randomturns(molecule, int(command[1]))
+            except:
+                print("one does not simply")
 
         elif command[0] == "draw":
             molecule.draw()
