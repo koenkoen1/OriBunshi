@@ -5,7 +5,7 @@ sys.path.append(os.path.join(directory, "code", "objects"))
 
 from molecule import Molecule
 
-directions = ["left", "right"]
+directions = ["Left", "Right"]
 
 def main():
     # gib fir lin
@@ -13,6 +13,7 @@ def main():
         line = f.readline()
         print(f"current sequence is {line}")
         molecule = Molecule(line)
+        molecule.draw()
         command = input("command: ")
 
         try:
