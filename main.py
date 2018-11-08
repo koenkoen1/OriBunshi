@@ -32,6 +32,7 @@ def main():
         if len(command) == 2 and command[0] == "random":
             try:
                 randomturns(molecule, int(command[1]))
+                print(f"stability: {molecule.stability()}")
             except:
                 print("one does not simply")
 
