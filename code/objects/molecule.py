@@ -49,18 +49,25 @@ class Molecule(object):
 
         for letter in sequence:
 
-            # promt user for coordinates
-            x = int(input("x coordinate: "))
-            y = int(input("y coordinate: "))
+            valid_xy = False
 
-            # check validity of coordinates
-            if x and y not integers (or digits):
-                print("Please enter integers.")
-                # reprompt
-            elif not ((acid.coordinates[0] - x == 0 and abs(acid.coordinates[1] - y == 1)) or
-                      (abs(acid.coordinates[0] - x == 1) and acid.coordinates[1] - y == 0)):
-                print("Amino acid must border previous one.")
-                # reprompt
+            # promt for coordinates until they're valid
+            while not valid_xy:
+
+                # promt user for coordinates
+                x = int(input("x coordinate: "))
+                y = int(input("y coordinate: "))
+
+                # check validity of coordinates
+                if x and y not integers (or digits):
+                    print("Please enter integers.")
+                elif not ((acid.coordinates[0] - x == 0 and
+                           abs(acid.coordinates[1] - y == 1)) or
+                          (abs(acid.coordinates[0] - x == 1) and
+                           acid.coordinates[1] - y == 0)):
+                    print("Amino acid must border previous one.")
+                else:
+                    valid_xy = True
 
             coordinates = (x, y)
 
