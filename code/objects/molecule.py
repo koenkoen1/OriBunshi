@@ -35,7 +35,7 @@ class Molecule(object):
         # initialize coordinates for first amino acid
         coordinates = x, y = (0, 0)
 
-        # produces amino acids with coordinates (0, 0), (0, 1), (0, 2), etc.
+        # adds amino acids with coordinates (0, 0), (0, 1), etc. to sequence
         for letter in sequence:
             self.sequence.append(Amino_Acid(letter, coordinates))
             x += 1
@@ -44,9 +44,34 @@ class Molecule(object):
 
     def load_acids(self):
     """
-    Loads molecule, by adding one amino acid at a time at ... coordinates.
+    Loads molecule, by adding one amino acid at a time at given coordinates.
     """
+
+        for letter in sequence:
+
+            # promt user for coordinates
+            x = int(input("x coordinate: "))
+            y = int(input("y coordinate: "))
+
+            # check validity of coordinates
+            if x and y not integers (or digits):
+                print("Please enter integers.")
+                # reprompt
+            elif not ((acid.coordinates[0] - x == 0 and abs(acid.coordinates[1] - y == 1)) or
+                      (abs(acid.coordinates[0] - x == 1) and acid.coordinates[1] - y == 0)):
+                print("Amino acid must border previous one.")
+                # reprompt
+
+            coordinates = (x, y)
+
+            acid = Amino_Acid(letter, coordinates)
+            self.sequence.append(acid)
+            print("Amino acid added.")
+
+
         # TODO
+        # kan wellicht in zelfde method als direct, waarbij je of algoritme moet
+        # laten werken tijdens opbouw, of rechte lijn opbouwen (en dan algoritme)
 
 
     def stability(self):
