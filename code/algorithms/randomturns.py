@@ -13,7 +13,7 @@ def randomturns(molecule, x):
     lowest = 1
     while i < x:
         print(i)
-        backupmolecule = molecule
+        backupmolecule = copy.deepcopy(molecule)
         randomnode = random.randint(0, len(molecule.sequence) - 1)
         randomdirection = random.randint(0, 1)
         if randomdirection == 0:
@@ -22,9 +22,14 @@ def randomturns(molecule, x):
             randomdirection = 'Left'
         molecule.turn(randomnode, randomdirection)
         if not molecule.check_vadility():
-            molecule = backupmolecule
+            molecule = copy.deepcopy(backupmolecule)
         elif lowest > molecule.stability():
             lowest = molecule.stability()
-            lowestmolecule = copy.deepcopy(molecule.sequence)
+            lowestmolecule = copy.deepcopy(molecule)
         i = i + 1
         molecule = lowestmolecule
+
+if __name__ == '__main__':
+    mol = Molecule("HHPHPHPPHPH")
+    randomturns(mol, 50000)
+    print(mol)
