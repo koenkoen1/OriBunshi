@@ -76,7 +76,6 @@ class Molecule(object):
             print("Amino acid added.")
 
 
-        # TODO
         # kan wellicht in zelfde method als direct, waarbij je of algoritme moet
         # laten werken tijdens opbouw, of rechte lijn opbouwen (en dan algoritme)
 

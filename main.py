@@ -20,10 +20,18 @@ def load_sequence():
 
 def main():
     sequence = load_sequence()
-    molecule = Molecule(sequence)
+
+    # prompt user for molecule loading method and validate input
+    method = input("Molecule loading method: ")
+    if method == 'direct' or method == 'acids':
+        molecule = Molecule(sequence, method)
+    else:
+        print('No valid loading method.')
+        return 1
 
     while True:
-        # ask for user input
+
+        # prompt user for command
         command = input("command: ").split()
 
         if command[0] == "quit":
