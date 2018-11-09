@@ -30,7 +30,7 @@ class Molecule(object):
             for amino_acid2 in self.sequence:
 
                 # check if they are both 'H' (they only produce stability)
-                if amino_acid.kind == 'H' and amino_acid2 == 'H':
+                if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
 
                         # if the amino acids are not the same and next to eachother in the list
                         if (amino_acid != amino_acid2) and abs(self.sequence.index(amino_acid2) - self.sequence.index(amino_acid)) != 1:
