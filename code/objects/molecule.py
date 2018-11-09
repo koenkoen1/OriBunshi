@@ -3,26 +3,57 @@ import matplotlib.pyplot as plt
 
 class Molecule(object):
 
-    # init function saves sequence and produces coordinates
-    def __init__(self, sequence):
+    def __init__(self, sequence, method):
+    """
+    Itializes a molecule. Saves sequence and calls a loading methodself.
+    """
         self.sequence = []
-        coordinates = x, y = (0, 0)
 
-        # produces a list of amino acids with coordinates (0, 0), (0, 1) etc
-        for letter in sequence:
-            self.sequence.append(Amino_Acid(letter, coordinates))
-            x = x + 1
-            coordinates = (x, y)
+        if method == 'direct':
+            load_direct()
+        elif method == 'acids':
+            load_acids()
+        else:
+            print('No valid loading method.')
 
-    # produces a printable representation of a molecule
+
     def __str__(self):
+    """
+    Produces a printable representation of a molecule.
+    """
         string = ''
         for amino_acid in self.sequence:
             string = string + str(amino_acid)
         return string
 
-    # returns the stability of the molecule
+
+    def load_direct(self):
+    """
+    Loads molecule as a whole, in a straight configuration.
+    """
+
+        # initialize coordinates for first amino acid
+        coordinates = x, y = (0, 0)
+
+        # produces amino acids with coordinates (0, 0), (0, 1), (0, 2), etc.
+        for letter in sequence:
+            self.sequence.append(Amino_Acid(letter, coordinates))
+            x += 1
+            coordinates = (x, y)
+
+
+    def load_acids(self):
+    """
+    Loads molecule, by adding one amino acid at a time at ... coordinates.
+    """
+        # TODO
+
+
     def stability(self):
+    """
+    Calculates and returns the stability of a molecule.
+    """
+
         stability = 0
 
         #For every amino acid check every amino acid
@@ -44,7 +75,11 @@ class Molecule(object):
                                 stability = stability - 1
         return stability / 2
 
+
     def turn(self, nodelocation, direction):
+    """
+    Turns the molecule from given node in given direction.
+    """
 
         # save the relative locatin of the turn
         relativelocation = self.sequence[nodelocation].coordinates
@@ -74,8 +109,13 @@ class Molecule(object):
             self.sequence[nodelocation].coordinates = (relativex, relativey)
         return True
 
-    # Checks for nodes with the same coordinates
+
     def check_vadility(self):
+    """
+    Checks if molecule configuration is valid, by checking for nodes with the
+    same coordinates. Returns a boolean.
+    """
+
         #for every amino acid look at every amino acid
         for amino_acid in self.sequence:
             for amino_acid2 in self.sequence:
@@ -88,8 +128,12 @@ class Molecule(object):
                         return False
         return True
 
-    # Draws an image of the molecule on screen
+
     def draw(self):
+    """
+    Makes a visual representation of the molecule, using matplotlib.
+    """
+
         oldx = 100
         oldy = 100
         xcoordinates = []
