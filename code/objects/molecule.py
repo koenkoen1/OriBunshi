@@ -65,7 +65,7 @@ class Molecule(object):
                 # check if input is numeric and if so convert it to integers
                 if not x.isdigit() or not y.isdigit():
                     print("Please enter integers.")
-                    break
+                    # get back to reprompt
                 else:
                     x = int(x)
                     y = int(y)
@@ -76,6 +76,7 @@ class Molecule(object):
                     (abs(acid.coordinates[0] - x == 1) and
                      acid.coordinates[1] - y == 0) or acid.kind == "first"):
                     valid_xy = True
+                    # not working yet
                 else:
                     print("Amino acid must neighbor previous one.")
 
@@ -87,8 +88,7 @@ class Molecule(object):
             print("Amino acid added.")
 
 
-        # kan wellicht in zelfde method als direct, waarbij je of algoritme moet
-        # laten werken tijdens opbouw, of rechte lijn opbouwen (en dan algoritme)
+        # kan wellicht in zelfde method als direct
 
 
     def stability(self):
