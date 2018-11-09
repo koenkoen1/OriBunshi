@@ -55,17 +55,22 @@ class Molecule(object):
             while not valid_xy:
 
                 # promt user for coordinates
-                x = int(input("x coordinate: "))
-                y = int(input("y coordinate: "))
+                x = input("x coordinate: ")
+                y = input("y coordinate: ")
 
-                # check validity of coordinates
-                if x and y not integers (or digits):
+                # check if input is numeric and if so convert it to integers
+                if not x.isdigit() or not y.isdigit():
                     print("Please enter integers.")
-                elif not ((acid.coordinates[0] - x == 0 and
+                else:
+                    x = int(x)
+                    y = int(y)
+
+                # check if amino acid neighbors previous amino acid
+                if not ((acid.coordinates[0] - x == 0 and
                            abs(acid.coordinates[1] - y == 1)) or
                           (abs(acid.coordinates[0] - x == 1) and
                            acid.coordinates[1] - y == 0)):
-                    print("Amino acid must border previous one.")
+                    print("Amino acid must neighbor previous one.")
                 else:
                     valid_xy = True
 
