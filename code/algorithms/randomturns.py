@@ -27,9 +27,4 @@ def randomturns(molecule, x):
             lowest = molecule.stability()
             lowestmolecule = copy.deepcopy(molecule)
         i = i + 1
-        molecule = lowestmolecule
-
-if __name__ == '__main__':
-    mol = Molecule("HHPHPHPPHPH")
-    randomturns(mol, 50000)
-    print(mol)
+    molecule = lowestmolecule
