@@ -7,12 +7,13 @@ class Molecule(object):
         """
         Itializes a molecule. Saves sequence and calls a loading methodself.
         """
-        self.sequence = []
+        self.sequence = sequence
+        self.acids = []
 
         if method == 'direct':
-            load_direct()
+            self.load_direct()
         elif method == 'acids':
-            load_acids()
+            self.load_acids()
         else:
             print('No valid loading method.')
 
@@ -22,7 +23,7 @@ class Molecule(object):
         Produces a printable representation of a molecule.
         """
         string = ''
-        for amino_acid in self.sequence:
+        for amino_acid in self.acids:
             string = string + str(amino_acid)
         return string
 
@@ -36,10 +37,12 @@ class Molecule(object):
         coordinates = x, y = (0, 0)
 
         # adds amino acids with coordinates (0, 0), (0, 1), etc. to sequence
-        for letter in sequence:
-            self.sequence.append(Amino_Acid(letter, coordinates))
+        for letter in self.sequence:
+            self.acids.append(Amino_Acid(letter, coordinates))
             x += 1
             coordinates = (x, y)
+
+        print(self.acids)
 
 
     def load_acids(self):
@@ -47,9 +50,10 @@ class Molecule(object):
         Loads molecule, by adding one amino acid at a time at given coordinates.
         """
 
-        for letter in sequence:
+        for letter in self.sequence:
 
             valid_xy = False
+            acid = Amino_Acid('first', (0, 0))
 
             # promt for coordinates until they're valid
             while not valid_xy:
@@ -61,23 +65,25 @@ class Molecule(object):
                 # check if input is numeric and if so convert it to integers
                 if not x.isdigit() or not y.isdigit():
                     print("Please enter integers.")
+                    break
                 else:
                     x = int(x)
                     y = int(y)
 
                 # check if amino acid neighbors previous amino acid
-                if not ((acid.coordinates[0] - x == 0 and
-                           abs(acid.coordinates[1] - y == 1)) or
-                          (abs(acid.coordinates[0] - x == 1) and
-                           acid.coordinates[1] - y == 0)):
-                    print("Amino acid must neighbor previous one.")
-                else:
+                if ((acid.coordinates[0] - x == 0 and
+                     abs(acid.coordinates[1] - y == 1)) or
+                    (abs(acid.coordinates[0] - x == 1) and
+                     acid.coordinates[1] - y == 0) or acid.kind == "first"):
                     valid_xy = True
+                else:
+                    print("Amino acid must neighbor previous one.")
 
             coordinates = (x, y)
 
+            # add amino acid
             acid = Amino_Acid(letter, coordinates)
-            self.sequence.append(acid)
+            self.acids.append(acid)
             print("Amino acid added.")
 
 
@@ -93,14 +99,14 @@ class Molecule(object):
         stability = 0
 
         #For every amino acid check every amino acid
-        for amino_acid in self.sequence:
-            for amino_acid2 in self.sequence:
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
 
                 # check if they are both 'H' (they only produce stability)
                 if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
 
                         # if the amino acids are not the same and next to eachother in the list
-                        if (amino_acid != amino_acid2) and abs(self.sequence.index(amino_acid2) - self.sequence.index(amino_acid)) != 1:
+                        if (amino_acid != amino_acid2) and abs(self.acids.index(amino_acid2) - self.acids.index(amino_acid)) != 1:
                             rest = (amino_acid.coordinates[0] -
                                     amino_acid2.coordinates[0],
                                     amino_acid.coordinates[1] -
@@ -118,14 +124,14 @@ class Molecule(object):
         """
 
         # save the relative locatin of the turn
-        relativelocation = self.sequence[nodelocation].coordinates
+        relativelocation = self.acids[nodelocation].coordinates
 
         # while there are still nodes after the nodelocation
-        while nodelocation < len(self.sequence) - 1:
+        while nodelocation < len(self.acids) - 1:
             nodelocation = nodelocation + 1
 
             # save the relative locations and a temp value
-            location = self.sequence[nodelocation].coordinates
+            location = self.acids[nodelocation].coordinates
             relativex = location[0] - relativelocation[0]
             relativey = location[1] - relativelocation[1]
             temp = relativex
@@ -142,7 +148,7 @@ class Molecule(object):
             else:
                 return False
             # save the new location
-            self.sequence[nodelocation].coordinates = (relativex, relativey)
+            self.acids[nodelocation].coordinates = (relativex, relativey)
         return True
 
 
@@ -153,8 +159,8 @@ class Molecule(object):
         """
 
         #for every amino acid look at every amino acid
-        for amino_acid in self.sequence:
-            for amino_acid2 in self.sequence:
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
 
                 # if they are not the same
                 if amino_acid != amino_acid2:
@@ -176,13 +182,13 @@ class Molecule(object):
         ycoordinates = []
 
         # draws the lines between the amino acid sequence
-        for amino_acid in self.sequence:
+        for amino_acid in self.acids:
             xcoordinates.append(amino_acid.coordinates[0])
             ycoordinates.append(amino_acid.coordinates[1])
         plt.plot(xcoordinates, ycoordinates, c='black')
 
         # draws the dots in the amino acid sequence
-        for amino_acid in self.sequence:
+        for amino_acid in self.acids:
             if amino_acid.kind == 'H':
                 color = 'r'
             else:

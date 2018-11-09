@@ -22,7 +22,7 @@ def main():
     sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method: ")
+    method = input("Molecule loading method (direct or acids): ")
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
     else:
