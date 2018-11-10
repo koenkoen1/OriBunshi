@@ -50,10 +50,11 @@ class Molecule(object):
         Loads molecule, by adding one amino acid at a time at given coordinates.
         """
 
+        acid = Amino_Acid('first', (0, 0))
+
         for letter in self.sequence:
 
             valid_xy = False
-            acid = Amino_Acid('first', (0, 0))
 
             # promt for coordinates until they're valid
             while not valid_xy:
@@ -72,11 +73,10 @@ class Molecule(object):
 
                 # check if amino acid neighbors previous amino acid
                 if ((acid.coordinates[0] - x == 0 and
-                     abs(acid.coordinates[1] - y == 1)) or
-                    (abs(acid.coordinates[0] - x == 1) and
+                     abs(acid.coordinates[1] - y) == 1) or
+                    (abs(acid.coordinates[0] - x) == 1 and
                      acid.coordinates[1] - y == 0) or acid.kind == "first"):
                     valid_xy = True
-                    # not working yet
                 else:
                     print("Amino acid must neighbor previous one.")
 
@@ -147,8 +147,10 @@ class Molecule(object):
                 relativey = -temp + relativelocation[1]
             else:
                 return False
+
             # save the new location
             self.acids[nodelocation].coordinates = (relativex, relativey)
+
         return True
 
 
