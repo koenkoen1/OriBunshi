@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
@@ -9,6 +10,7 @@ from randomturns import randomturns
 
 directions = ["Left", "Right"]
 
+
 def load_sequence():
     """
     gives first line of input.txt
@@ -17,6 +19,7 @@ def load_sequence():
         line = f.readline()
         print(f"current sequence is {line}")
         return line
+
 
 def main():
     sequence = load_sequence()

@@ -1,6 +1,7 @@
 from amino_acid import Amino_Acid
 import matplotlib.pyplot as plt
 
+
 class Molecule(object):
 
     def __init__(self, sequence, method):
@@ -17,14 +18,13 @@ class Molecule(object):
         else:
             print('No valid loading method.')
 
-
     def check_vadility(self):
         """
         Checks if molecule configuration is valid, by checking for nodes with
         the same coordinates. Returns a boolean.
         """
 
-        #for every amino acid look at every amino acid
+        # for every amino acid look at every amino acid
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
 
@@ -36,7 +36,6 @@ class Molecule(object):
                         return False
 
         return True
-
 
     def draw(self):
         """
@@ -68,7 +67,6 @@ class Molecule(object):
         # shows the plot
         plt.show()
         return True
-
 
     def load_acids(self):
         """
@@ -125,7 +123,6 @@ class Molecule(object):
         # possibility: enter list of coordinates and read it oid
         # (then also load_direct and load_acids can be merged)
 
-
     def load_direct(self):
         """
         Loads molecule as a whole, in a straight configuration.
@@ -142,7 +139,6 @@ class Molecule(object):
 
         print(self.acids)
 
-
     def stability(self):
         """
         Calculates and returns the stability of a molecule.
@@ -150,29 +146,28 @@ class Molecule(object):
 
         stability = 0
 
-        #For every amino acid check every amino acid
+        # for every amino acid check every amino acid
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
 
                 # check if they are both 'H' (they only produce stability)
                 if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
 
-                        # check if amino acids are not the same nor sequent
-                        if ((amino_acid != amino_acid2)
-                            and abs(self.acids.index(amino_acid2)
-                                - self.acids.index(amino_acid)) != 1):
-                            rest = (amino_acid.coordinates[0] -
-                                    amino_acid2.coordinates[0],
-                                    amino_acid.coordinates[1] -
-                                    amino_acid2.coordinates[1])
+                    # check if amino acids are not the same nor sequent
+                    if ((amino_acid != amino_acid2)
+                        and abs(self.acids.index(amino_acid2)
+                            - self.acids.index(amino_acid)) != 1):
+                        rest = (amino_acid.coordinates[0] -
+                                amino_acid2.coordinates[0],
+                                amino_acid.coordinates[1] -
+                                amino_acid2.coordinates[1])
 
-                            # if they are next to eachother increase stability
-                            if ((abs(rest[0]) == 1 and rest[1] == 0)
-                                or (abs(rest[1]) == 1 and rest[0] == 0)):
-                                stability = stability - 1
+                        # if they are next to eachother increase stability
+                        if ((abs(rest[0]) == 1 and rest[1] == 0)
+                            or (abs(rest[1]) == 1 and rest[0] == 0)):
+                            stability = stability - 1
 
         return stability / 2
-
 
     def turn(self, nodelocation, direction):
         """
@@ -196,7 +191,7 @@ class Molecule(object):
             # if the direction equals left x = -y and y = x (relative)
             if direction == 'Left':
                 relativex = -relativey + relativelocation[0]
-                relativey = temp  + relativelocation[1]
+                relativey = temp + relativelocation[1]
 
             # if the direction equals Right x = y and y = -x (relative)
             elif direction == 'Right':
@@ -209,7 +204,6 @@ class Molecule(object):
             self.acids[nodelocation].coordinates = (relativex, relativey)
 
         return True
-
 
     def __str__(self):
         """

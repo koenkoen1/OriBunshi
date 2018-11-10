@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 directory = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(directory)
 sys.path.append(os.path.join(parentdir, "objects"))
@@ -8,6 +9,8 @@ from molecule import Molecule
 
 import random
 import copy
+
+
 def randomturns(molecule, x):
     i = 0
     lowest = molecule.stability()
@@ -23,7 +26,7 @@ def randomturns(molecule, x):
         else:
             randomdirection = 'Left'
         molecule.turn(randomnode, randomdirection)
-        if  not molecule.check_vadility():
+        if not molecule.check_vadility():
             molecule.sequence = backupseqence
         elif lowest > molecule.stability():
             print("replacing")
