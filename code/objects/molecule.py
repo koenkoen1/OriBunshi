@@ -50,19 +50,22 @@ class Molecule(object):
         Loads molecule, by adding one amino acid at a time at given coordinates.
         """
 
+        # initialize "phantom" amino acid, to check if acid is first in sequence
         acid = Amino_Acid('first', (0, 0))
 
+        # let user add every amino acid in sequence at desired coordinates
         for letter in self.sequence:
 
             valid_xy = False
 
-            # promt for coordinates until they're valid
+            # promt user for coordinates until they're valid
             while not valid_xy:
 
                 # promt user for coordinates
                 x = input("x coordinate: ")
                 y = input("y coordinate: ")
 
+                # proceed if user entered integers
                 try:
                     x = int(x)
                     y = int(y)
@@ -78,6 +81,7 @@ class Molecule(object):
                         temp_acid = Amino_Acid(letter, coordinates)
                         self.acids.append(temp_acid)
 
+                        # check if coordinates are free, if so add amino acid
                         if self.check_vadility():
                             valid_xy = True
                             acid = temp_acid
@@ -85,12 +89,15 @@ class Molecule(object):
                         else:
                             self.acids.remove(temp_acid)
                             print("Place already contains amino acid.")
+
                     else:
                         print("Amino acid must neighbor previous one.")
+
                 except ValueError:
                     print("Please enter integers.")
 
-        # kan wellicht in zelfde method als direct
+        # possibility: enter list of coordinates and read it oid
+        # (then also load_direct and load_acids can be merged)
 
 
     def stability(self):
