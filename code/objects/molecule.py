@@ -63,30 +63,32 @@ class Molecule(object):
                 x = input("x coordinate: ")
                 y = input("y coordinate: ")
 
-                # check if input is numeric and if so convert it to integers
-                if not x.isdigit() or not y.isdigit():
-                    print("Please enter integers.")
-                    # get back to reprompt
-                else:
+                try:
                     x = int(x)
                     y = int(y)
 
-                # check if amino acid neighbors previous amino acid
-                if ((acid.coordinates[0] - x == 0 and
-                     abs(acid.coordinates[1] - y) == 1) or
-                    (abs(acid.coordinates[0] - x) == 1 and
-                     acid.coordinates[1] - y == 0) or acid.kind == "first"):
-                    valid_xy = True
-                else:
-                    print("Amino acid must neighbor previous one.")
+                    # check if amino acid neighbors previous amino acid
+                    if ((acid.coordinates[0] - x == 0 and
+                         abs(acid.coordinates[1] - y) == 1) or
+                        (abs(acid.coordinates[0] - x) == 1 and
+                         acid.coordinates[1] - y == 0) or acid.kind == "first"):
 
-            coordinates = (x, y)
+                        coordinates = (x, y)
 
-            # add amino acid
-            acid = Amino_Acid(letter, coordinates)
-            self.acids.append(acid)
-            print("Amino acid added.")
+                        temp_acid = Amino_Acid(letter, coordinates)
+                        self.acids.append(temp_acid)
 
+                        if self.check_vadility():
+                            valid_xy = True
+                            acid = temp_acid
+                            print("Amino acid added.")
+                        else:
+                            self.acids.remove(temp_acid)
+                            print("Place already contains amino acid.")
+                    else:
+                        print("Amino acid must neighbor previous one.")
+                except ValueError:
+                    print("Please enter integers.")
 
         # kan wellicht in zelfde method als direct
 
@@ -115,12 +117,14 @@ class Molecule(object):
                             # if they are next to eachother increase stability
                             if (abs(rest[0]) == 1 and rest[1] == 0) or (abs(rest[1]) == 1 and rest[0] == 0):
                                 stability = stability - 1
+
         return stability / 2
 
 
     def turn(self, nodelocation, direction):
         """
         Turns the molecule from given node in given direction.
+        (Why does this return a boolean?)
         """
 
         # save the relative locatin of the turn
@@ -170,6 +174,7 @@ class Molecule(object):
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         return False
+
         return True
 
 
