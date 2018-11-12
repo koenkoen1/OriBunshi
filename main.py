@@ -7,6 +7,7 @@ sys.path.append(os.path.join(directory, "code", "algorithms"))
 
 from molecule import Molecule
 from randomturns import randomturns
+from greedyfold import spiralfold
 
 directions = ["Left", "Right"]
 
@@ -39,6 +40,10 @@ def main():
 
         if command[0] == "quit":
             break
+
+        if command[0] == "spiral":
+            spiralfold(molecule, len(sequence))
+            print(f"stability: {molecule.stability()}")
 
         elif len(command) == 2 and command[0] == "random":
             randomturns(molecule, int(command[1]))
