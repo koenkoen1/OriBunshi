@@ -1,6 +1,7 @@
 # Mijn Project
 
-Hier staat een korte beschrijving van het probleem evt. met plaatje.
+Bij het probleem "Protein Pow(d)er" van de minor programmeren van de UvA is de opdracht om een eiwit zo te vouwen dat het maximale stabiliteit krijgt. Het eiwit kan drie typen aminozuren bevatten: 'H' voor hydrofoob, 'P' voor polair en 'C' voor het aminozuur cysteïne. Als twee H's naast elkaar liggen in het (2D of 3D) grid zonder direct verbonden te zijn, krijgt het eiwit -1 stabiliteit. Voor twee C's naast elkaar krijgt het eiwit -5 stabiliteit. Voor een C en H naast elkaar krijgt het molecuul -1 stabiliteit. hoe lager het getal voor stabiliteit wordt, hoe stabieler het eiwit.
+^Hier staat een korte beschrijving van het probleem evt. met plaatje.^
 
 ## Aan de slag (Getting Started)
 
@@ -18,7 +19,7 @@ Alle Python scripts staan in de folder Code. In de map Data zitten alle input wa
 
 ### Test (Testing)
 
-Om de code te draaien met de standaardconfiguratie (bv. brute-force en voorbeeld.csv) gebruik de instructie:
+Om de code te draaien gebruik de instructie:
 
 ```
 python main.py
@@ -26,7 +27,7 @@ python main.py
 
 ## Auteurs (Authors)
 
-* Ik
+* Koen Dielhoff
 
 ## Dankwoord (Acknowledgments)
 
