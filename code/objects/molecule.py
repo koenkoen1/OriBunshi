@@ -184,6 +184,16 @@ class Molecule(object):
 
         return stability / 2
 
+    def remove_acids(self, specifications):
+        """
+        Removes amino acids with given specifiactions from molecule. Takes a
+        dictionary of format {letter: coordinates} as argument.
+        """
+
+        for letter in specifications:
+            amino_acid = Amino_Acid(letter, specifications[letter])
+            self.acids.remove(amino_acid)
+
     def turn(self, nodelocation, direction):
         """
         Turns the molecule from given node in given direction.

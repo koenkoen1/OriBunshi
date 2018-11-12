@@ -16,3 +16,5 @@ def greedyadd(sequence):
     seq = seq[3:]
 
     for letter in seq:
+        
+        molecule.stability()
