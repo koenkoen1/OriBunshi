@@ -1,2 +1,3 @@
 # Code
-Hier leg ik uit welke code waar te vinden is.
+
+Objecten zoals molecule.py en amino_acid.py zijn in de 'Objects' folder. Algoritmes zoals Breadth-first en random zijn in de 'algorithms' folder.
