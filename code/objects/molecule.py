@@ -18,6 +18,23 @@ class Molecule(object):
         else:
             print('No valid loading method.')
 
+    def add_acids(self, specifications):
+        """
+        Adds amino acids with given specifiactions to molecule. Takes a
+        dictionary of format {letter: coordinates} as argument.
+        Returns a boolean.
+        """
+
+        for letter in specifications:
+            amino_acid = Amino_Acid(letter, specifications[letter])
+            self.acids.append(amino_acid)
+
+            if not self.check_vadility:
+                self.acids.remove(amino_acid)
+                return False
+
+        return True
+
     def check_vadility(self):
         """
         Checks if molecule configuration is valid, by checking for nodes with
