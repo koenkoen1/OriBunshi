@@ -38,7 +38,9 @@ def greedyadd(molecule, sequence):
                 stabilities[acid] = molecule.stability()
                 molecule.remove_acids([acid])
 
-        # find lowest stability
+        print(stabilities)
+
+        # find amino acid that gives lowest stability
         min_key = min(stabilities, key=stabilities.get)
 
-        print(min_key)
+        # print(min_key)

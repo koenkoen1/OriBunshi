@@ -150,7 +150,7 @@ class Molecule(object):
             x += 1
             coordinates = (x, y)
 
-        print(self)
+        # print(self)
 
     def stability(self):
         """
