@@ -18,15 +18,13 @@ class Molecule(object):
         else:
             print('No valid loading method.')
 
-    def add_acids(self, specifications):
+    def add_acids(self, acids):
         """
-        Adds amino acids with given specifiactions to molecule. Takes a
-        dictionary of format {letter: coordinates} as argument.
-        Returns a boolean.
+        Adds given amino acids to molecule. Returns True if successful, else
+        False.
         """
 
-        for letter in specifications:
-            amino_acid = Amino_Acid(letter, specifications[letter])
+        for amino_acid in acids:
             self.acids.append(amino_acid)
 
             if not self.check_vadility:
@@ -184,14 +182,12 @@ class Molecule(object):
 
         return stability / 2
 
-    def remove_acids(self, specifications):
+    def remove_acids(self, acids):
         """
-        Removes amino acids with given specifiactions from molecule. Takes a
-        dictionary of format {letter: coordinates} as argument.
+        Removes given amino acids from molecule.
         """
 
-        for letter in specifications:
-            amino_acid = Amino_Acid(letter, specifications[letter])
+        for amino_acid in acids:
             self.acids.remove(amino_acid)
 
     def turn(self, nodelocation, direction):

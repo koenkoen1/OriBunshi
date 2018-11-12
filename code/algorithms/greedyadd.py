@@ -1,3 +1,4 @@
+from amino_acid import Amino_Acid
 from molecule import Molecule
 
 
@@ -7,14 +8,29 @@ def greedyadd(sequence):
     """
     seq = sequence
 
-    # set first three amino acids in starting positions
+    # add first three amino acids at starting positions
     try:
-        molecule.add_acids({seq[0]: (0,0), seq[1]: (1,0), seq[2]: (1,1)})
+        acid1 = Amino_Acid(seq[0], (0, 0))
+        acid2 = Amino_Acid(seq[1], (1, 0))
+        acid3 = Amino_Acid(seq[2], (1, 1))
+        molecule.add_acids([acid1, acid2, acid3])
     except ValueError:
         print("Not enough amino acids in sequence for optimization.")
 
+    # skip over first three, already added, amino acids in sequence
     seq = seq[3:]
 
+    x, y = 1, 1
+
     for letter in seq:
-        
-        molecule.stability()
+
+        # create and save amino acid for all possible neighbouring positions
+        acid_xplus = Amino_Acid(letter, (x + 1, y))
+        acid_yplus = Amino_Acid(letter, (x, y + 1))
+        acid_xminus = Amino_Acid(letter, (x - 1, y))
+        acid_yminus = Amino_Acid(letter, (x, y - 1))
+        possible = [acid_xplus, acid_yplus, acid_xminus, acid_yminus]
+
+        for acid in possible:
+            molecule.add_acids([acid])
+            stability = molecule.stability()
