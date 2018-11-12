@@ -5,9 +5,10 @@ sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
 
+from greedyadd import greedyadd
+from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
-from greedyfold import spiralfold
 
 directions = ["Left", "Right"]
 
@@ -26,9 +27,13 @@ def main():
     sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method (direct or acids): ")
+    method = input("Molecule loading method (direct, acids, greedyadd): ")
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
+    elif method == 'greedyadd':
+        molecule = Molecule([], "direct")
+        greedyadd(molecule, sequence)
+        print(f"stability: {molecule.stability()}")
     else:
         print('No valid loading method.')
         return 1

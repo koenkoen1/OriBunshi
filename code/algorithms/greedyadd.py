@@ -2,7 +2,7 @@ from amino_acid import Amino_Acid
 from molecule import Molecule
 
 
-def greedyadd(sequence):
+def greedyadd(molecule, sequence):
     """
     Greedy algorithm to build op molecule amino acid by amino acid.
     """
@@ -31,6 +31,14 @@ def greedyadd(sequence):
         acid_yminus = Amino_Acid(letter, (x, y - 1))
         possible = [acid_xplus, acid_yplus, acid_xminus, acid_yminus]
 
+        # find and save stabilities that would be if possible acids were added
+        stabilities = {}
         for acid in possible:
-            molecule.add_acids([acid])
-            stability = molecule.stability()
+            if molecule.add_acids([acid]):
+                stabilities[acid] = molecule.stability()
+                molecule.remove_acids([acid])
+
+        # find lowest stability
+        min_key = min(stabilities, key=stabilities.get)
+
+        print(min_key)
