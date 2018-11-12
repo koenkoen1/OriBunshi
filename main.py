@@ -16,7 +16,7 @@ def load_sequence():
     gives first line of input.txt
     """
     with open('data/input.txt', 'r') as f:
-        line = f.readline()
+        line = f.readline().rstrip('\n')
         print(f"current sequence is {line}")
         return line
 
@@ -40,7 +40,7 @@ def main():
         if command[0] == "quit":
             break
 
-        if len(command) == 2 and command[0] == "random":
+        elif len(command) == 2 and command[0] == "random":
             randomturns(molecule, int(command[1]))
             print(f"stability: {molecule.stability()}")
 
@@ -48,8 +48,8 @@ def main():
             molecule.draw()
 
         elif (len(command) == 3):
-            # check whether id is a number and convert to int
             try:
+                # check whether id is a number and convert to int
                 id = int(command[1]) - 1
             except ValueError:
                 print("id was not a number")

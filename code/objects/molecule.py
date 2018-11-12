@@ -6,7 +6,7 @@ class Molecule(object):
 
     def __init__(self, sequence, method):
         """
-        Itializes a molecule. Saves sequence and calls a loading methodself.
+        Initializes a molecule. Saves sequence and calls a loading method.
         """
         self.sequence = sequence
         self.acids = []
@@ -24,11 +24,9 @@ class Molecule(object):
         the same coordinates. Returns a boolean.
         """
 
-        # for every amino acid look at every amino acid
+        # for every amino acid look at every other amino acid
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
-
-                # if they are not the same
                 if amino_acid != amino_acid2:
 
                     # check if the coordinates are the same
@@ -137,7 +135,7 @@ class Molecule(object):
             x += 1
             coordinates = (x, y)
 
-        print(self.acids)
+        print(self)
 
     def stability(self):
         """
