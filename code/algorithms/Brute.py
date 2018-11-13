@@ -25,7 +25,6 @@ def depth(sequence):
             if lowest > current.stability():
                 lowest = current.stability()
                 lowestmolecule = copy.deepcopy(current)
-            if current.stability() == -6:
         else:
             children(current, sequence)
     print(solutions)
@@ -50,4 +49,4 @@ def children(molecule, sequence):
 
 
 if __name__ == '__main__':
-    depth("HHPHHHPHPHHHPH")
+    depth("HPHPPHHPHPPHPHHPPHPH")
