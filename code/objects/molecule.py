@@ -191,6 +191,8 @@ class Molecule(object):
 
         for amino_acid in acids:
             self.acids.remove(amino_acid)
+            amino_acid.sequence = amino_acid.sequence[:-1]
+
 
     def turn(self, nodelocation, direction):
         """
