@@ -1,5 +1,3 @@
-from molecule import Molecule
-
 def spiralfold(molecule, length):
     """
     folds protein into spiral form

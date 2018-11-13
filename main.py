@@ -15,13 +15,39 @@ directions = ["Left", "Right"]
 
 def load_sequence():
     """
-    gives first line of input.txt
+    Asks user for a sequence, which can be custom or one of the standard
+    sequences. Returns the sequence obtained
     """
-    with open('data/input.txt', 'r') as f:
-        line = f.readline().rstrip('\n')
-        print(f"current sequence is {line}")
-        return line
+    method = input("type of amino acid sequence(standard, custom): ")
 
+    if method == 'custom':
+        sequence = "O"
+        while any(c not in 'HP' for c in sequence):
+            sequence = input("sequence(consisting of H's and P's): ")
+        print(f"\ncurrent sequence is {sequence}")
+        return sequence
+
+    elif method == 'standard':
+        with open('data/input.txt', 'r') as f:
+            options = {}
+            lines = f.readlines()
+            print("options:")
+            for i in range(len(lines)):
+                options[i] = lines[i].rstrip('\n')
+                print(f"{i}: {lines[i]}", end='')
+
+            key = -1
+            while key > len(lines) - 1 or key < 0:
+                try:
+                    key = int(input("select sequence: "))
+                except:
+                    print("Invalid number")
+                    pass
+            print(f"\ncurrent sequence is {options[key]}")
+            return options[key]
+            
+    else:
+        return load_sequence()
 
 def main():
     sequence = load_sequence()
@@ -46,7 +72,7 @@ def main():
         if command[0] == "quit":
             break
 
-        if command[0] == "spiral":
+        elif command[0] == "spiral":
             spiralfold(molecule, len(sequence))
             print(f"stability: {molecule.stability()}")
 
