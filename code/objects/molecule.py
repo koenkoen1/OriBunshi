@@ -30,6 +30,7 @@ class Molecule(object):
             if not self.check_vadility():
                 self.acids.remove(amino_acid)
                 return False
+            self.sequence += amino_acid.kind
 
         return True
 
