@@ -28,7 +28,7 @@ class Molecule(object):
             self.acids.append(amino_acid)
 
             if not self.check_vadility():
-                self.acids.remove(amino_acid)
+                self.acids.pop()
                 return False
             self.sequence += amino_acid.kind
 
