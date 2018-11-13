@@ -22,6 +22,7 @@ def load_sequence():
 
     if method == 'custom':
         sequence = "O"
+        # ask for sequence, reject letters other than H and P
         while any(c not in 'HP' for c in sequence):
             sequence = input("sequence(consisting of H's and P's): ")
         print(f"\ncurrent sequence is {sequence}")
@@ -29,6 +30,7 @@ def load_sequence():
 
     elif method == 'standard':
         with open('data/input.txt', 'r') as f:
+            # parse possible sequences
             options = {}
             lines = f.readlines()
             print("options:")
@@ -36,6 +38,7 @@ def load_sequence():
                 options[i] = lines[i].rstrip('\n')
                 print(f"{i}: {lines[i]}", end='')
 
+            # ask for key of sequence, only accept integers
             key = -1
             while key > len(lines) - 1 or key < 0:
                 try:
@@ -45,7 +48,7 @@ def load_sequence():
                     pass
             print(f"\ncurrent sequence is {options[key]}")
             return options[key]
-            
+
     else:
         return load_sequence()
 
