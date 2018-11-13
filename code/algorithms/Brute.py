@@ -4,6 +4,7 @@ directory = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(directory)
 sys.path.append(os.path.join(parentdir, "objects"))
 
+
 import copy
 from amino_acid import Amino_Acid
 from molecule import Molecule
@@ -17,18 +18,18 @@ def depth(sequence):
     lowest = 0
     lowestmolecule = Molecule("H", "direct")
     while stack != []:
+
         current = stack.pop()
-        if len(current.sequence) == 10:
-            print('len10')
         if len(current.sequence) == len(sequence):
             solutions[int(-current.stability())] += 1
             if lowest > current.stability():
                 lowest = current.stability()
                 lowestmolecule = copy.deepcopy(current)
+            if current.stability() == -6:
         else:
             children(current, sequence)
     print(solutions)
-
+    lowestmolecule.draw()
 def children(molecule, sequence):
         for direction in range(4):
             x, y  = molecule.acids[len(molecule.acids) - 1].coordinates
