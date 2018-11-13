@@ -108,8 +108,9 @@ class Molecule(object):
             else:
                 color = 'b'
 
-            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1], '-o', c=color)
-
+            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1], '-o', c=color, markersize=10)
+        plt.xticks(range( -len(self.sequence), len(self.sequence) ))
+        plt.yticks(range( -len(self.sequence), len(self.sequence) ))
         # shows the plot
         plt.show()
         return True
