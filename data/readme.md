@@ -1,2 +1,3 @@
 # Data
-Hier leg ik uit welke data waar te vinden is, en in welke format het opgeslagen is.
+
+De aminozuur sequenties zijn te vinden in input.txt en zijn opgeslagen als strings die gescheiden zijn met een newline

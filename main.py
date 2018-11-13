@@ -1,35 +1,56 @@
-import os, sys
+import os
+import sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
 
+from greedyadd import greedyadd
+from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
 
 directions = ["Left", "Right"]
+
 
 def load_sequence():
     """
     gives first line of input.txt
     """
     with open('data/input.txt', 'r') as f:
-        line = f.readline()
+        line = f.readline().rstrip('\n')
         print(f"current sequence is {line}")
         return line
 
+
 def main():
     sequence = load_sequence()
-    molecule = Molecule(sequence)
+
+    # prompt user for molecule loading method and validate input
+    method = input("Molecule loading method (direct, acids, greedyadd): ")
+    if method == 'direct' or method == 'acids':
+        molecule = Molecule(sequence, method)
+    elif method == 'greedyadd':
+        molecule = Molecule([], "direct")
+        greedyadd(molecule, sequence)
+        print(f"stability: {molecule.stability()}")
+    else:
+        print('No valid loading method.')
+        return 1
 
     while True:
-        # ask for user input
+
+        # prompt user for command
         command = input("command: ").split()
 
         if command[0] == "quit":
             break
 
-        if len(command) == 2 and command[0] == "random":
+        if command[0] == "spiral":
+            spiralfold(molecule, len(sequence))
+            print(f"stability: {molecule.stability()}")
+
+        elif len(command) == 2 and command[0] == "random":
             randomturns(molecule, int(command[1]))
             print(f"stability: {molecule.stability()}")
 
@@ -37,8 +58,8 @@ def main():
             molecule.draw()
 
         elif (len(command) == 3):
-            # check whether id is a number and convert to int
             try:
+                # check whether id is a number and convert to int
                 id = int(command[1]) - 1
             except ValueError:
                 print("id was not a number")
