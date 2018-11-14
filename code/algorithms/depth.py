@@ -17,7 +17,7 @@ def depth(sequence):
     algorithm
 
     Pruning: if a child molecule is found wich isn't valid the child is removed
-    prints a list of all solutions in a list [stability = 0, -1 , -2, etc..]
+    prints the whole solution space when its done
     """
     # produces a hardcoded stability list
     solutions = [0 for i in range(len(sequence))]
@@ -45,7 +45,7 @@ def depth(sequence):
 
     # draws the solution space
     i = 0
-    for stability in solutions
+    for stability in solutions:
         print(f"stabilty: {i}: {stability}")
         i -= 1
 
@@ -61,22 +61,22 @@ def children(molecule, sequence):
     possible location and appends this to the stack
     """
 
-        # every direction
-        for direction in range(4):
-            x, y  = molecule.acids[len(molecule.acids) - 1].coordinates
-            if direction == 0:
-                y += 1
-            elif direction == 1:
-                x += 1
-            elif direction == 2:
-                y -= 1
-            else:
-                x -= 1
+    # every direction
+    for direction in range(4):
+        x, y  = molecule.acids[len(molecule.acids) - 1].coordinates
+        if direction == 0:
+            y += 1
+        elif direction == 1:
+            x += 1
+        elif direction == 2:
+            y -= 1
+        else:
+            x -= 1
 
-            # make a new amino acid
-            acid = Amino_Acid(sequence[len(molecule.acids)], (x, y))
+        # make a new amino acid
+        acid = Amino_Acid(sequence[len(molecule.acids)], (x, y))
 
-            # if adding the acid was succesfull
-            if molecule.add_acids([acid]):
-                stack.append(copy.deepcopy(molecule))
-                molecule.remove_acids([acid])
+        # if adding the acid was succesfull
+        if molecule.add_acids([acid]):
+            stack.append(copy.deepcopy(molecule))
+            molecule.remove_acids([acid])
