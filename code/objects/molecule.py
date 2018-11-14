@@ -55,26 +55,27 @@ class Molecule(object):
         """
         Makes a visual representation of the molecule, using matplotlib.
         """
-
-        oldx = 100
-        oldy = 100
+        previous  = x, y = 100, 100
         xcoordinates = []
         ycoordinates = []
-
+        Hxcoordinates = []
+        Hycoordinates = []
         # draws the lines between the amino acid sequence
         for amino_acid in self.acids:
-            xcoordinates.append(amino_acid.coordinates[0])
-            ycoordinates.append(amino_acid.coordinates[1])
-        plt.plot(xcoordinates, ycoordinates, c='black')
-
-        # draws the dots in the amino acid sequence
-        for amino_acid in self.acids:
             if amino_acid.kind == 'H':
-                color = 'r'
+                Hxcoordinates.append(amino_acid.coordinates[0])
+                Hycoordinates.append(amino_acid.coordinates[1])
             else:
-                color = 'b'
-            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1],'-o', c=color)
-            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1], '-o', c=color, markersize=10)
+                xcoordinates.append(amino_acid.coordinates[0])
+                ycoordinates.append(amino_acid.coordinates[1])
+            if previous[0] != 100:
+                plt.plot([amino_acid.coordinates[0], previous[0]], [amino_acid.coordinates[1], previous[1]], color='black')
+            previous = amino_acid.coordinates[0], amino_acid.coordinates[1]
+
+        plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r', markersize=10)
+        plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b', markersize=10)
+        plt.legend()
+        plt.title(f"Current molecule, stability = {self.stability()}")
         plt.xticks(range( -len(self.sequence), len(self.sequence) ))
         plt.yticks(range( -len(self.sequence), len(self.sequence) ))
 
@@ -185,7 +186,7 @@ class Molecule(object):
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
                             stability = stability - 1
 
-        return stability / 2
+        return int(stability / 2)
 
     def remove_acids(self, acids):
         """

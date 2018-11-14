@@ -1,8 +1,10 @@
 Statespace dingen in de readme
 Doelfunctie dingen in de readme
 
-Userfriendly maken
+Userfriendly maken  (docstrings)
 Graphical representation verbeteren (legenda, stability)
+
+help function in main
 
 
 Cijfers:
