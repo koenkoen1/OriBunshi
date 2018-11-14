@@ -18,7 +18,7 @@ directions = ["Left", "Right"]
 def load_sequence():
     """
     Asks user for a sequence, which can be custom or one of the standard
-    sequences. Returns the sequence obtained
+    sequences. Returns the sequence obtained.
     """
     method = input("type of amino acid sequence(standard, custom): ")
 
@@ -55,6 +55,10 @@ def load_sequence():
         return load_sequence()
 
 def main():
+    """
+    Gets sequence from load_sequence function, loads sequence into datastructure.
+    Then waits for command from user. Executes specified command if valid.
+    """
     sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
@@ -83,33 +87,48 @@ def main():
             spiralfold(molecule, len(sequence))
             print(f"stability: {molecule.stability()}")
 
-        elif len(command) == 2 and command[0] == "random":
-            randomturns(molecule, int(command[1]))
+        elif command[0] == "random":
+            iterations = ''
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                iterations = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("use: random iterations")
+                continue
+
+            randomturns(molecule, iterations)
             print(f"stability: {molecule.stability()}")
 
+        # plot a graph to visualize protein
         elif command[0] == "draw":
             molecule.draw()
 
-        elif (len(command) == 3):
+        elif command[0] == "turn":
+            # check for errors and convert to convert variables to proper format
             try:
-                # check whether id is a number and convert to int
-                id = int(command[1]) - 1
+                id = int(command[2]) - 1
             except ValueError:
-                print("id was not a number")
-
-            # convert direction to required format
-            direction = command[2].lower().capitalize()
+                print(f"Error: {command[2]} is not a number")
+                continue
+            except IndexError:
+                print("use: turn direction number")
+                continue
+            direction = command[1].lower().capitalize()
 
             # turn molecule at position 'id' towards direction 'direction'
-            if command[0] == "turn" and direction in directions:
+            if direction in directions:
                 if id < len(sequence) and id > -1:
                     molecule.turn(id, direction)
                     print(f"stability: {molecule.stability()}")
                     print(f"valid?: {molecule.check_vadility()}")
                 else:
-                    print("invalid id")
+                    print("invalid number")
             else:
-                print("use: turn id direction")
+                print("direction can only be left or right")
         else:
             print("invalid command")
 

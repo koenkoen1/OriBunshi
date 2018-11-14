@@ -39,7 +39,7 @@ Eerst moet gekozen worden of een standaard eiwit of zelfgemaakt eiwit gebruikt z
 Daarna moet het laadproces gekozen worden: 'direct' voor een rechte lijn, 'acids' voor eigen toekenning van coördinaten of 'depth' om een depthfirst algoritme toe te passen. 'greedyadd' werkt nog niet.
 
 Zodra het eiwit geladen is, kan gebruik gemaakt worden van 'draw' om het te tekenen en 'turn' + id + richting om vanaf het zoveelste aminozuur de opvolgende keten te draaien in de bepaalde richting.  
-Verder kan gebruik gemaakt worden van 'spiral' om het eiwit zoveel mogelijk in spiraalvorm te krijgen en 'random' + nummer om over zoveel keer het eiwit op willekeurige manieren te draaien en de het eiwit met de beste gevonden stabiliteit te nemen.
+Verder kan gebruik gemaakt worden van 'spiral' om het eiwit zoveel mogelijk in spiraalvorm te krijgen en 'random' + nummer om over zoveel keer het eiwit op willekeurige manieren te draaien en het eiwit met de beste gevonden stabiliteit te nemen.
 
 ## Auteurs (Authors)
 
