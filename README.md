@@ -27,7 +27,9 @@ python main.py
 
 ## Auteurs (Authors)
 
+* Maud van Boven
 * Koen Dielhoff
+* Koen van der Kamp
 
 ## Dankwoord (Acknowledgments)
 
