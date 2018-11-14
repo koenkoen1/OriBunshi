@@ -1,3 +1,5 @@
+![equation](http://latex.codecogs.com/gif.latex?Concentration%3D%5Cfrac%7BTotalTemplate%7D%7BTotalVolume%7D)  
+
 # Mijn Project
 
 Bij het probleem "Protein Pow(d)er" van de minor programmeren van de UvA is de opdracht om een eiwit zo te vouwen dat het maximale stabiliteit krijgt. Het eiwit kan drie typen aminozuren bevatten: 'H' voor hydrofoob, 'P' voor polair en 'C' voor het aminozuur cysteïne. Als twee H's naast elkaar liggen in het (2D of 3D) grid zonder direct verbonden te zijn, krijgt het eiwit -1 stabiliteit. Voor twee C's naast elkaar krijgt het eiwit -5 stabiliteit. Voor een C en H naast elkaar krijgt het molecuul -1 stabiliteit. hoe lager het getal voor stabiliteit wordt, hoe stabieler het eiwit.
