@@ -16,7 +16,7 @@ def depth(sequence):
     Explores all possible configurations of the molecule by using a Depth first
     algorithm
 
-    Pruning: if a child molecule is found wich isn't valid the child is removed
+    Pruning: if a child molecule is found which isn't valid the child is removed
     prints the whole solution space when its done
     """
     # produces a hardcoded stability list

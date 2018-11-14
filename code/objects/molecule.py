@@ -20,8 +20,8 @@ class Molecule(object):
 
     def add_acids(self, acids):
         """
-        Adds given amino acids to molecule. Returns True if successful, else
-        False.
+        Adds given amino acids to molecule. Returns True if it was a valid
+        placement, else False.
         """
 
         for amino_acid in acids:
@@ -54,7 +54,6 @@ class Molecule(object):
     def draw(self):
         """
         Makes a visual representation of the molecule, using matplotlib.
-        (Why does it return a boolean?)
         """
         previous  = x, y = 100, 100
         xcoordinates = []
@@ -82,11 +81,13 @@ class Molecule(object):
 
         # shows the plot
         plt.show()
-        return True
 
     def load_acids(self):
         """
-        Loads molecule, by adding one amino acid at a time at given coordinates.
+        Initializes acid list attribute, asks for user input for x- and
+        y-positions of every amino_acid object being created. Creates amino_acid
+        objects based on the sequence attribute and their coordinates. They are
+        then appended to the acids list.
         """
 
         # initialize "phantom" amino acid, to check if acid is first in sequence
@@ -141,7 +142,9 @@ class Molecule(object):
 
     def load_direct(self):
         """
-        Loads molecule as a whole, in a straight configuration.
+        Initializes acid list attribute: Creates amino_acid objects based on
+        sequence attribute and with arbitrary coordinates. Adds created
+        amino_acid objects to acid list.
         """
 
         # initialize coordinates for first amino acid
@@ -197,8 +200,10 @@ class Molecule(object):
 
     def turn(self, nodelocation, direction):
         """
-        Turns the molecule from given node in given direction.
-        (Why does this return a boolean?)
+        Changes the coordinates of every amino_acid past the given
+        nodelocation to turn the molecule from that point to the given
+        direction. Returns False if the direction is not valid, else returns
+        True once the amino_acids have been moved.
         """
 
         # save the relative locatin of the turn
@@ -233,7 +238,7 @@ class Molecule(object):
 
     def __str__(self):
         """
-        Produces a printable representation of a molecule.
+        Defines how to print an Molecule object. Returns a string.
         """
 
         string = ''
