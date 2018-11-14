@@ -10,7 +10,7 @@ __Toestandsruimte__
 Een bovengrens van de toeststandsruimte van dit probleem is:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://latex.codecogs.com/gif.latex?\left\begin{Bmatrix}&space;1&space;&&space;\text{~~voor&space;}&space;0&space;\leq&space;n&space;\leq&space;2,&space;\\&space;3&space;^&space;{n-2}&space;&&space;\text{~~~~~~~~voor&space;}&space;n&space;>&space;2.&space;\end{matrix}\right." title="\left\begin{Bmatrix} 1 & \text{~~voor } 0 \leq n \leq 2, \\ 3 ^ {n-2} & \text{~~~~~~~~voor } n > 2. \end{matrix}\right." />,
+<img src="https://latex.codecogs.com/gif.latex?\left\begin{Bmatrix}&space;1&space;&&space;\text{~~voor&space;}&space;0&space;\leq&space;n&space;\leq&space;2,&space;\\&space;3&space;^&space;{n-2}&space;&&space;\text{~~~~~~~~voor&space;}&space;n&space;>&space;2,&space;\end{matrix}\right." title="\left\begin{Bmatrix} 1 & \text{~~voor } 0 \leq n \leq 2, \\ 3 ^ {n-2} & \text{~~~~~~~~voor } n > 2, \end{matrix}\right." />
 
 waarin <img src="https://latex.codecogs.com/gif.latex?n" title="n" /> het aantal aminozuren in het eiwit is en <img src="https://latex.codecogs.com/gif.latex?x" title="x" /> het aantal duplicaten ontstaan door spiegelvlakken.
 
@@ -23,9 +23,9 @@ __Doelfunctie__
 De doelfunctie van dit probleem is gedefinieerd als de stabiliteit van het eiwit, zoals beschreven in de inleiding. Hoe lager deze stabiliteit, hoe beter de oplossing. De ondergrens van de doelfunctie ligt dus aan de kant van de beste oplossing, terwijl de bovengrens de slechts mogelijke oplossing representeert. De gevonden onder- en bovengrens van onze doelfunctie zijn:
 
 * ondergrens: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://latex.codecogs.com/gif.latex?-(H&space;&plus;&space;5C&space;&plus;&space;5)" title="-(H + 5C + 5)" />,
-* bovengrens: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://latex.codecogs.com/gif.latex?0" title="0" />,
+* bovengrens: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://latex.codecogs.com/gif.latex?0" title="0" />,
 
-waarin H ... en C het aantal aminozuren van type H respectievelijk C zijn.
+waarin <img src="https://latex.codecogs.com/gif.latex?H" title="H" /> en <img src="https://latex.codecogs.com/gif.latex?C" title="C" /> het aantal aminozuren van type H respectievelijk C zijn.
 
 De bovengrens komt voor in situaties waarbij geen enkele H en/of C aan elkaar grenzen. De ondergrens is bepaald vanuit het gegeven dat elk H en C aminozuur maximaal twee ongebonden buren kan hebben, behalve de aminozuren aan de uiteinden, die er drie hebben. Voor een niet-uiteinde H levert dit een minimale stabiliteit van -2 op, als de H aan twee H's of C's grenst, en voor een niet-uiteinde C een minimum van -10, als de C aan twee C's grenst. Aangezien elke stabiliserende verbinding twee aminozuren betreft, moet de minimale stabiliteit per aminozuur nog gehalveerd worden. Dus een H levert maximaal -1 op en een C maximaal -5. Omdat de uiteinden nog een extra buur hebben, kan daar maximaal nog een winst van (-5 + -5) / 2 behaald worden, in het geval dat de uiteinden twee C aminozuren zijn. Dat alles tezamen levert de hierboven getoonde ondergrens.
 
