@@ -29,6 +29,7 @@ def depth(sequence):
             children(current, sequence)
     print(solutions)
     lowestmolecule.draw()
+    return lowestmolecule
 def children(molecule, sequence):
         for direction in range(4):
             x, y  = molecule.acids[len(molecule.acids) - 1].coordinates

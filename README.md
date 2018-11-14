@@ -15,7 +15,7 @@ __Doelfunctie__
 
 ### Vereisten (Prerequisites)
 
-Deze codebase is volledig geschreven in [Python3.7.0](https://www.python.org/downloads/). In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
+Deze codebase is volledig geschreven in [Python3.7.1](https://www.python.org/downloads/). In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
 
 ```
 pip install -r requirements.txt
@@ -32,6 +32,9 @@ Om de code te draaien gebruik de instructie:
 ```
 python main.py
 ```
+
+Eerst moet gekozen worden of een standaard eiwit of zelfgemaakt eiwit gebruikt zal worden. Kies dan het gewenste standaard eiwit of voer de aminozuur sequentie in. Daarna moet het laadproces gekozen worden: 'direct' voor een rechte lijn, 'acids' voor eigen toekenning van coördinaten of 'depth' om een depthfirst algoritme toe te passen. 'greedyadd' werkt nog niet.
+Zodra het eiwit geladen is, kan gebruik gemaakt worden van 'draw' om het te tekenen en 'turn' + id + richting om vanaf het zoveelste aminozuur de opvolgende keten te draaien in de bepaalde richting. Verder kan gebruik gemaakt worden van 'spiral' om het eiwit zoveel mogelijk in spiraalvorm te krijgen en 'random' + nummer om over zoveel keer het eiwit op willekeurige manieren te draaien en de het eiwit met de beste gevonden stabiliteit te nemen.
 
 ## Auteurs (Authors)
 

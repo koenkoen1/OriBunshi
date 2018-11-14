@@ -10,6 +10,7 @@ from greedyadd import greedyadd
 from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
+from depth import depth
 
 directions = ["Left", "Right"]
 
@@ -65,7 +66,7 @@ def main():
         greedyadd(molecule, sequence)
         print(f"stability: {molecule.stability()}")
     elif method == "depth":
-        depth(sequence)
+        molecule = depth(sequence)
     else:
         print('No valid loading method.')
         return 1
@@ -106,7 +107,7 @@ def main():
                     print(f"stability: {molecule.stability()}")
                     print(f"valid?: {molecule.check_vadility()}")
                 else:
-                    print("id too high for sequence")
+                    print("invalid id")
             else:
                 print("use: turn id direction")
         else:
