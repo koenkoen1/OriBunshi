@@ -7,7 +7,8 @@ Bij het probleem "Protein Pow(d)er" van de minor programmeren van de UvA is de o
 
 ### Analyse Toestandsruimte en Doelfunctie
 __Toestandsruimte__
-Bovengrens: 2 * 3^(n-3) - x, voor n > 2, waarin x duplicaten ontstaan door spiegelingen
+
+Bovengrens: $2 * 3^(n-3) - x$, voor $n > 2$, waarin $x$ duplicaten ontstaan door spiegelingen
 en rotaties zijn.
 
 __Doelfunctie__
