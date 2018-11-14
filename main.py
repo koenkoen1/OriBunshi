@@ -110,11 +110,12 @@ def main():
                     print("invalid id")
             else:
                 print("use: turn id direction")
-        elif command[0] == 'Help':
-            print("turn turns the molecule (ie: turn 2 Left)")
+        elif command[0] == 'help':
+            print("turn: turns the molecule (ie: turn 2 Left)")
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
+            print("quit: quits the application")
         else:
             print("invalid command")
 
