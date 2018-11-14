@@ -5,6 +5,7 @@ sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
 
+from depth import depth
 from greedyadd import greedyadd
 from greedyfold import spiralfold
 from molecule import Molecule
@@ -56,13 +57,15 @@ def main():
     sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method (direct, acids, greedyadd): ")
+    method = input("Molecule loading method (direct, acids, greedyadd, depth): ")
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
     elif method == 'greedyadd':
         molecule = Molecule([], "direct")
         greedyadd(molecule, sequence)
         print(f"stability: {molecule.stability()}")
+    elif method == "depth":
+        depth(sequence)
     else:
         print('No valid loading method.')
         return 1
