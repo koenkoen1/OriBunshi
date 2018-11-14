@@ -1,6 +1,7 @@
 def spiralfold(molecule, length):
     """
-    folds protein into spiral form
+    Requires the molecule object and the length of the amino acid sequence.
+    Folds protein into spiral-like form. Returns folded molecule.
     """
     i = 1
     while i < length:
