@@ -4,8 +4,8 @@ def spiralfold(molecule, length):
     Folds protein into spiral-like form. Returns folded molecule.
     """
     i = 1
-    while i < length:
-        molecule.turn(i, "Right")
-        if not molecule.check_vadility():
-            molecule.turn(i, "Left")
+    while i < length - 1:
+        while molecule.check_vadility():
+            molecule.turn(i, "Right")
+        molecule.turn(i, "Left")
         i += 1
