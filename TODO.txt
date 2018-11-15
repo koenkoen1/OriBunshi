@@ -1,0 +1,16 @@
+Statespace dingen in de readme
+Doelfunctie dingen in de readme
+
+Graphical representation verbeteren (legenda, stability)
+
+help function in main
+
+
+Cijfers:
+Hebben:
+
+
+Aangevraagd:
+Data/Infra: 5
+Explortation: 2
+Algorithms: 1

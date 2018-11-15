@@ -1,7 +1,7 @@
 class Amino_Acid(object):
     def __init__(self, kind, coordinates):
         """
-        initializes an Amino_Acid object. Saves kind an coordinate attributes.
+        initializes an Amino_Acid object. Saves kind and coordinate attributes.
         """
         self.kind = kind
         self.coordinates = coordinates

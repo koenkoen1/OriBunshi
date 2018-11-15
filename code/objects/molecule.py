@@ -20,8 +20,8 @@ class Molecule(object):
 
     def add_acids(self, acids):
         """
-        Adds given amino acids to molecule. Returns True if successful, else
-        False.
+        Adds given amino acids to molecule. Returns True if it was a valid
+        placement, else False.
         """
 
         for amino_acid in acids:
@@ -54,38 +54,40 @@ class Molecule(object):
     def draw(self):
         """
         Makes a visual representation of the molecule, using matplotlib.
-        (Why does it return a boolean?)
         """
-
-        oldx = 100
-        oldy = 100
+        previous  = x, y = 100, 100
         xcoordinates = []
         ycoordinates = []
-
+        Hxcoordinates = []
+        Hycoordinates = []
         # draws the lines between the amino acid sequence
         for amino_acid in self.acids:
-            xcoordinates.append(amino_acid.coordinates[0])
-            ycoordinates.append(amino_acid.coordinates[1])
-        plt.plot(xcoordinates, ycoordinates, c='black')
-
-        # draws the dots in the amino acid sequence
-        for amino_acid in self.acids:
             if amino_acid.kind == 'H':
-                color = 'r'
+                Hxcoordinates.append(amino_acid.coordinates[0])
+                Hycoordinates.append(amino_acid.coordinates[1])
             else:
-                color = 'b'
-            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1],'-o', c=color)
-            plt.plot(amino_acid.coordinates[0], amino_acid.coordinates[1], '-o', c=color, markersize=10)
+                xcoordinates.append(amino_acid.coordinates[0])
+                ycoordinates.append(amino_acid.coordinates[1])
+            if previous[0] != 100:
+                plt.plot([amino_acid.coordinates[0], previous[0]], [amino_acid.coordinates[1], previous[1]], color='black')
+            previous = amino_acid.coordinates[0], amino_acid.coordinates[1]
+
+        plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r', markersize=10)
+        plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b', markersize=10)
+        plt.legend()
+        plt.title(f"Current molecule, stability = {self.stability()}")
         plt.xticks(range( -len(self.sequence), len(self.sequence) ))
         plt.yticks(range( -len(self.sequence), len(self.sequence) ))
 
         # shows the plot
         plt.show()
-        return True
 
     def load_acids(self):
         """
-        Loads molecule, by adding one amino acid at a time at given coordinates.
+        Initializes acid list attribute, asks for user input for x- and
+        y-positions of every amino_acid object being created. Creates amino_acid
+        objects based on the sequence attribute and their coordinates. They are
+        then appended to the acids list.
         """
 
         # initialize "phantom" amino acid, to check if acid is first in sequence
@@ -140,7 +142,9 @@ class Molecule(object):
 
     def load_direct(self):
         """
-        Loads molecule as a whole, in a straight configuration.
+        Initializes acid list attribute: Creates amino_acid objects based on
+        sequence attribute and with arbitrary coordinates. Adds created
+        amino_acid objects to acid list.
         """
 
         # initialize coordinates for first amino acid
@@ -182,7 +186,7 @@ class Molecule(object):
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
                             stability = stability - 1
 
-        return stability / 2
+        return int(stability / 2)
 
     def remove_acids(self, acids):
         """
@@ -196,8 +200,10 @@ class Molecule(object):
 
     def turn(self, nodelocation, direction):
         """
-        Turns the molecule from given node in given direction.
-        (Why does this return a boolean?)
+        Changes the coordinates of every amino_acid past the given
+        nodelocation to turn the molecule from that point to the given
+        direction. Returns False if the direction is not valid, else returns
+        True once the amino_acids have been moved.
         """
 
         # save the relative locatin of the turn
@@ -232,7 +238,7 @@ class Molecule(object):
 
     def __str__(self):
         """
-        Produces a printable representation of a molecule.
+        Defines how to print an Molecule object. Returns a string.
         """
 
         string = ''

@@ -4,6 +4,7 @@ from molecule import Molecule
 
 def greedyadd(molecule, sequence):
     """
+    W.I.P.
     Greedy algorithm to build op molecule amino acid by amino acid.
     """
     seq = sequence
