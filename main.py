@@ -110,7 +110,7 @@ def main():
         elif command[0] == "turn":
             # check for errors and convert to convert variables to proper format
             try:
-                id = int(command[2]) - 1
+                position = int(command[2]) - 1
             except ValueError:
                 print(f"Error: {command[2]} is not a number")
                 continue
@@ -119,17 +119,17 @@ def main():
                 continue
             direction = command[1].lower().capitalize()
 
-            # turn molecule at position 'id' towards direction 'direction'
+            # turn molecule at given position towards direction 'direction'
             if direction in directions:
-                if id < len(sequence) and id > -1:
-                    molecule.turn(id, direction)
+                if position < len(sequence) and position > -1:
+                    molecule.turn(position, direction)
                     print(f"stability: {molecule.stability()}")
                     print(f"valid?: {molecule.check_vadility()}")
                 else:
                     print("invalid number")
             else:
                 print("direction can only be left or right")
-                
+
         elif command[0] == 'help':
             print("turn: turns the molecule (ie: turn 2 Left)")
             print("random: turns the molecule randomly (usage: random 10)")
