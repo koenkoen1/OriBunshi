@@ -11,6 +11,7 @@ from molecule import Molecule
 
 stack = []
 
+
 def depth(sequence):
     """
     Explores all possible configurations of the molecule by using a Depth first
@@ -28,13 +29,13 @@ def depth(sequence):
     # append this molecule to the stack
     stack.append(molecule)
 
-    # define the lowest stability found (placeholder = 0) and a placeholder molecule
+    # define the lowest stability found (placeholder = 0) + placeholder molecule
     lowest = 0
     lowestmolecule = Molecule("H", "direct")
     while stack != []:
         current = stack.pop()
 
-        # if the length of the sequence equals the imput sequence dont make children
+        # if the length of the sequence equals the input sequence dont make children
         if len(current.sequence) == len(sequence):
             solutions[int(-current.stability())] += 1
             if lowest > current.stability():
@@ -55,6 +56,7 @@ def depth(sequence):
     # returns this molecule for further usage
     return lowestmolecule
 
+
 def children(molecule, sequence):
     """
     Produces children of the given molecule by adding an amino acid in every
@@ -68,9 +70,10 @@ def children(molecule, sequence):
             y += 1
         elif direction == 1:
             x += 1
-        elif direction == 2:
+        # don't go to y - 1 from straight molecule, to elemininate mirror images
+        elif direction == 2 and not straight(molecule):
             y -= 1
-        else:
+        elif direction == 3:
             x -= 1
 
         # make a new amino acid
@@ -80,3 +83,15 @@ def children(molecule, sequence):
         if molecule.add_acids([acid]):
             stack.append(copy.deepcopy(molecule))
             molecule.remove_acids([acid])
+
+
+def straight(molecule):
+    """
+    Checks if molecule is straight (to right from origin). Returns True if this
+    is the case, else False.
+    """
+
+    for acid in molecule.acids:
+        if not acid.coordinates[1] == 0:
+            return False
+    return True
