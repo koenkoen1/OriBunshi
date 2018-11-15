@@ -23,7 +23,7 @@ def depth(sequence):
     solutions = [0 for i in range(len(sequence))]
 
     # produces the first amino acid of the molecule as the molecule
-    molecule = Molecule(sequence[0], 'direct')
+    molecule = Molecule(sequence[0] + sequence[1], 'direct')
 
     # append this molecule to the stack
     stack.append(molecule)
