@@ -76,8 +76,8 @@ class Molecule(object):
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b', markersize=10)
         plt.legend()
         plt.title(f"Current molecule, stability = {self.stability()}")
-        plt.xticks(range( -len(self.sequence), len(self.sequence) ))
-        plt.yticks(range( -len(self.sequence), len(self.sequence) ))
+        # plt.xticks(range( -len(self.sequence), len(self.sequence) ))
+        # plt.yticks(range( -len(self.sequence), len(self.sequence) ))
 
         # shows the plot
         plt.show()
