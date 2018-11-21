@@ -72,12 +72,34 @@ class Molecule(object):
                 plt.plot([amino_acid.coordinates[0], previous[0]], [amino_acid.coordinates[1], previous[1]], color='black')
             previous = amino_acid.coordinates[0], amino_acid.coordinates[1]
 
+        # for every amino acid check every amino acid
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
+
+                # check if they are both 'H' (they only produce stability)
+                if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
+
+                    # check if amino acids are not the same nor sequent
+                    if ((amino_acid != amino_acid2)
+                        and abs(self.acids.index(amino_acid2)
+                            - self.acids.index(amino_acid)) != 1):
+                        rest = (amino_acid.coordinates[0] -
+                                amino_acid2.coordinates[0],
+                                amino_acid.coordinates[1] -
+                                amino_acid2.coordinates[1])
+
+                        # if they are next to eachother increase stability
+                        if ((abs(rest[0]) == 1 and rest[1] == 0)
+                            or (abs(rest[1]) == 1 and rest[0] == 0)):
+                            plt.plot([amino_acid.coordinates[0], amino_acid2.coordinates[0]], [amino_acid.coordinates[1], amino_acid2.coordinates[1]], color="r", linestyle=':')
+
         plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r', markersize=10)
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b', markersize=10)
         plt.legend()
         plt.title(f"Current molecule, stability = {self.stability()}")
         # plt.xticks(range( -len(self.sequence), len(self.sequence) ))
         # plt.yticks(range( -len(self.sequence), len(self.sequence) ))
+        # for every amino acid check every amino acid
 
         # shows the plot
         plt.show()
@@ -246,3 +268,19 @@ class Molecule(object):
             string = string + str(amino_acid)
 
         return string
+
+    def forcevalid(self):
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
+                if amino_acid == amino_acid2:
+                    conflict1 = self.acids.index(amino_acid)
+                    conflict2 = self.acids.index(amino_acid2)
+        while not self.check_vadility():
+            conflict1 += 1
+            for i in range(4):
+                self.turn(conflict1, 'Left')
+                if self.check_vadility():
+                    break
+            if conflict1 == conflict2:
+                return False
+        return True
