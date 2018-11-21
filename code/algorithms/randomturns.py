@@ -11,7 +11,6 @@ def randomturns(molecule, x):
     lowest = molecule.stability()
     lowestsequence = copy.deepcopy(molecule.acids)
     while i < x:
-        print(i)
         backupseqence = copy.deepcopy(molecule.acids)
 
         #make a random turn
@@ -25,10 +24,8 @@ def randomturns(molecule, x):
 
         #check if the resulting turn is valid
         if not molecule.check_vadility():
-            print("notvalid")
             molecule.acids = backupseqence
         elif lowest > molecule.stability():
-            print("replacing")
             lowest = molecule.stability()
             lowestsequence = copy.deepcopy(molecule.acids)
         i = i + 1
