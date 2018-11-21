@@ -5,6 +5,14 @@ Graphical representation verbeteren (legenda, stability)
 
 help function in main
 
+Simulated annealing (eerst hillclimber) --> inlezen op cooling schemes/reheating schemes
+
+Draaifunctie die "foute draaien aanpast"
+
+end colony?
+
+Lower bound doelfunctie: regels met even en oneven index H's --> even altijd bond met oneven. 
+
 
 Cijfers:
 Hebben:
