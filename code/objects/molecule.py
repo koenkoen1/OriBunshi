@@ -36,7 +36,7 @@ class Molecule(object):
         return True
 
 
-    def check_vadility(self):
+    def check_vadility(self, return_conflicts = False):
         """
         Checks if molecule configuration is valid, by checking for nodes with
         the same coordinates. Returns a boolean.
@@ -49,6 +49,9 @@ class Molecule(object):
 
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
+                        if return_conflicts:
+                            return [amino_acid.coordinates,
+                                    amino_acid2.coordinates]
                         return False
 
         return True
