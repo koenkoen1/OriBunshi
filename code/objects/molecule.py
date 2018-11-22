@@ -117,20 +117,16 @@ class Molecule(object):
         Forces molecule in valid configuration after invalid turn. Returns True
         if successful, else False.
         """
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
-                if amino_acid == amino_acid2:
-                    conflict1 = self.acids.index(amino_acid)
-                    conflict2 = self.acids.index(amino_acid2)
-        while not self.check_vadility():
-            conflict1 += 1
-            for i in range(4):
-                self.turn(conflict1, 'Left')
-                if self.check_vadility():
-                    break
-            if conflict1 == conflict2:
-                return False
-        return True
+        indexes = self.check_vadility(True);
+        if indexes:
+            conflict1 = min(indexes)
+            # conflict2 = max(indexes)
+
+            for dir in ["Left", "Right"]:
+                self.turn(conflict1 + 1, dir)
+                return self.force_vadil()
+        else:
+            return True
 
 
     def load_acids(self):
