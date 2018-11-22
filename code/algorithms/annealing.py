@@ -20,7 +20,7 @@ def aneal(molecule):
         currentstability = molecule.stability()
         oldmolecule = copy.deepcopy(molecule)
         randomturns(molecule, random.randint(0, 3))
-        if not molecule.forcevalid():
+        if not molecule.force_vadil():
             print('errorrrrr')
             break
         if molecule.stability() < currentstability:

@@ -110,8 +110,7 @@ class Molecule(object):
         # shows the plot
         plt.show()
 
-
-    def forcevalid(self):
+    def force_vadil(self):
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
                 if amino_acid == amino_acid2:
@@ -126,7 +125,6 @@ class Molecule(object):
             if conflict1 == conflict2:
                 return False
         return True
-
 
     def load_acids(self):
         """
