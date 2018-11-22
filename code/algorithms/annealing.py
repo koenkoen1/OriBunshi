@@ -20,16 +20,13 @@ def aneal(molecule):
         currentstability = molecule.stability()
         oldmolecule = copy.deepcopy(molecule)
         randomturns(molecule, random.randint(0, 3))
-        if not molecule.force_vadil():
-            print('errorrrrr')
-            break
+        molecule.force_vadil()
         if molecule.stability() < currentstability:
             continue
         else:
             acceptprobability = math.exp((currentstability - molecule.stability()) / temperature)
             if acceptprobability < random.uniform(0, 1):
                 molecule = oldmolecule
-        molecule.draw()
 
 if __name__ == '__main__':
     molecule = Molecule('HPHPPPHPHPHP', 'direct')

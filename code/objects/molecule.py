@@ -43,15 +43,14 @@ class Molecule(object):
         """
 
         # for every amino acid look at every other amino acid
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
+        for index1, amino_acid in enumerate(self.acids):
+            for index2, amino_acid2 in enumerate(self.acids):
                 if amino_acid != amino_acid2:
 
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         if return_conflicts:
-                            return [amino_acid.coordinates,
-                                    amino_acid2.coordinates]
+                            return [index1 - 1, index2 - 1]
                         return False
 
         if return_conflicts:
@@ -118,20 +117,16 @@ class Molecule(object):
         Forces molecule in valid configuration after invalid turn. Returns True
         if successful, else False.
         """
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
-                if amino_acid == amino_acid2:
-                    conflict1 = self.acids.index(amino_acid)
-                    conflict2 = self.acids.index(amino_acid2)
-        while not self.check_vadility():
-            conflict1 += 1
-            for i in range(4):
-                self.turn(conflict1, 'Left')
-                if self.check_vadility():
-                    break
-            if conflict1 == conflict2:
-                return False
-        return True
+        indexes = self.check_vadility(True);
+        if indexes:
+            conflict1 = min(indexes)
+            # conflict2 = max(indexes)
+
+            for dir in ["Left", "Right"]:
+                self.turn(conflict1 + 1, dir)
+                return self.force_vadil()
+        else:
+            return True
 
 
     def load_acids(self):
