@@ -54,8 +54,8 @@ class Molecule(object):
                                     amino_acid2.coordinates]
                         return False
 
-        if return_conflicts        :
-            return [None, None]
+        if return_conflicts:
+            return None
         return True
 
 
