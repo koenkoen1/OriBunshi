@@ -11,4 +11,4 @@ class Amino_Acid(object):
         Defines how to print an Amino_Acid object. Returns a string.
         """
         return ('Kind: ' + str(self.kind)
-                + 'coordinates: ' + str(self.coordinates))
+                + ' coordinates: ' + str(self.coordinates))
