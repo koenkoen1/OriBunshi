@@ -110,7 +110,12 @@ class Molecule(object):
         # shows the plot
         plt.show()
 
+
     def force_vadil(self):
+        """
+        Forces molecule in valid configuration after invalid turn. Returns True
+        if successful, else False. 
+        """
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
                 if amino_acid == amino_acid2:
@@ -125,6 +130,7 @@ class Molecule(object):
             if conflict1 == conflict2:
                 return False
         return True
+
 
     def load_acids(self):
         """
