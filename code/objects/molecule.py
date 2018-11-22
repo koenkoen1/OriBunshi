@@ -50,7 +50,7 @@ class Molecule(object):
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         if return_conflicts:
-                            return [index1, index2]
+                            return [index1 - 1, index2 - 1]
                         return False
 
         if return_conflicts:
