@@ -18,6 +18,7 @@ class Molecule(object):
         else:
             print('No valid loading method.')
 
+
     def add_acids(self, acids):
         """
         Adds given amino acids to molecule. Returns True if it was a valid
@@ -33,6 +34,7 @@ class Molecule(object):
             self.sequence += amino_acid.kind
 
         return True
+
 
     def check_vadility(self):
         """
@@ -50,6 +52,7 @@ class Molecule(object):
                         return False
 
         return True
+
 
     def draw(self):
         """
@@ -103,6 +106,24 @@ class Molecule(object):
 
         # shows the plot
         plt.show()
+
+
+    def forcevalid(self):
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
+                if amino_acid == amino_acid2:
+                    conflict1 = self.acids.index(amino_acid)
+                    conflict2 = self.acids.index(amino_acid2)
+        while not self.check_vadility():
+            conflict1 += 1
+            for i in range(4):
+                self.turn(conflict1, 'Left')
+                if self.check_vadility():
+                    break
+            if conflict1 == conflict2:
+                return False
+        return True
+
 
     def load_acids(self):
         """
@@ -162,6 +183,7 @@ class Molecule(object):
         # possibility: enter list of coordinates and read it oid
         # (then also load_direct and load_acids can be merged)
 
+
     def load_direct(self):
         """
         Initializes acid list attribute: Creates amino_acid objects based on
@@ -179,6 +201,7 @@ class Molecule(object):
             coordinates = (x, y)
 
         # print(self)
+
 
     def stability(self):
         """
@@ -209,6 +232,7 @@ class Molecule(object):
                             stability = stability - 1
 
         return int(stability / 2)
+
 
     def remove_acids(self, acids):
         """
@@ -258,6 +282,7 @@ class Molecule(object):
 
         return True
 
+
     def __str__(self):
         """
         Defines how to print an Molecule object. Returns a string.
@@ -268,19 +293,3 @@ class Molecule(object):
             string = string + str(amino_acid)
 
         return string
-
-    def forcevalid(self):
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
-                if amino_acid == amino_acid2:
-                    conflict1 = self.acids.index(amino_acid)
-                    conflict2 = self.acids.index(amino_acid2)
-        while not self.check_vadility():
-            conflict1 += 1
-            for i in range(4):
-                self.turn(conflict1, 'Left')
-                if self.check_vadility():
-                    break
-            if conflict1 == conflict2:
-                return False
-        return True
