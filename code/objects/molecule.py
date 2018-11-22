@@ -104,6 +104,22 @@ class Molecule(object):
         # shows the plot
         plt.show()
 
+    def force_vadil(self):
+        for amino_acid in self.acids:
+            for amino_acid2 in self.acids:
+                if amino_acid == amino_acid2:
+                    conflict1 = self.acids.index(amino_acid)
+                    conflict2 = self.acids.index(amino_acid2)
+        while not self.check_vadility():
+            conflict1 += 1
+            for i in range(4):
+                self.turn(conflict1, 'Left')
+                if self.check_vadility():
+                    break
+            if conflict1 == conflict2:
+                return False
+        return True
+
     def load_acids(self):
         """
         Initializes acid list attribute, asks for user input for x- and
@@ -268,19 +284,3 @@ class Molecule(object):
             string = string + str(amino_acid)
 
         return string
-
-    def forcevalid(self):
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
-                if amino_acid == amino_acid2:
-                    conflict1 = self.acids.index(amino_acid)
-                    conflict2 = self.acids.index(amino_acid2)
-        while not self.check_vadility():
-            conflict1 += 1
-            for i in range(4):
-                self.turn(conflict1, 'Left')
-                if self.check_vadility():
-                    break
-            if conflict1 == conflict2:
-                return False
-        return True
