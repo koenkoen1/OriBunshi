@@ -293,8 +293,9 @@ class Molecule(object):
         Defines how to print an Molecule object. Returns a string.
         """
 
-        string = ''
+        amino_acids = []
         for amino_acid in self.acids:
-            string = string + str(amino_acid)
+            amino_acids.append(str(amino_acid))
+        string = "\n".join(amino_acids)
 
         return string
