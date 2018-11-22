@@ -54,6 +54,8 @@ class Molecule(object):
                                     amino_acid2.coordinates]
                         return False
 
+        if return_conflicts        :
+            return [None, None]
         return True
 
 
@@ -114,7 +116,7 @@ class Molecule(object):
     def force_vadil(self):
         """
         Forces molecule in valid configuration after invalid turn. Returns True
-        if successful, else False. 
+        if successful, else False.
         """
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
