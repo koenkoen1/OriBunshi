@@ -43,15 +43,14 @@ class Molecule(object):
         """
 
         # for every amino acid look at every other amino acid
-        for amino_acid in self.acids:
-            for amino_acid2 in self.acids:
+        for index1, amino_acid in enumerate(self.acids):
+            for index2, amino_acid2 in enumerate(self.acids):
                 if amino_acid != amino_acid2:
 
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         if return_conflicts:
-                            return [amino_acid.coordinates,
-                                    amino_acid2.coordinates]
+                            return [index1, index2]
                         return False
 
         if return_conflicts:
