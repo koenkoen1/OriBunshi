@@ -25,17 +25,17 @@ def aneal(molecule):
         if not molecule.check_vadility():
              molecule = oldmolecule
         elif molecule.stability() < currentstability:
-            temperature *= 0.9
+            temperature *= 0.999
         else:
             temperature *= 0.999
-            acceptprobability = math.exp(((currentstability - molecule.stability()) * 41) / temperature)
+            acceptprobability = math.exp(((currentstability - molecule.stability()) * 80) / temperature)
             print(acceptprobability)
             x = random.uniform(0,1)
             if acceptprobability < x:
                 molecule = oldmolecule
     return molecule
 if __name__ == '__main__':
-    molecule = Molecule('HPHPPHHPHPPHPHHPPHPH', 'direct')
+    molecule = Molecule('HHPHHHPH', 'direct')
     molecule = aneal(molecule)
     print(molecule.check_vadility())
     molecule.draw()
