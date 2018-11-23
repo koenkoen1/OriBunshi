@@ -50,7 +50,7 @@ class Molecule(object):
                     # check if the coordinates are the same
                     if amino_acid.coordinates == amino_acid2.coordinates:
                         if return_conflicts:
-                            return [index1 - 1, index2 - 1]
+                            return [index1, index2]
                         return False
 
         if return_conflicts:
@@ -124,9 +124,11 @@ class Molecule(object):
         if successful, else False.
         """
         indexes = self.check_vadility(True);
+        print(indexes)
         if indexes:
             for dir in ["Left", "Right"]:
                 self.turn(indexes[0] + 1, dir)
+                self.draw()
                 return self.force_vadil()
         else:
             return True
