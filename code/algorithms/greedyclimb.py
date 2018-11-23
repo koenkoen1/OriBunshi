@@ -7,12 +7,13 @@ sys.path.append(os.path.join(parentdir, "objects"))
 import copy
 from molecule import Molecule
 
-def climb(molecule, turnpoint = 0):
-    directions = ["Left", "Right"]
-    length = len(str(molecule).split("\n"))
-    currentstability = molecule.stability()
-    route = []
-    change = False
+directions = ["Left", "Right"]
+
+def climb(molecule, turnpoint = []):
+    # trying out single turns
+    if not turn(1, molecule):
+        # trying out double turns
+        turn(2, molecule)
 
     """
     FIXME: snake path
@@ -39,24 +40,26 @@ def climb(molecule, turnpoint = 0):
                     route = [loop]
             loop += 1
     """
-
-    # double turns
+def turn(turns, molecule):
+    length = len(molecule.sequence)
+    route = False
+    currentstability = molecule.stability()
     for i in range(1, length - 1):
         for direction in directions:
             testmolecule = copy.deepcopy(molecule)
-            testmolecule.turn(i, direction)
-            testmolecule.turn(i + 1, direction)
+            for turn in range(turns):
+                testmolecule.turn(i + turn, direction)
             if (testmolecule.check_vadility() and
                 testmolecule.stability() < currentstability):
                 currentstability = testmolecule.stability()
                 route = [i, direction]
-                change = True
-
-    if change:
+    if route:
         molecule.turn(route[0], route[1])
         molecule.turn(route[0] + 1, route[1])
         molecule.draw()
         climb(molecule, route[0])
+        return True
+    return False
 
 if __name__ == '__main__':
     molecule = Molecule('HHPHHHPHPHHHPH', 'direct')
