@@ -98,10 +98,16 @@ class Molecule(object):
                         # if they are next to eachother increase stability
                         if ((abs(rest[0]) == 1 and rest[1] == 0)
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
-                            plt.plot([amino_acid.coordinates[0], amino_acid2.coordinates[0]], [amino_acid.coordinates[1], amino_acid2.coordinates[1]], color="r", linestyle=':')
+                            plt.plot([amino_acid.coordinates[0],
+                                      amino_acid2.coordinates[0]],
+                                     [amino_acid.coordinates[1],
+                                      amino_acid2.coordinates[1]],
+                                     color="r", linestyle=':')
 
-        plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r', markersize=10)
-        plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b', markersize=10)
+        plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r',
+                 markersize=10)
+        plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b',
+                 markersize=10)
         plt.legend()
         plt.title(f"Current molecule, stability = {self.stability()}")
         # plt.xticks(range( -len(self.sequence), len(self.sequence) ))
@@ -119,11 +125,8 @@ class Molecule(object):
         """
         indexes = self.check_vadility(True);
         if indexes:
-            conflict1 = min(indexes)
-            # conflict2 = max(indexes)
-
             for dir in ["Left", "Right"]:
-                self.turn(conflict1 + 1, dir)
+                self.turn(indexes[0] + 1, dir)
                 return self.force_vadil()
         else:
             return True
