@@ -1,5 +1,6 @@
 from amino_acid import Amino_Acid
 import matplotlib.pyplot as plt
+import random
 
 
 class Molecule(object):
@@ -15,6 +16,8 @@ class Molecule(object):
             self.load_direct()
         elif method == 'acids':
             self.load_acids()
+        elif method == 'random':
+            self.load_random()
         else:
             print('No valid loading method.')
 
@@ -124,14 +127,16 @@ class Molecule(object):
         if successful, else False.
         """
         indexes = self.check_vadility(True);
-        print(indexes)
-        if indexes:
-            for dir in ["Left", "Right"]:
-                self.turn(indexes[0] + 1, dir)
-                self.draw()
-                return self.force_vadil()
-        else:
-            return True
+
+        while indexes:
+            dir = ["Left", "Right"]
+            random.shuffle(dir)
+            # print(dir[0])
+            self.turn(indexes[0] + 1, dir[0])
+            self.draw()
+            indexes = self.check_vadility(True);
+
+        return True
 
 
     def load_acids(self):
@@ -210,6 +215,40 @@ class Molecule(object):
             coordinates = (x, y)
 
         # print(self)
+
+
+    def load_random(self):
+        """
+        Loads a random configuration of molecule's sequence.
+        """
+
+        # load first two acids at (0, 0) and (1, 0)
+        self.add_acids([Amino_Acid(self.sequence[0], (0, 0)),
+                        Amino_Acid(self.sequence[1], (1, 0))])
+
+        # copy_seq = self.sequence[2:]
+
+        # load rest of acids at random neighbouring place to previous acid
+        for i in range(2, len(self.sequence) - 1):
+
+            x, y  = self.acids[len(self.acids) - 1].coordinates
+            dir = [0, 1, 2, 3]
+            random.shuffle(dir)
+
+            if dir[0] == 0:
+                x += 1
+            elif dir[0] == 1:
+                y += 1
+            elif dir[0] == 2:
+                x -= 1
+            else:
+                y -= 1
+
+            if not self.add_acids([Amino_Acid(self.sequence[i], (x, y))]):
+                i -= 1
+
+        self.draw()
+        return True
 
 
     def stability(self):
