@@ -62,7 +62,8 @@ def main():
     sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method (direct, acids, greedyadd, depth): ")
+    method = input("Molecule loading method" \
+                   "(direct, acids, greedyadd, depth, random): ")
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
     elif method == 'greedyadd':
@@ -71,6 +72,8 @@ def main():
         print(f"stability: {molecule.stability()}")
     elif method == "depth":
         molecule = depth(sequence)
+    elif method == "random":
+        molecule = Molecule(sequence, method)
     else:
         print('No valid loading method.')
         return 1
@@ -129,6 +132,10 @@ def main():
                     print("invalid number")
             else:
                 print("direction can only be left or right")
+
+        elif command[0] == "force_vadil":
+            molecule.force_vadil()
+            molecule.draw()
 
         elif command[0] == 'help':
             print("turn: turns the molecule (ie: turn 2 Left)")
