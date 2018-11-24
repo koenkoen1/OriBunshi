@@ -22,7 +22,7 @@ class Molecule(object):
             print('No valid loading method.')
 
 
-    def add_acids(self, acids):
+    def add_acids(self, acids, update_seq = True):
         """
         Adds given amino acids to molecule. Returns True if it was a valid
         placement, else False.
@@ -34,7 +34,8 @@ class Molecule(object):
             if not self.check_vadility():
                 self.acids.pop()
                 return False
-            self.sequence += amino_acid.kind
+            if update_seq:
+                self.sequence += amino_acid.kind
 
         return True
 
@@ -224,28 +225,36 @@ class Molecule(object):
 
         # load first two acids at (0, 0) and (1, 0)
         self.add_acids([Amino_Acid(self.sequence[0], (0, 0)),
-                        Amino_Acid(self.sequence[1], (1, 0))])
+                        Amino_Acid(self.sequence[1], (1, 0))], False)
 
-        # copy_seq = self.sequence[2:]
+        copy_seq = self.sequence[2:]
 
         # load rest of acids at random neighbouring place to previous acid
-        for i in range(2, len(self.sequence) - 1):
+        for letter in copy_seq:
 
-            x, y  = self.acids[len(self.acids) - 1].coordinates
+            print(letter)
+
             dir = [0, 1, 2, 3]
             random.shuffle(dir)
 
-            if dir[0] == 0:
-                x += 1
-            elif dir[0] == 1:
-                y += 1
-            elif dir[0] == 2:
-                x -= 1
-            else:
-                y -= 1
+            for i in range(4):
+                x, y  = self.acids[len(self.acids) - 1].coordinates
+                print(x, y)
 
-            if not self.add_acids([Amino_Acid(self.sequence[i], (x, y))]):
-                i -= 1
+                if dir[i] == 0:
+                    x += 1
+                elif dir[i] == 1:
+                    y += 1
+                elif dir[i] == 2:
+                    x -= 1
+                else:
+                    y -= 1
+
+                if self.add_acids([Amino_Acid(letter, (x, y))], False):
+                    break
+                elif i == 3:
+                    self.acids.append(Amino_Acid(letter, (x, y)))
+                    self.force_vadil() # --> werkt nog niet!
 
         self.draw()
         return True
