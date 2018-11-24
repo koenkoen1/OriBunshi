@@ -127,15 +127,43 @@ class Molecule(object):
         Forces molecule in valid configuration after invalid turn. Returns True
         if successful, else False.
         """
+
+        # find indexes of first collision
         indexes = self.check_vadility(True);
 
+        # continue until there are no collisions
         while indexes:
+
+            # get random turning direction
             dir = ["Left", "Right"]
             random.shuffle(dir)
-            # print(dir[0])
-            self.turn(indexes[0] + 1, dir[0])
-            self.draw()
-            indexes = self.check_vadility(True);
+
+            compare = indexes[1]
+
+            self.turn(indexes[1] - 1, dir[0])
+            indexes = self.check_vadility(True)
+
+            # prevent direct movement back to previous configuration
+            if indexes and indexes[1] == compare:
+                self.turn(indexes[1] - 1, dir[1])
+                indexes = self.check_vadility(True)
+
+                # if turning index[1] + 1 proves unsuccessful, try index[0] + 1
+                if indexes and indexes[1] == compare:
+                    compare = indexes[0]
+                    self.turn(indexes[0] + 1, dir[0])
+                    indexes = self.check_vadility(True)
+
+                    # prevent direct movement back to previous configuration
+                    if indexes and indexes[0] == compare:
+                        self.turn(indexes[0] + 1, dir[1])
+                        indexes = self.check_vadility(True)
+
+                        # if index[0] + 1 also unsuccessful, turn random index
+                        if indexes and indexes[0] == compare:
+                            self.turn(random.randint(1, len(self.sequence) - 1),
+                                      dir[0])
+                            indexes = self.check_vadility(True)
 
         return True
 
@@ -232,15 +260,18 @@ class Molecule(object):
         # load rest of acids at random neighbouring place to previous acid
         for letter in copy_seq:
 
-            print(letter)
+            # print(letter)
 
+            # get random direction to place next acid into
             dir = [0, 1, 2, 3]
             random.shuffle(dir)
 
+            # iterate until successful add of new acid
             for i in range(4):
                 x, y  = self.acids[len(self.acids) - 1].coordinates
-                print(x, y)
+                # print(x, y)
 
+                # translate direction into coordinate change
                 if dir[i] == 0:
                     x += 1
                 elif dir[i] == 1:
@@ -250,11 +281,14 @@ class Molecule(object):
                 else:
                     y -= 1
 
+                # if successful add: stop inner for loop
                 if self.add_acids([Amino_Acid(letter, (x, y))], False):
                     break
+
+                # if at end inner forloop no add: accept invalid, force to valid
                 elif i == 3:
                     self.acids.append(Amino_Acid(letter, (x, y)))
-                    self.force_vadil() # --> werkt nog niet!
+                    self.force_vadil()
 
         self.draw()
         return True
