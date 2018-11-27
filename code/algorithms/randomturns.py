@@ -14,7 +14,7 @@ def randomturns(molecule, x):
         backupseqence = copy.deepcopy(molecule.acids)
 
         #make a random turn
-        randomnode = random.randint(0, len(molecule.acids) - 1)
+        randomnode = random.randint(1, len(molecule.acids) - 1)
         randomdirection = random.randint(0, 1)
         if randomdirection == 0:
             randomdirection = 'Right'
