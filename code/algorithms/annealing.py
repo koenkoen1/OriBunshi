@@ -12,11 +12,18 @@ from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
 
+
+def tempfunc(k):
+    return  (begintemperature / (1 + math.log10(1 + k)))
+
+
+
 def aneal(molecule):
-    temperature = 200
-
-
-    while temperature > 0.1:
+    begintemperature = 200
+    k = 0
+    temperature = tempfunc(k)
+    while temperature > 34:
+        k += 1
         print(f"Temp: {temperature}")
         print(f"stability: {molecule.stability()}")
         currentstability = molecule.stability()
@@ -24,18 +31,19 @@ def aneal(molecule):
         randomturns(molecule, random.randint(0, 3))
         if not molecule.check_vadility():
              molecule = oldmolecule
+             k -= 1
         elif molecule.stability() < currentstability:
-            temperature *= 0.999
+            temperature = tempfunc(k)
         else:
-            temperature *= 0.999
-            acceptprobability = math.exp(((currentstability - molecule.stability()) * 80) / temperature)
-            print(acceptprobability)
+            temperature = tempfunc(k)
+            acceptprobability = math.exp(((currentstability - molecule.stability()) * 200) / temperature)
             x = random.uniform(0,1)
             if acceptprobability < x:
                 molecule = oldmolecule
     return molecule
 if __name__ == '__main__':
-    molecule = Molecule('HHPHHHPH', 'direct')
+    molecule = Molecule('HPHPPHHPHPPHPHHPPHPH', 'direct')
+    spiralfold(molecule, len(molecule.sequence))
     molecule = aneal(molecule)
     print(molecule.check_vadility())
     molecule.draw()
