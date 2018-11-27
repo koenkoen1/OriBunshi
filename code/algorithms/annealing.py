@@ -23,26 +23,31 @@ def aneal(molecule):
     begintemperature = 200
     k = 0
     temperature = tempfunc(k)
-    while temperature > 34:
+    iterations = 0
+    while temperature > 32:
         k += 1
         print(f"Temp: {temperature}")
-        print(f"stability: {molecule.stability()}")
+        print(iterations)
         currentstability = molecule.stability()
         oldmolecule = copy.deepcopy(molecule)
         randomturns(molecule, random.randint(0, 3))
 
-        if not molecule.check_vadility():
-             molecule = oldmolecule
-             k -= 1
-        elif molecule.stability() < currentstability:
+        molecule.force_vadil()
+
+        if molecule.stability() < currentstability:
             temperature = tempfunc(k)
         else:
             temperature = tempfunc(k)
             acceptprobability = math.exp(((currentstability - molecule.stability()) * 200) / temperature)
             x = random.uniform(0,1)
-
-            if acceptprobability < x:
+            if acceptprobability < x or molecule.stability() == currentstability:
                 molecule = oldmolecule
+                iterations += 1
+            else:
+                iterations = 0
+        if iterations > 2000:
+            iterations = 0
+            k -= 1500
 
     return molecule
 
