@@ -1,5 +1,6 @@
 from amino_acid import Amino_Acid
 import matplotlib.pyplot as plt
+import random
 
 
 class Molecule(object):
@@ -15,11 +16,13 @@ class Molecule(object):
             self.load_direct()
         elif method == 'acids':
             self.load_acids()
+        elif method == 'random':
+            self.load_random()
         else:
             print('No valid loading method.')
 
 
-    def add_acids(self, acids):
+    def add_acids(self, acids, update_seq = True):
         """
         Adds given amino acids to molecule. Returns True if it was a valid
         placement, else False.
@@ -31,7 +34,8 @@ class Molecule(object):
             if not self.check_vadility():
                 self.acids.pop()
                 return False
-            self.sequence += amino_acid.kind
+            if update_seq:
+                self.sequence += amino_acid.kind
 
         return True
 
@@ -123,15 +127,45 @@ class Molecule(object):
         Forces molecule in valid configuration after invalid turn. Returns True
         if successful, else False.
         """
+
+        # find indexes of first collision
         indexes = self.check_vadility(True);
-        print(indexes)
-        if indexes:
-            for dir in ["Left", "Right"]:
-                self.turn(indexes[0] + 1, dir)
-                self.draw()
-                return self.force_vadil()
-        else:
-            return True
+
+        # continue until there are no collisions
+        while indexes:
+
+            # get random turning direction
+            dir = ["Left", "Right"]
+            random.shuffle(dir)
+
+            compare = indexes[1]
+
+            self.turn(indexes[1] - 1, dir[0])
+            indexes = self.check_vadility(True)
+
+            # prevent direct movement back to previous configuration
+            if indexes and indexes[1] == compare:
+                self.turn(indexes[1] - 1, dir[1])
+                indexes = self.check_vadility(True)
+
+                # if turning index[1] + 1 proves unsuccessful, try index[0] + 1
+                if indexes and indexes[1] == compare:
+                    compare = indexes[0]
+                    self.turn(indexes[0] + 1, dir[0])
+                    indexes = self.check_vadility(True)
+
+                    # prevent direct movement back to previous configuration
+                    if indexes and indexes[0] == compare:
+                        self.turn(indexes[0] + 1, dir[1])
+                        indexes = self.check_vadility(True)
+
+                        # if index[0] + 1 also unsuccessful, turn random index
+                        if indexes and indexes[0] == compare:
+                            self.turn(random.randint(1, len(self.sequence) - 1),
+                                      dir[0])
+                            indexes = self.check_vadility(True)
+
+        return True
 
 
     def load_acids(self):
@@ -210,6 +244,54 @@ class Molecule(object):
             coordinates = (x, y)
 
         # print(self)
+
+
+    def load_random(self):
+        """
+        Loads a random configuration of molecule's sequence.
+        """
+
+        # load first two acids at (0, 0) and (1, 0)
+        self.add_acids([Amino_Acid(self.sequence[0], (0, 0)),
+                        Amino_Acid(self.sequence[1], (1, 0))], False)
+
+        copy_seq = self.sequence[2:]
+
+        # load rest of acids at random neighbouring place to previous acid
+        for letter in copy_seq:
+
+            # print(letter)
+
+            # get random direction to place next acid into
+            dir = [0, 1, 2, 3]
+            random.shuffle(dir)
+
+            # iterate until successful add of new acid
+            for i in range(4):
+                x, y  = self.acids[len(self.acids) - 1].coordinates
+                # print(x, y)
+
+                # translate direction into coordinate change
+                if dir[i] == 0:
+                    x += 1
+                elif dir[i] == 1:
+                    y += 1
+                elif dir[i] == 2:
+                    x -= 1
+                else:
+                    y -= 1
+
+                # if successful add: stop inner for loop
+                if self.add_acids([Amino_Acid(letter, (x, y))], False):
+                    break
+
+                # if at end inner forloop no add: accept invalid, force to valid
+                elif i == 3:
+                    self.acids.append(Amino_Acid(letter, (x, y)))
+                    self.force_vadil()
+
+        self.draw()
+        return True
 
 
     def stability(self):
