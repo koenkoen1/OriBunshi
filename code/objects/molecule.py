@@ -17,7 +17,7 @@ class Molecule(object):
         elif method == 'acids':
             self.load_acids()
         elif method == 'random':
-            self.load_random()
+            self.load_random(self.sequence)
         else:
             print('No valid loading method.')
 
@@ -161,10 +161,9 @@ class Molecule(object):
 
                         # if index[0] + 1 also unsuccessful, turn random index
                         if indexes and indexes[0] == compare:
-                            self.turn(random.randint(1, len(self.sequence) - 1),
+                            self.turn(random.randint(indexes[0] + 1, indexes[1]),
                                       dir[0])
                             indexes = self.check_vadility(True)
-
         return True
 
 
@@ -246,16 +245,16 @@ class Molecule(object):
         # print(self)
 
 
-    def load_random(self):
+    def load_random(self, sequence):
         """
         Loads a random configuration of molecule's sequence.
         """
-
+        self.sequence = ""
         # load first two acids at (0, 0) and (1, 0)
-        self.add_acids([Amino_Acid(self.sequence[0], (0, 0)),
-                        Amino_Acid(self.sequence[1], (1, 0))], False)
+        self.add_acids([Amino_Acid(sequence[0], (0, 0)),
+                        Amino_Acid(sequence[1], (1, 0))], True)
 
-        copy_seq = self.sequence[2:]
+        copy_seq = sequence[2:]
 
         # load rest of acids at random neighbouring place to previous acid
         for letter in copy_seq:
@@ -288,9 +287,9 @@ class Molecule(object):
                 # if at end inner forloop no add: accept invalid, force to valid
                 elif i == 3:
                     self.acids.append(Amino_Acid(letter, (x, y)))
+                    self.sequence += letter
                     self.force_vadil()
 
-        self.draw()
         return True
 
 
