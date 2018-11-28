@@ -9,14 +9,14 @@ import math
 from amino_acid import Amino_Acid
 from molecule import Molecule
 
-def randomsample(molecule, iterations):
+def randomsample(sequence, iterations):
 
         # produces a hardcoded stability list
-        solutions = [0 for i in range(len(molecule.sequence))]
+        solutions = [0 for i in range(len(sequence))]
 
         i = 0
         while i < iterations:
-            molecule = Molecule("PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP", 'random')
+            molecule = Molecule(sequence, 'random')
             solutions[-molecule.stability()] += 1
             print(i)
             i += 1
@@ -26,4 +26,4 @@ def randomsample(molecule, iterations):
             i += 1
 
 if __name__ == '__main__':
-    randomsample(Molecule("PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP", "direct"), 100000)
+    randomsample("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 100000)
