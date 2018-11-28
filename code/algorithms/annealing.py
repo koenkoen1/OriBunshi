@@ -11,6 +11,7 @@ from amino_acid import Amino_Acid
 from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
+
 BEGINTEMP = 200
 
 def tempfunc(k):
@@ -19,7 +20,8 @@ def tempfunc(k):
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-def anneal(molecule):
+def aneal(molecule):
+    spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
     reheat = 0
@@ -46,11 +48,3 @@ def anneal(molecule):
             reheat += 1
 
     return molecule
-
-
-if __name__ == '__main__':
-    molecule = Molecule('PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP', 'direct')
-    spiralfold(molecule, len(molecule.sequence))
-    molecule = aneal(molecule)
-    print(molecule.check_vadility())
-    molecule.draw()

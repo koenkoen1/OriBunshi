@@ -165,6 +165,7 @@ def main():
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
             print("anneal: performs the 'simulated annealing' algorithm on the molecule")
+            print("sample: get best out of given number of samples")
             print("quit: quits the application")
         else:
             print("invalid command")
