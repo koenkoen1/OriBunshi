@@ -20,7 +20,7 @@ def tempfunc(k):
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-def aneal(molecule):
+def anneal(molecule):
     spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
