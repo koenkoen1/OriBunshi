@@ -11,24 +11,23 @@ from amino_acid import Amino_Acid
 from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
-
+BEGINTEMP = 200
 
 def tempfunc(k):
-    begintemperature = 200
-    return  (begintemperature / (1 + math.log10(1 + k)))
+    return  (BEGINTEMP / (1 + math.log10(1 + k)))
 
-
+def kfunc(temp):
+    return 10 ** (BEGINTEMP/temp - 1) - 1
 
 def aneal(molecule):
-    begintemperature = 200
     k = 0
     temperature = tempfunc(k)
-    iterations = 0
-    while temperature > 32:
+    reheat = 0
+    while reheat < 2:
         k += 1
         print(f"Temp: {temperature}")
-        print(iterations)
         currentstability = molecule.stability()
+        print(f"stability: {currentstability}")
         oldmolecule = copy.deepcopy(molecule)
         randomturns(molecule, random.randint(0, 3))
 
@@ -38,22 +37,19 @@ def aneal(molecule):
             temperature = tempfunc(k)
         else:
             temperature = tempfunc(k)
-            acceptprobability = math.exp(((currentstability - molecule.stability()) * 200) / temperature)
+            acceptprobability = math.exp(((currentstability - molecule.stability()) * 175) / temperature)
             x = random.uniform(0,1)
-            if acceptprobability < x or molecule.stability() == currentstability:
+            if acceptprobability < x:
                 molecule = oldmolecule
-                iterations += 1
-            else:
-                iterations = 0
-        if iterations > 2000:
-            iterations = 0
-            k -= 1500
+        if temperature < 37:
+            k = kfunc(50)
+            reheat += 1
 
     return molecule
 
 
 if __name__ == '__main__':
-    molecule = Molecule('HPHPPHHPHPPHPHHPPHPH', 'direct')
+    molecule = Molecule('PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP', 'direct')
     spiralfold(molecule, len(molecule.sequence))
     molecule = aneal(molecule)
     print(molecule.check_vadility())
