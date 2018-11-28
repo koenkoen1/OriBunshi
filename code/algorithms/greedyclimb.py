@@ -15,30 +15,33 @@ def climb(molecule, turnpoint = []):
         # trying out double turns
         turn(2, molecule)
 
-    """
-    FIXME: snake path
-    if turnpoint > 4:
-        testmolecule = copy.deepcopy(molecule)
-        for i in range(2):
-            testymolecule = copy.deepcopy(testmolecule)
-            testymolecule.turn(turnpoint + 1, directions[i])
-            testymolecule.turn(turnpoint + 2, directions[i - 1])
-            if testymolecule.check_vadility():
-                testmolecule = testymolecule
-        loop = 3
-        while loop < turnpoint:
+    """ FIXME: snake path(turnpoints)
+    # make snaketurn if there is enough space
+    prevturn = 0
+    for turnpoint in turnpoints
+        if turnpoint - prevturn > 4:
+            testmolecule = copy.deepcopy(molecule)
             for i in range(2):
                 testymolecule = copy.deepcopy(testmolecule)
-                testymolecule.turn(loop - 3, directions[i])
-                testymolecule.turn(loop - 2, directions[i - 1])
-                testymolecule.turn(loop - 1, directions[i - 1])
-                testymolecule.turn(loop, directions[i])
-                testymolecule.draw()
-                if (testmolecule.check_vadility() and
-                    testmolecule.stability() < currentstability):
-                    currentstability = testmolecule.stability()
-                    route = [loop]
-            loop += 1
+                testymolecule.turn(turnpoint + 1, directions[i])
+                testymolecule.turn(turnpoint + 2, directions[i - 1])
+                if testymolecule.check_vadility():
+                    testmolecule = testymolecule
+            loop = 3
+            while loop < turnpoint:
+                for i in range(2):
+                    testymolecule = copy.deepcopy(testmolecule)
+                    testymolecule.turn(loop - 3, directions[i])
+                    testymolecule.turn(loop - 2, directions[i - 1])
+                    testymolecule.turn(loop - 1, directions[i - 1])
+                    testymolecule.turn(loop, directions[i])
+                    testymolecule.draw()
+                    if (testmolecule.check_vadility() and
+                        testmolecule.stability() < currentstability):
+                        currentstability = testmolecule.stability()
+                        route = [loop]
+                loop += 1
+
     """
 def turn(turns, molecule):
     length = len(molecule.sequence)
@@ -62,5 +65,5 @@ def turn(turns, molecule):
     return False
 
 if __name__ == '__main__':
-    molecule = Molecule('HHPHHHPHPHHHPH', 'direct')
+    molecule = Molecule('PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP', 'direct')
     climb(molecule)
