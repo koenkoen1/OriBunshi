@@ -11,13 +11,13 @@ Draaifunctie die "foute draaien aanpast"
 
 end colony?
 
-Lower bound doelfunctie: regels met even en oneven index H's --> even altijd bond met oneven. 
+Lower bound doelfunctie: regels met even en oneven index H's --> even altijd bond met oneven.
 
 
 Cijfers:
 Hebben:
 Data/Infra: 5
-Explortation: 2
+Explortation: 3
 Algorithms: 1
 
 Aangevraagd:
