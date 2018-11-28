@@ -19,7 +19,7 @@ def tempfunc(k):
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-def aneal(molecule):
+def anneal(molecule):
     k = 0
     temperature = tempfunc(k)
     reheat = 0
