@@ -9,40 +9,13 @@ from molecule import Molecule
 
 directions = ["Left", "Right"]
 
-def climb(molecule, turnpoint = []):
+def climb(molecule):
     # trying out single turns
     if not turn(1, molecule):
         # trying out double turns
         turn(2, molecule)
+    return molecule
 
-    """ FIXME: snake path(turnpoints)
-    # make snaketurn if there is enough space
-    prevturn = 0
-    for turnpoint in turnpoints
-        if turnpoint - prevturn > 4:
-            testmolecule = copy.deepcopy(molecule)
-            for i in range(2):
-                testymolecule = copy.deepcopy(testmolecule)
-                testymolecule.turn(turnpoint + 1, directions[i])
-                testymolecule.turn(turnpoint + 2, directions[i - 1])
-                if testymolecule.check_vadility():
-                    testmolecule = testymolecule
-            loop = 3
-            while loop < turnpoint:
-                for i in range(2):
-                    testymolecule = copy.deepcopy(testmolecule)
-                    testymolecule.turn(loop - 3, directions[i])
-                    testymolecule.turn(loop - 2, directions[i - 1])
-                    testymolecule.turn(loop - 1, directions[i - 1])
-                    testymolecule.turn(loop, directions[i])
-                    testymolecule.draw()
-                    if (testmolecule.check_vadility() and
-                        testmolecule.stability() < currentstability):
-                        currentstability = testmolecule.stability()
-                        route = [loop]
-                loop += 1
-
-    """
 def turn(turns, molecule):
     length = len(molecule.sequence)
     route = False
@@ -59,11 +32,11 @@ def turn(turns, molecule):
     if route:
         molecule.turn(route[0], route[1])
         molecule.turn(route[0] + 1, route[1])
-        molecule.draw()
-        climb(molecule, route[0])
+        climb(molecule)
         return True
     return False
 
 if __name__ == '__main__':
     molecule = Molecule('PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP', 'direct')
-    climb(molecule)
+    mol = climb(molecule)
+    mol.draw()
