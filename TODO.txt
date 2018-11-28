@@ -1,23 +1,28 @@
-Statespace dingen in de readme
-Doelfunctie dingen in de readme
-
-Graphical representation verbeteren (legenda, stability)
-
-help function in main
-
-Simulated annealing (eerst hillclimber) --> inlezen op cooling schemes/reheating schemes
-
 Draaifunctie die "foute draaien aanpast"
 
-end colony?
+ant colony?
 
 Lower bound doelfunctie: regels met even en oneven index H's --> even altijd bond met oneven.
+
+Cysteïne toevoegen
+
+Derde dimensie toevoegen
+
+
+<<<<<<< HEAD
+Lower bound doelfunctie: regels met even en oneven index H's --> even altijd bond met oneven.
+=======
+>>>>>>> 28e3fe667454d75dc922aa371971ed9db65b5ca9
 
 
 Cijfers:
 Hebben:
 Data/Infra: 5
+<<<<<<< HEAD
 Explortation: 3
+=======
+Exploitation: 3
+>>>>>>> 28e3fe667454d75dc922aa371971ed9db65b5ca9
 Algorithms: 1
 
 Aangevraagd:

@@ -10,10 +10,10 @@ from greedyadd import greedyadd
 from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
-from depth import depth
+from annealing import anneal
+from randomsample import randomsample
 
 directions = ["Left", "Right"]
-
 
 def load_sequence():
     """
@@ -54,16 +54,11 @@ def load_sequence():
     else:
         return load_sequence()
 
-def main():
-    """
-    Gets sequence from load_sequence function, loads sequence into datastructure.
-    Then waits for command from user. Executes specified command if valid.
-    """
-    sequence = load_sequence()
-
+def load_molecuel(sequence):
     # prompt user for molecule loading method and validate input
     method = input("Molecule loading method" \
                    "(direct, acids, greedyadd, depth, random): ")
+    molecule = 0
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
     elif method == 'greedyadd':
@@ -76,10 +71,18 @@ def main():
         molecule = Molecule(sequence, method)
     else:
         print('No valid loading method.')
-        return 1
+        return load_molecuel(sequence)
+    return molecule
+
+def main():
+    """
+    Gets sequence from load_sequence function, loads sequence into datastructure.
+    Then waits for command from user. Executes specified command if valid.
+    """
+    sequence = load_sequence()
+    molecule = load_molecuel(sequence)
 
     while True:
-
         # prompt user for command
         command = input("command: ").split()
 
@@ -89,6 +92,25 @@ def main():
         elif command[0] == "spiral":
             spiralfold(molecule, len(sequence))
             print(f"stability: {molecule.stability()}")
+
+        elif command[0] == "anneal":
+            molecule = anneal(molecule)
+            molecule.draw()
+
+        elif command[0] == "sample":
+            iterations = ''
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                iterations = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("use: random iterations")
+                continue
+
+            randomsample(molecule.sequence, iterations)
 
         elif command[0] == "random":
             iterations = ''
@@ -142,6 +164,8 @@ def main():
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
+            print("anneal: performs the 'simulated annealing' algorithm on the molecule")
+            print("sample: get best out of given number of samples")
             print("quit: quits the application")
         else:
             print("invalid command")
