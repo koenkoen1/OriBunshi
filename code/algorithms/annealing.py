@@ -20,7 +20,7 @@ def tempfunc(k):
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-def aneal(molecule):
+def anneal(molecule):
     spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
@@ -43,7 +43,7 @@ def aneal(molecule):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 molecule = oldmolecule
-        if temperature < 37:
+        if temperature < 36:
             k = kfunc(50)
             reheat += 1
 
