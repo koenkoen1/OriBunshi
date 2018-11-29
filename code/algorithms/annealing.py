@@ -91,7 +91,7 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 molecule = oldmolecule
-        if temperature < 37:
+        if temperature < 36:
             k = kfunc(50)
             reheat += 1
 
