@@ -21,14 +21,17 @@ def turn(turns, molecule):
     route = False
     currentstability = molecule.stability()
     for i in range(1, length - 1):
-        for direction in directions:
-            testmolecule = copy.deepcopy(molecule)
+        for j in range(2):
             for turn in range(turns):
-                testmolecule.turn(i + turn, direction)
-            if (testmolecule.check_vadility() and
-                testmolecule.stability() < currentstability):
-                currentstability = testmolecule.stability()
-                route = [i, direction]
+                molecule.turn(i + turn, directions[j])
+            if (molecule.check_vadility() and
+                molecule.stability() < currentstability):
+                currentstability = molecule.stability()
+                route = [i, directions[j]]
+                molecule.draw()
+            for turn in range(turns):
+                    molecule.turn(i + turn, directions[j - 1])
+
     if route:
         molecule.turn(route[0], route[1])
         molecule.turn(route[0] + 1, route[1])
