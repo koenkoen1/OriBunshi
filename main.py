@@ -177,7 +177,8 @@ def main():
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
-            print("anneal: performs the 'simulated annealing' algorithm on the molecule")
+            print("anneal: performs the 'simulated annealing' algorithm on the"\
+                  " molecule (usage: anneal (save))")
             print("sample: get best out of given number of samples")
             print("quit: quits the application")
         else:
