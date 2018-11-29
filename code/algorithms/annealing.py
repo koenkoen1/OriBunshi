@@ -5,7 +5,6 @@ parentdir = os.path.dirname(directory)
 sys.path.append(os.path.join(parentdir, "objects"))
 
 import copy
-import csv
 import datetime
 import math
 import random
@@ -13,26 +12,9 @@ from amino_acid import Amino_Acid
 from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
+from write_csv import write_csv
 
 BEGINTEMP = 200
-
-
-def filepath():
-    """
-    Outputs a filepath for saving output data.
-    """
-
-    # save output in results directory
-    path = "./results/"
-
-    # increment filename with 1 wrt last file, to not overwrite it
-    i = 0
-    while os.path.exists(f"{path}annealing{i}.csv"):
-        i += 1
-
-    filepath = f"{path}annealing{i}.csv"
-
-    return filepath
 
 
 def tempfunc(k):
@@ -41,23 +23,6 @@ def tempfunc(k):
 
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
-
-
-def write_csv(outfile, data, molecule):
-    """
-    Output a CSV file with given data.
-    """
-    writer = csv.writer(outfile)
-
-    # write header
-    writer.writerow([datetime.datetime.now(),])
-    writer.writerow([f'sequence = {molecule.sequence}',])
-    writer.writerow([f'start temperature = {BEGINTEMP}',])
-    writer.writerow(['temperature', 'stability'])
-
-    # iterate over and write movies
-    for iteration in data:
-        writer.writerow(iteration)
 
 
 def anneal(molecule, save_data=False):
@@ -96,7 +61,12 @@ def anneal(molecule, save_data=False):
             reheat += 1
 
     if save_data:
-        with open(filepath(), 'w', newline='') as output_file:
-            write_csv(output_file, data, molecule)
+        header = ['temperature', 'stability',
+                  datetime.datetime.now(),
+                  f'sequence = {molecule.sequence}',
+                  f'start temperature = {BEGINTEMP}']
+
+        write_csv("annealing", header, data)
+
 
     return molecule
