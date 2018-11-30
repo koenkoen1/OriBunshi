@@ -38,7 +38,7 @@ def anneal(molecule, save_data=False):
     temperature = tempfunc(k)
     reheat = 0
     data = []
-    maxreheat = 4
+    maxreheat = 6
     while reheat < maxreheat:
         k += 1
         print(f"Temp: {temperature}")
@@ -49,8 +49,8 @@ def anneal(molecule, save_data=False):
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
-        randomturns(molecule, random.randint(1, 2))
-        molecule.force_vadil()
+        randomturns(molecule, random.randint(1, 3))
+        # molecule.force_vadil()
         currentstability = molecule.stability()
 
         if molecule.stability() < oldstability:
@@ -66,8 +66,8 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 41:
-            k = kfunc(60)
+        if temperature < 40:
+            k = kfunc(200)
             reheat += 1
 
     # write data to csv file if save option was chosen
