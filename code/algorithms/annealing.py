@@ -20,30 +20,39 @@ def tempfunc(k):
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
+
+def copylocations(molecule1, molecule2):
+    for index, amino_acid in enumerate(molecule2.acids):
+        molecule1.acids[index].coordinates = amino_acid.coordinates
+
+
+
 def anneal(molecule):
     spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
     reheat = 0
-    while reheat < 2:
+    maxreheat = 4
+    oldmolecule = copy.deepcopy(molecule)
+
+    while reheat < maxreheat or temperature > 36:
         k += 1
         print(f"Temp: {temperature}")
         currentstability = molecule.stability()
         print(f"stability: {currentstability}")
-        oldmolecule = copy.deepcopy(molecule)
+        copylocations(oldmolecule, molecule)
         randomturns(molecule, random.randint(0, 3))
-
         molecule.force_vadil()
 
         if molecule.stability() < currentstability:
             temperature = tempfunc(k)
         else:
             temperature = tempfunc(k)
-            acceptprobability = math.exp(((currentstability - molecule.stability()) * 175) / temperature)
+            acceptprobability = math.exp(((currentstability - molecule.stability()) * 180) / temperature)
             x = random.uniform(0,1)
             if acceptprobability < x:
-                molecule = oldmolecule
-        if temperature < 36:
+                copylocations(molecule, oldmolecule)
+        if temperature < 40:
             k = kfunc(50)
             reheat += 1
 
