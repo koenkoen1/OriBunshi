@@ -114,7 +114,7 @@ class Molecule(object):
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b',
                  markersize=10)
         plt.legend()
-        plt.suptitle(f"Stability = {self.stability()}")
+        plt.suptitle(f"Stability = {self.stability()}", fontweight='bold')
         plt.title(f"sequence = {self.sequence}", fontsize=10)
 
         # shows the plot
