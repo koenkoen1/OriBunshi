@@ -26,6 +26,8 @@ Bij de grotere moleculen is er geen depth first oplossing beschikbaar dus moeten
 
 ##### Molecule 3:
 De beste annealing oplossing die we hebben gevonden is van stabiliteit van -12 (zie plaatje) dit is drie stability punten lager dan gevonden in de willkeurige oplossingen distributie (n = 100.000). Dit vertelt ons dat we een stabiliteit hebben gevonden die een erg lage oplossingsdichtheid heeft.
+
+
 ![anealing best molecule 2](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_3/pictures/best.png?raw=true)
 
 #### Molecule 4:
