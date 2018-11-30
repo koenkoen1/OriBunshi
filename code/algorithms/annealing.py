@@ -32,6 +32,9 @@ def copylocations(molecule1, molecule2):
 
 
 def anneal(molecule, save_data=False):
+    loweststability = 1
+    lowestmolecule = Molecule('H', 'direct')
+    oldmolecule = copy.deepcopy(molecule)
     spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
@@ -40,19 +43,21 @@ def anneal(molecule, save_data=False):
     maxreheat = 4
     while reheat < maxreheat:
         k += 1
-        # print(f"Temp: {temperature}")
+        print(f"Temp: {temperature}")
         currentstability = molecule.stability()
-        # print(f"stability: {currentstability}")
+        print(f"stability: {currentstability}")
 
         save_iter = [temperature, currentstability]
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
-        randomturns(molecule, random.randint(0, 3))
+        randomturns(molecule, random.randint(1, 2))
         molecule.force_vadil()
 
         if molecule.stability() < currentstability:
             temperature = tempfunc(k)
+            if molecule.stability() < loweststability:
+                lowestmolecule = copy.deepcopy(molecule)
         else:
             temperature = tempfunc(k)
             acceptprobability = math.exp(((currentstability -
@@ -72,6 +77,6 @@ def anneal(molecule, save_data=False):
                   f'start temperature = {BEGINTEMP}']
 
         write_csv("annealing", header, data)
+    lowestmolecule.draw()
 
-
-    return molecule
+    return lowestmolecule
