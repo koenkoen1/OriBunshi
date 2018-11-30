@@ -8,12 +8,9 @@ def randomturns(molecule, x):
     acids attribute of the molecule with the best sequence found.
     """
     i = 0
-    # lowest = molecule.stability()
-    # lowestsequence = copy.deepcopy(molecule.acids)
     while i < x:
-        backupseqence = copy.deepcopy(molecule.acids)
 
-        #make a random turn
+        #make a random tuns
         randomnode = random.randint(1, len(molecule.acids) - 1)
         randomdirection = random.randint(0, 1)
         if randomdirection == 0:
@@ -22,4 +19,3 @@ def randomturns(molecule, x):
             randomdirection = 'Left'
         molecule.turn(randomnode, randomdirection)
         i = i + 1
-        

@@ -384,3 +384,31 @@ class Molecule(object):
         string = "\n".join(amino_acids)
 
         return string
+
+
+    def force_valid(self):
+        """
+        Forces molecule in valid configuration after invalid turn. Returns True
+        if successful, else False.
+        """
+
+        # find indexes of first collision
+        indexes = self.check_vadility(True);
+
+        i = 1
+        # continue until there are no collisions
+        while indexes:
+            dir = ['Left', 'Right']
+            random.shuffle(dir)
+            self.turn(indexes[0] + i, dir[0])
+            indexes = self.check_vadility(True);
+            if not indexes:
+                break
+            self.turn(indexes[1] - i, dir[0])
+            indexes = self.check_vadility(True);
+            if not indexes:
+                break
+            i += 1
+            if indexes[1] - i <= indexes[0]:
+                i = 1
+        return True
