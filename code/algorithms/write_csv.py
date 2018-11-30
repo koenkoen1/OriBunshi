@@ -6,6 +6,7 @@ sys.path.append(os.path.join(parentdir, "objects"))
 
 import csv
 
+
 def filepath(name):
     """
     Outputs a filepath for saving output data.

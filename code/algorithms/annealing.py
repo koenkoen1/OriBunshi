@@ -30,7 +30,6 @@ def copylocations(molecule1, molecule2):
         molecule1.acids[index].coordinates = amino_acid.coordinates
 
 
-
 def anneal(molecule, save_data=False):
     loweststability = 1
     lowestmolecule = Molecule('H', 'direct')
@@ -72,6 +71,7 @@ def anneal(molecule, save_data=False):
             k = kfunc(55)
             reheat += 1
 
+    # write data to csv file if save option was chosen
     if save_data:
         header = ['temperature', 'stability',
                   datetime.datetime.now(),
