@@ -16,6 +16,7 @@ from randomsample import randomsample
 
 directions = ["Left", "Right"]
 
+
 def load_sequence():
     """
     Asks user for a sequence, which can be custom or one of the standard
@@ -55,7 +56,12 @@ def load_sequence():
     else:
         return load_sequence()
 
+
 def load_molecuel(sequence):
+    """
+    Prompts user to choose a method to loads molecule with chosen sequence, and
+    loads molecule via that method.
+    """
 
     # prompt user for molecule loading method and validate input
     method = input("Molecule loading method" \
@@ -75,6 +81,7 @@ def load_molecuel(sequence):
         print('No valid loading method.')
         return load_molecuel(sequence)
     return molecule
+
 
 def main():
     """
@@ -98,11 +105,12 @@ def main():
         elif command[0] == "anneal":
             save_data = False
 
+            # check if the save command was given, if so let anneal save data
             try:
                 if command[1] == "save":
                     save_data = True
                 else:
-                    print(f"Error: {command[1]} is an unaccepted command."
+                    print(f"Error: {command[1]} is not accepted."
                           "Usage: anneal (save)")
             except IndexError:
                 pass
@@ -112,6 +120,7 @@ def main():
 
         elif command[0] == "sample":
             iterations = ''
+            save_data = False
 
             # check for errors and convert to convert variables to proper format
             try:
@@ -120,10 +129,20 @@ def main():
                 print(f"Error: {command[1]} is not a number")
                 continue
             except IndexError:
-                print("use: random iterations")
+                print("use: random iterations (save)")
                 continue
 
-            randomsample(molecule.sequence, iterations)
+            # check if save command was given, if so let randomsaple save data
+            try:
+                if command[2] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[2]} is not accepted."
+                          "Usage: random iterations (save)")
+            except IndexError:
+                pass
+
+            randomsample(molecule.sequence, iterations, save_data)
 
         elif command[0] == "random":
             iterations = ''
