@@ -281,6 +281,7 @@ class Molecule(object):
 
                 # if successful add: stop inner for loop
                 if self.add_acids([Amino_Acid(letter, (x, y))], False):
+                    self.sequence += letter
                     break
 
                 # if at end inner forloop no add: accept invalid, force to valid
