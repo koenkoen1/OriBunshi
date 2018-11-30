@@ -16,15 +16,15 @@ from write_csv import write_csv
 
 BEGINTEMP = 200
 
-
+# function that tranforms amount of iterations to a temperature
 def tempfunc(k):
     return  (BEGINTEMP / (1 + math.log10(1 + k)))
 
-
+# function that transforms temperature to iterations
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-
+# function that copies the coordinates from another molecule
 def copylocations(molecule1, molecule2):
     for index, amino_acid in enumerate(molecule2.acids):
         molecule1.acids[index].coordinates = amino_acid.coordinates

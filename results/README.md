@@ -6,6 +6,9 @@ De results zijn opgedeeld per algoritme waarin mappen zijn gegeven voor de versc
 
 ## toelichting:
 
+### Depth first:
+Met depth first zijn de eerste twee moleculen hun beste configuratie gevonden. deze resulaten zijn te zien in hun mappen.
+
 #### Depth first vs Randomsample:
 In molecule 2 kunnen we Depth first vergelijken met random sample.
 ![Depth vs Random pic](randomvsdepth.png)
@@ -23,7 +26,7 @@ Bij de grotere moleculen is er geen depth first oplossing beschikbaar dus moeten
 
 ##### Molecule 3:
 De beste annealing oplossing die we hebben gevonden is van stabiliteit van -12 (zie plaatje) dit is drie stability punten lager dan gevonden in de willkeurige oplossingen distributie (n = 100.000). Dit vertelt ons dat we een stabiliteit hebben gevonden die een erg lage oplossingsdichtheid heeft.
-![anealing best molecule 2](Anneal\Molecule_3\pictures\best.png)
+![anealing best molecule 2](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_3/pictures/best.png?raw=true)
 
 #### Molecule 4:
 In molecule 4 hebben we uitgebreider het verschil getest tussen beide algoritmes. het verschil in de distributies is hieronder te zien:
@@ -32,4 +35,4 @@ In molecule 4 hebben we uitgebreider het verschil getest tussen beide algoritmes
 
 
 De beste oplossing gevonden is -20 deze is 7 stabiliteit punten beter dan de randomsample geeft
-![annealing best](Anneal\Molecule_4\pictures\best.png)
+![annealing best](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_4/pictures/best.png?raw=true)
