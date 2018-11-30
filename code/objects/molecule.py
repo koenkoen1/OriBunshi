@@ -71,6 +71,7 @@ class Molecule(object):
         ycoordinates = []
         Hxcoordinates = []
         Hycoordinates = []
+
         # draws the lines between the amino acid sequence
         for amino_acid in self.acids:
             if amino_acid.kind == 'H':
@@ -113,10 +114,8 @@ class Molecule(object):
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b',
                  markersize=10)
         plt.legend()
-        plt.title(f"Current molecule, stability = {self.stability()}")
-        # plt.xticks(range( -len(self.sequence), len(self.sequence) ))
-        # plt.yticks(range( -len(self.sequence), len(self.sequence) ))
-        # for every amino acid check every amino acid
+        plt.suptitle(f"Stability = {self.stability()}")
+        plt.title(f"sequence = {self.sequence}", fontsize=10)
 
         # shows the plot
         plt.show()
