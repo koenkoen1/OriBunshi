@@ -21,13 +21,5 @@ def randomturns(molecule, x):
         else:
             randomdirection = 'Left'
         molecule.turn(randomnode, randomdirection)
-
-        #check if the resulting turn is valid
-        # if not molecule.check_vadility():
-        #     molecule.acids = backupseqence
-        # elif lowest > molecule.stability():
-        #     lowest = molecule.stability()
-        #     lowestsequence = copy.deepcopy(molecule.acids)
         i = i + 1
-
-    # molecule.acids = lowestsequence
+        
