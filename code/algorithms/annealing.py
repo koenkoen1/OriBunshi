@@ -34,7 +34,6 @@ def anneal(molecule, save_data=False):
     loweststability = 1
     lowestmolecule = Molecule('H', 'direct')
     oldmolecule = copy.deepcopy(molecule)
-    spiralfold(molecule, len(molecule.sequence))
     k = 0
     temperature = tempfunc(k)
     reheat = 0
@@ -67,8 +66,8 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 37:
-            k = kfunc(55)
+        if temperature < 41:
+            k = kfunc(60)
             reheat += 1
 
     # write data to csv file if save option was chosen
