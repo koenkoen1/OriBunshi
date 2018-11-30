@@ -8,6 +8,7 @@ sys.path.append(os.path.join(directory, "results"))
 
 from depth import depth
 from greedyadd import greedyadd
+from greedyclimb import climb
 from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
@@ -85,7 +86,7 @@ def load_molecuel(sequence):
 
 def main():
     """
-    Gets sequence from load_sequence function, loads sequence into datastructure.
+    Gets sequence and molecule object from load functions.
     Then waits for command from user. Executes specified command if valid.
     """
     sequence = load_sequence()
@@ -101,6 +102,9 @@ def main():
         elif command[0] == "spiral":
             spiralfold(molecule, len(sequence))
             print(f"stability: {molecule.stability()}")
+
+        elif command[0] == "climb":
+            climb(molecule)
 
         elif command[0] == "anneal":
             save_data = False
@@ -196,7 +200,9 @@ def main():
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
-            print("anneal: performs the 'simulated annealing' algorithm on the"\
+            print("climb: performs a 'maximum ascent hillclimber' algorithm on"+
+                  " the molecule (usage: climb)")
+            print("anneal: performs the 'simulated annealing' algorithm on the"+
                   " molecule (usage: anneal (save))")
             print("sample: get best out of given number of samples")
             print("quit: quits the application")
