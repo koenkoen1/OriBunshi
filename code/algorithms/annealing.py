@@ -58,6 +58,7 @@ def anneal(molecule, save_data=False):
             temperature = tempfunc(k)
             if molecule.stability() < loweststability:
                 lowestmolecule = copy.deepcopy(molecule)
+                loweststability = molecule.stability()
         else:
             temperature = tempfunc(k)
             acceptprobability = math.exp(((currentstability -
