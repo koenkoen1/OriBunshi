@@ -4,6 +4,7 @@ directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
+sys.path.append(os.path.join(directory, "results"))
 
 from depth import depth
 from greedyadd import greedyadd
@@ -55,6 +56,7 @@ def load_sequence():
         return load_sequence()
 
 def load_molecuel(sequence):
+
     # prompt user for molecule loading method and validate input
     method = input("Molecule loading method" \
                    "(direct, acids, greedyadd, depth, random): ")
@@ -94,7 +96,18 @@ def main():
             print(f"stability: {molecule.stability()}")
 
         elif command[0] == "anneal":
-            molecule = anneal(molecule)
+            save_data = False
+
+            try:
+                if command[1] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[1]} is an unaccepted command."
+                          "Usage: anneal (save)")
+            except IndexError:
+                pass
+
+            molecule = anneal(molecule, save_data)
             molecule.draw()
 
         elif command[0] == "sample":
@@ -164,7 +177,8 @@ def main():
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
-            print("anneal: performs the 'simulated annealing' algorithm on the molecule")
+            print("anneal: performs the 'simulated annealing' algorithm on the"\
+                  " molecule (usage: anneal (save))")
             print("sample: get best out of given number of samples")
             print("quit: quits the application")
         else:
