@@ -17,7 +17,7 @@ def bar(df, filepath, title):
 
     # plot bar chart
     df.plot(x='stability', y='solutions found', kind='bar', legend=False,
-            color='orange')
+            logy=True, color='orange')
 
     # layout
     plt.suptitle(title, fontsize=13, fontweight='bold')
@@ -70,8 +70,6 @@ def remove_end_zero(df):
 
     while df.iloc[-1,1] == 0:
         df = df[:-1]
-
-    print(df)
 
     return df
 
