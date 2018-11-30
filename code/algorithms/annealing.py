@@ -44,31 +44,32 @@ def anneal(molecule, save_data=False):
     while reheat < maxreheat:
         k += 1
         print(f"Temp: {temperature}")
-        currentstability = molecule.stability()
-        print(f"stability: {currentstability}")
+        oldstability = molecule.stability()
+        print(f"stability: {oldstability}")
 
-        save_iter = [temperature, currentstability]
+        save_iter = [temperature, oldstability]
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
         randomturns(molecule, random.randint(1, 2))
         molecule.force_vadil()
+        currentstability = molecule.stability()
 
-        if molecule.stability() < currentstability:
+        if molecule.stability() < oldstability:
             temperature = tempfunc(k)
             if molecule.stability() < loweststability:
                 lowestmolecule = copy.deepcopy(molecule)
-                loweststability = molecule.stability()
+                loweststability = currentstability
         else:
             temperature = tempfunc(k)
-            acceptprobability = math.exp(((currentstability -
-                                           molecule.stability()) * 175)
+            acceptprobability = math.exp(((oldstability -
+                                           currentstability) * 170)
                                          / temperature)
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 40:
-            k = kfunc(50)
+        if temperature < 37:
+            k = kfunc(55)
             reheat += 1
 
     if save_data:
