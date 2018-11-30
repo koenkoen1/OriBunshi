@@ -5,6 +5,7 @@ parentdir = os.path.dirname(directory)
 sys.path.append(os.path.join(parentdir, "objects"))
 
 import csv
+from plot import plot
 
 
 def filepath(name):
@@ -29,8 +30,8 @@ def write_csv(name, header, data):
     """
     Output a CSV file with given data.
     """
-
-    with open(filepath(name), 'w', newline='') as output_file:
+    path = filepath(name)
+    with open(path, 'w', newline='') as output_file:
         writer = csv.writer(output_file)
 
         # write header
@@ -39,3 +40,5 @@ def write_csv(name, header, data):
         # iterate over and write movies
         for iteration in data:
             writer.writerow(iteration)
+
+    plot(name, path)
