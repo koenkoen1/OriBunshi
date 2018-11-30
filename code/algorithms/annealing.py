@@ -51,7 +51,7 @@ def anneal(molecule, save_data=False):
         else:
             temperature = tempfunc(k)
             acceptprobability = math.exp(((currentstability -
-                                           molecule.stability()) * 175)
+                                           molecule.stability()) * 170)
                                          / temperature)
             x = random.uniform(0,1)
             if acceptprobability < x:
