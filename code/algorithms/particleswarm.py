@@ -13,8 +13,8 @@ from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
 from write_csv import write_csv
-
-sequence = "PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP"
+from greedyclimb import climb
+sequence = "HHPHHHPH"
 
 # properties [[[movement, velocity],..], personalbest, personalbestmovement]
 def particleswarm(sequence):
@@ -23,12 +23,12 @@ def particleswarm(sequence):
     stagbest = 1
     gbest = 0
     w = 0.5
-    for i in range(100):
+    for i in range(20):
         molecule = Molecule(sequence, "random")
         pop.append(molecule)
         properties.append([notate(molecule), 1, 1])
     x = 0
-    while x < 300:
+    while x < 100:
         for index, molecule in enumerate(pop):
 
             # pbest
@@ -47,6 +47,7 @@ def particleswarm(sequence):
                 location[1] = location[1] * w + r1 * (gbest[indexx][0] - location[0]) + r2 * (properties[index][2][indexx][0] - location[0])
                 location[0] = int(location[0]  + location[1])
             molecule, properties[index][0]  = transform(properties[index][0])
+            climb(molecule)
         x += 1
     transform(gbest)[0].draw()
 
@@ -95,4 +96,4 @@ def getbest(properties):
             lowest = property[2]
     return lowest
 if __name__ == '__main__':
-    particleswarm("PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP")
+    particleswarm("HHPHHHPH")
