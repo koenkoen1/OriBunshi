@@ -30,7 +30,7 @@ def depth(sequence):
     stack.append(molecule)
 
     # define the lowest stability found (placeholder = 0) + placeholder molecule
-    lowest = 0
+    lowest = 1
     lowestmolecule = Molecule("H", "direct")
     while stack != []:
         current = stack.pop()

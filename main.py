@@ -4,13 +4,16 @@ directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
+sys.path.append(os.path.join(directory, "results"))
 
 from depth import depth
 from greedyadd import greedyadd
+from greedyclimb import climb
 from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
-from depth import depth
+from annealing import anneal
+from randomsample import randomsample
 
 directions = ["Left", "Right"]
 
@@ -54,15 +57,17 @@ def load_sequence():
     else:
         return load_sequence()
 
-def main():
+
+def load_molecuel(sequence):
     """
-    Gets sequence from load_sequence function, loads sequence into datastructure.
-    Then waits for command from user. Executes specified command if valid.
+    Prompts user to choose a method to loads molecule with chosen sequence, and
+    loads molecule via that method.
     """
-    sequence = load_sequence()
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method (direct, acids, greedyadd, depth): ")
+    method = input("Molecule loading method" \
+                   "(direct, acids, greedyadd, depth, random): ")
+    molecule = 0
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
     elif method == 'greedyadd':
@@ -71,12 +76,23 @@ def main():
         print(f"stability: {molecule.stability()}")
     elif method == "depth":
         molecule = depth(sequence)
+    elif method == "random":
+        molecule = Molecule(sequence, method)
     else:
         print('No valid loading method.')
-        return 1
+        return load_molecuel(sequence)
+    return molecule
+
+
+def main():
+    """
+    Gets sequence and molecule object from load functions.
+    Then waits for command from user. Executes specified command if valid.
+    """
+    sequence = load_sequence()
+    molecule = load_molecuel(sequence)
 
     while True:
-
         # prompt user for command
         command = input("command: ").split()
 
@@ -86,6 +102,52 @@ def main():
         elif command[0] == "spiral":
             spiralfold(molecule, len(sequence))
             print(f"stability: {molecule.stability()}")
+
+        elif command[0] == "climb":
+            climb(molecule)
+
+        elif command[0] == "anneal":
+            save_data = False
+
+            # check if the save command was given, if so let anneal save data
+            try:
+                if command[1] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[1]} is not accepted."
+                          "Usage: anneal (save)")
+            except IndexError:
+                pass
+
+            molecule = anneal(molecule, save_data)
+            molecule.draw()
+
+        elif command[0] == "sample":
+            iterations = ''
+            save_data = False
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                iterations = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("use: random iterations (save)")
+                continue
+
+            # check if save command was given, if so let randomsaple save data
+            try:
+                if command[2] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[2]} is not accepted."
+                          "Usage: random iterations (save)")
+            except IndexError:
+                pass
+
+            molecule = randomsample(molecule, iterations, save_data)
+            molecule.draw()
 
         elif command[0] == "random":
             iterations = ''
@@ -130,11 +192,20 @@ def main():
             else:
                 print("direction can only be left or right")
 
+        elif command[0] == "force_vadil":
+            molecule.force_vadil()
+            molecule.draw()
+
         elif command[0] == 'help':
             print("turn: turns the molecule (ie: turn 2 Left)")
             print("random: turns the molecule randomly (usage: random 10)")
             print("draw: draws the molecule (usage: draw)")
             print("spiral: turns the molecule into a spiral (usage: spiral)")
+            print("climb: performs a 'maximum ascent hillclimber' algorithm on"+
+                  " the molecule (usage: climb)")
+            print("anneal: performs the 'simulated annealing' algorithm on the"+
+                  " molecule (usage: anneal (save))")
+            print("sample: get best out of given number of samples")
             print("quit: quits the application")
         else:
             print("invalid command")
