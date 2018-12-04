@@ -36,5 +36,5 @@ In molecule 4 hebben we uitgebreider het verschil getest tussen beide algoritmes
 
 
 
-De beste oplossing gevonden is -20 deze is 7 stabiliteit punten beter dan de randomsample geeft
+De beste oplossing gevonden is -20 deze is 7 stabiliteit punten beter dan de randomsample geeft.
 ![annealing best](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_4/pictures/best.png?raw=true)
