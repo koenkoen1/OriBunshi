@@ -14,9 +14,8 @@ def climb(molecule):
     modifies it according to the algorithm.
     """
     # tries out single turns
-    if not turn(1, molecule):
-        # tries out double turns
-        turn(2, molecule)
+    while turn(1, molecule) or turn(2, molecule):
+        continue
 
 def turn(turns, molecule):
     """
@@ -52,7 +51,6 @@ def turn(turns, molecule):
     if route:
         molecule.turn(route[0], route[1])
         molecule.turn(route[0] + 1, route[1])
-        climb(molecule)
         return True
 
     return False
