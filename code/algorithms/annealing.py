@@ -38,7 +38,7 @@ def anneal(molecule, save_data=False):
     temperature = tempfunc(k)
     reheat = 0
     data = []
-    maxreheat = 8
+    maxreheat = 1
     while reheat < maxreheat:
         k += 1
         print(f"Temp: {temperature}")
@@ -61,12 +61,12 @@ def anneal(molecule, save_data=False):
         else:
             temperature = tempfunc(k)
             acceptprobability = math.exp(((oldstability -
-                                           currentstability) * 170)
+                                           currentstability) * 300)
                                          / temperature)
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 41:
+        if temperature < 80:
             k = kfunc(200)
             reheat += 1
 
