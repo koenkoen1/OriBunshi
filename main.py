@@ -105,6 +105,7 @@ def main():
 
         elif command[0] == "climb":
             climb(molecule)
+            print(f"stability: {molecule.stability()}")
 
         elif command[0] == "anneal":
             save_data = False
