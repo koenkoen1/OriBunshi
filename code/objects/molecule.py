@@ -71,6 +71,7 @@ class Molecule(object):
         ycoordinates = []
         Hxcoordinates = []
         Hycoordinates = []
+
         # draws the lines between the amino acid sequence
         for amino_acid in self.acids:
             if amino_acid.kind == 'H':
@@ -113,10 +114,8 @@ class Molecule(object):
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b',
                  markersize=10)
         plt.legend()
-        plt.title(f"Current molecule, stability = {self.stability()}")
-        # plt.xticks(range( -len(self.sequence), len(self.sequence) ))
-        # plt.yticks(range( -len(self.sequence), len(self.sequence) ))
-        # for every amino acid check every amino acid
+        plt.suptitle(f"Stability = {self.stability()}", fontweight='bold')
+        plt.title(f"sequence = {self.sequence}", fontsize=10)
 
         # shows the plot
         plt.show()
@@ -282,6 +281,7 @@ class Molecule(object):
 
                 # if successful add: stop inner for loop
                 if self.add_acids([Amino_Acid(letter, (x, y))], False):
+                    self.sequence += letter
                     break
 
                 # if at end inner forloop no add: accept invalid, force to valid
@@ -384,3 +384,31 @@ class Molecule(object):
         string = "\n".join(amino_acids)
 
         return string
+
+
+    def force_valid(self):
+        """
+        Forces molecule in valid configuration after invalid turn. Returns True
+        if successful, else False.
+        """
+
+        # find indexes of first collision
+        indexes = self.check_vadility(True);
+
+        i = 1
+        # continue until there are no collisions
+        while indexes:
+            dir = ['Left', 'Right']
+            random.shuffle(dir)
+            self.turn(indexes[0] + i, dir[0])
+            indexes = self.check_vadility(True);
+            if not indexes:
+                break
+            self.turn(indexes[1] - i, dir[0])
+            indexes = self.check_vadility(True);
+            if not indexes:
+                break
+            i += 1
+            if indexes[1] - i <= indexes[0]:
+                i = 1
+        return True

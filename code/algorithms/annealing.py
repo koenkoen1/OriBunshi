@@ -16,15 +16,15 @@ from write_csv import write_csv
 
 BEGINTEMP = 200
 
-
+# function that tranforms amount of iterations to a temperature
 def tempfunc(k):
     return  (BEGINTEMP / (1 + math.log10(1 + k)))
 
-
+# function that transforms temperature to iterations
 def kfunc(temp):
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
-
+# function that copies the coordinates from another molecule
 def copylocations(molecule1, molecule2):
     for index, amino_acid in enumerate(molecule2.acids):
         molecule1.acids[index].coordinates = amino_acid.coordinates
@@ -38,7 +38,7 @@ def anneal(molecule, save_data=False):
     temperature = tempfunc(k)
     reheat = 0
     data = []
-    maxreheat = 6
+    maxreheat = 8
     while reheat < maxreheat:
         k += 1
         print(f"Temp: {temperature}")
@@ -50,7 +50,7 @@ def anneal(molecule, save_data=False):
 
         copylocations(oldmolecule, molecule)
         randomturns(molecule, random.randint(1, 3))
-        # molecule.force_vadil()
+        molecule.force_vadil()
         currentstability = molecule.stability()
 
         if molecule.stability() < oldstability:
@@ -66,7 +66,7 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 40:
+        if temperature < 41:
             k = kfunc(200)
             reheat += 1
 

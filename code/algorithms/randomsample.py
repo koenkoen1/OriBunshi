@@ -12,24 +12,30 @@ from molecule import Molecule
 from write_csv import write_csv
 
 
-def randomsample(sequence, iterations, save_data=False):
+def randomsample(input_molecule, iterations, save_data=False):
 
     # produce list with max amount of possible stabilities, to count solutions
-    solutions = [[-i, 0] for i in range(len(sequence))]
+    solutions = [[-i, 0] for i in range(len(input_molecule.sequence))]
+
+    best_solution = copy.deepcopy(input_molecule)
 
     for i in range (iterations):
-        molecule = Molecule(sequence, 'random')
+        molecule = Molecule(input_molecule.sequence, 'random')
         solutions[-molecule.stability()][1] += 1
 
-    print(solutions)
+        if molecule.stability() < best_solution.stability():
+            best_solution = copy.deepcopy(molecule)
 
     # write data to csv file if save option was chosen
     if save_data:
-        header = ['stability', 'solutions found',
+        header = ['stability',
+                  'solutions found',
                   datetime.datetime.now(),
-                  f'sequence = {molecule.sequence}']
+                  f'sequence = {input_molecule.sequence}']
 
         write_csv("randomsample", header, solutions)
+
+    return best_solution
 
 
 if __name__ == '__main__':

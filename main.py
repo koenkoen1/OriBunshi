@@ -147,7 +147,8 @@ def main():
             except IndexError:
                 pass
 
-            randomsample(molecule.sequence, iterations, save_data)
+            molecule = randomsample(molecule, iterations, save_data)
+            molecule.draw()
 
         elif command[0] == "random":
             iterations = ''
