@@ -43,7 +43,6 @@ def turn(turns, molecule):
                 molecule.stability() < currentstability):
                 currentstability = molecule.stability()
                 route = [i, directions[j]]
-                molecule.draw()
 
             # undoes turning
             for turn in range(turns):

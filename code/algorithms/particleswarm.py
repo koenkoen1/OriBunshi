@@ -14,8 +14,10 @@ from randomturns import randomturns
 from greedyfold import spiralfold
 from write_csv import write_csv
 from greedyclimb import climb
-sequence = "HHPHHHPH"
+from annealing import copylocations 
 
+sequence = "PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP"
+#  rip dit
 # properties [[[movement, velocity],..], personalbest, personalbestmovement]
 def particleswarm(sequence):
     pop = []
@@ -23,12 +25,12 @@ def particleswarm(sequence):
     stagbest = 1
     gbest = 0
     w = 0.5
-    for i in range(20):
+    for i in range(100):
         molecule = Molecule(sequence, "random")
         pop.append(molecule)
         properties.append([notate(molecule), 1, 1])
     x = 0
-    while x < 100:
+    while x < 500:
         for index, molecule in enumerate(pop):
 
             # pbest
@@ -40,14 +42,13 @@ def particleswarm(sequence):
             if stagbest > molecule.stability():
                 stagbest = molecule.stability()
                 gbest = properties[index][0]
-
             for indexx, location in enumerate(properties[index][0]):
                 r1 = random.uniform(0,1)
                 r2 = random.uniform(0,1)
-                location[1] = location[1] * w + r1 * (gbest[indexx][0] - location[0]) + r2 * (properties[index][2][indexx][0] - location[0])
+                location[1] = location[1] * w + r1 * 1.3 * (gbest[indexx][0] - location[0]) + r2 * 1.3 * (properties[index][2][indexx][0] - location[0])
                 location[0] = int(location[0]  + location[1])
+                print(location[1])
             molecule, properties[index][0]  = transform(properties[index][0])
-            climb(molecule)
         x += 1
     transform(gbest)[0].draw()
 
@@ -80,13 +81,16 @@ def transform(locations):
             y += 1
         elif location[0] == 3:
             x -= 1
-        else:
+        elif location[0] == 4:
             y -= 1
+        else:
+            print(location[0])
         molecule.acids.append(Amino_Acid(sequence[index + 1], (x, y)))
         molecule.sequence += sequence[index + 1]
     if not  molecule.check_vadility():
         molecule.force_vadil()
         locations = notate(molecule)
+        print("lol")
     return (molecule, locations)
 
 def getbest(properties):
@@ -96,4 +100,4 @@ def getbest(properties):
             lowest = property[2]
     return lowest
 if __name__ == '__main__':
-    particleswarm("HHPHHHPH")
+    particleswarm("PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP")

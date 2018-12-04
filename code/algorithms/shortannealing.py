@@ -30,27 +30,26 @@ def copylocations(molecule1, molecule2):
         molecule1.acids[index].coordinates = amino_acid.coordinates
 
 
-def anneal(molecule, save_data=False):
+def shortanneal(molecule, save_data=False):
     loweststability = 1
-    lowestmolecule = Molecule('H', 'direct')
+    lowestmolecule = copy.deepcopy(molecule)
     oldmolecule = copy.deepcopy(molecule)
     k = 0
     temperature = tempfunc(k)
-    reheat = 0
     data = []
-    maxreheat = 8
-    while reheat < maxreheat:
+    while temperature < 60:
         k += 1
-        print(f"Temp: {temperature}")
         oldstability = molecule.stability()
-        print(f"stability: {oldstability}")
 
         save_iter = [temperature, oldstability]
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
         randomturns(molecule, random.randint(1, 3))
-        molecule.force_vadil()
+
+        while not molecule.check_vadility():
+            copylocations(molecule, oldmolecule)
+            randomturns(molecule, random.randint(1, 3))
         currentstability = molecule.stability()
 
         if molecule.stability() < oldstability:
@@ -60,15 +59,7 @@ def anneal(molecule, save_data=False):
                 loweststability = currentstability
         else:
             temperature = tempfunc(k)
-            acceptprobability = math.exp(((oldstability -
-                                           currentstability) * 170)
-                                         / temperature)
-            x = random.uniform(0,1)
-            if acceptprobability < x:
-                copylocations(molecule, oldmolecule)
-        if temperature < 38:
-            k = kfunc(200)
-            reheat += 1
+            copylocations(molecule, oldmolecule)
 
     # write data to csv file if save option was chosen
     if save_data:
@@ -80,3 +71,7 @@ def anneal(molecule, save_data=False):
         write_csv("annealing", header, data)
 
     return lowestmolecule
+
+if __name__ == '__main__':
+    molecule = shortanneal(Molecule("HHPHHPHP", "direct"))
+    molecule.draw()
