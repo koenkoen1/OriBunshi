@@ -19,7 +19,7 @@ We kunnen uit deze figuren opmaken dat onze random sample distributie gemiddelde
 Omdat we met een depth first algoritme de totale statespace van molecuul 2 hebben verkent kunnen we aan molecule 2 nog zien hoe goed onze annealing algoritme het doet. Volgens depth first is de beste stability -9. Deze hebben we ook gevonden met annealing.
 
 Beste annealing oplossing:
-![anealing best molecule 2](Anneal\Molecule_2\pics\best.png)
+![anealing best molecule 2](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_2/pics/best.png?raw=true)
 
 ### Randomsample vs annealing:
 Bij de grotere moleculen is er geen depth first oplossing beschikbaar dus moeten we de annealing oplossing vergelijken met de random sample distributie.
