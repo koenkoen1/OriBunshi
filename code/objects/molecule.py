@@ -74,7 +74,7 @@ class Molecule(object):
         Cxcoordinates = []
         Cycoordinates = []
 
-        # draws the lines between the amino acid sequence
+        # draws the lines between the amino acid sequence, save H, C, P arrays
         for amino_acid in self.acids:
             if amino_acid.kind == 'H':
                 Hxcoordinates.append(amino_acid.coordinates[0])
@@ -95,26 +95,35 @@ class Molecule(object):
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
 
-                # check if they are both 'H' (they only produce stability)
-                if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
+                # check if they are both non 'P' (they only produce stability)
+                if amino_acid.kind != 'P' and amino_acid2.kind != 'P':
 
                     # check if amino acids are not the same nor sequent
                     if ((amino_acid != amino_acid2)
                         and abs(self.acids.index(amino_acid2)
-                            - self.acids.index(amino_acid)) != 1):
+                                - self.acids.index(amino_acid)) != 1):
                         rest = (amino_acid.coordinates[0] -
                                 amino_acid2.coordinates[0],
                                 amino_acid.coordinates[1] -
                                 amino_acid2.coordinates[1])
 
-                        # draw line marking connections between amino acids
+                        # if they are next to eachother increase stability
                         if ((abs(rest[0]) == 1 and rest[1] == 0)
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
+
+                            # C-C neighbours colour bond green, else red
+                            if (amino_acid.kind == 'C'
+                                and amino_acid2.kind == 'C'):
+                                color = 'g'
+                            else:
+                                color = 'r'
+
+                            # draw lines marking stabilising bonds
                             plt.plot([amino_acid.coordinates[0],
                                       amino_acid2.coordinates[0]],
                                      [amino_acid.coordinates[1],
                                       amino_acid2.coordinates[1]],
-                                     color="r", linestyle=':')
+                                     color=color, linestyle=':')
 
         plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r',
                  markersize=10)
@@ -313,13 +322,13 @@ class Molecule(object):
         for amino_acid in self.acids:
             for amino_acid2 in self.acids:
 
-                # check if they are both 'H' (they only produce stability)
-                if amino_acid.kind == 'H' and amino_acid2.kind == 'H':
+                # check if they are both non 'P' (they only produce stability)
+                if amino_acid.kind != 'P' and amino_acid2.kind != 'P':
 
                     # check if amino acids are not the same nor sequent
                     if ((amino_acid != amino_acid2)
                         and abs(self.acids.index(amino_acid2)
-                            - self.acids.index(amino_acid)) != 1):
+                                - self.acids.index(amino_acid)) != 1):
                         rest = (amino_acid.coordinates[0] -
                                 amino_acid2.coordinates[0],
                                 amino_acid.coordinates[1] -
@@ -328,8 +337,14 @@ class Molecule(object):
                         # if they are next to eachother increase stability
                         if ((abs(rest[0]) == 1 and rest[1] == 0)
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
-                            stability = stability - 1
 
+                            # C-C neighbours give stability -5, C-H and H-H -1
+                            if (amino_acid.kind == 'C'
+                                and amino_acid2.kind == 'C'):
+                                stability -= 5
+                            else:
+                                stability -= 1
+        print(stability)
         return int(stability / 2)
 
 
