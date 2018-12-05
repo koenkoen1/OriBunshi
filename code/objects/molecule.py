@@ -71,17 +71,24 @@ class Molecule(object):
         ycoordinates = []
         Hxcoordinates = []
         Hycoordinates = []
+        Cxcoordinates = []
+        Cycoordinates = []
 
         # draws the lines between the amino acid sequence
         for amino_acid in self.acids:
             if amino_acid.kind == 'H':
                 Hxcoordinates.append(amino_acid.coordinates[0])
                 Hycoordinates.append(amino_acid.coordinates[1])
+            elif amino_acid.kind == 'C':
+                Cxcoordinates.append(amino_acid.coordinates[0])
+                Cycoordinates.append(amino_acid.coordinates[1])
             else:
                 xcoordinates.append(amino_acid.coordinates[0])
                 ycoordinates.append(amino_acid.coordinates[1])
             if previous[0] != 100:
-                plt.plot([amino_acid.coordinates[0], previous[0]], [amino_acid.coordinates[1], previous[1]], color='black')
+                plt.plot([amino_acid.coordinates[0], previous[0]],
+                         [amino_acid.coordinates[1], previous[1]],
+                         color='black')
             previous = amino_acid.coordinates[0], amino_acid.coordinates[1]
 
         # for every amino acid check every amino acid
@@ -100,7 +107,7 @@ class Molecule(object):
                                 amino_acid.coordinates[1] -
                                 amino_acid2.coordinates[1])
 
-                        # if they are next to eachother increase stability
+                        # draw line marking connections between amino acids
                         if ((abs(rest[0]) == 1 and rest[1] == 0)
                             or (abs(rest[1]) == 1 and rest[0] == 0)):
                             plt.plot([amino_acid.coordinates[0],
@@ -110,6 +117,8 @@ class Molecule(object):
                                      color="r", linestyle=':')
 
         plt.plot(Hxcoordinates, Hycoordinates, 'o', label='H', color='r',
+                 markersize=10)
+        plt.plot(Cxcoordinates, Cycoordinates, 'o', label='C', color='g',
                  markersize=10)
         plt.plot(xcoordinates, ycoordinates, 'o', label='P', color='b',
                  markersize=10)
