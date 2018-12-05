@@ -14,7 +14,7 @@ def filepath(name):
     """
 
     # save output in results directory
-    path = "./results/"
+    path = ""
 
     # increment filename with 1 wrt last file, to not overwrite it
     i = 0
