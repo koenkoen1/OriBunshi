@@ -1,3 +1,6 @@
+# 2018-12-06 02:53:12.483872
+# 2018-12-05 23:40:23.967193
+
 import os
 import sys
 directory = os.path.dirname(os.path.realpath(__file__))
@@ -21,8 +24,8 @@ def geneteic(sequence):
     print(datetime.datetime.now())
     data = []
     pop = []
-    maxiterations = 10
-    for i in range(10):
+    maxiterations = 100
+    for i in range(100):
         molecule = Molecule(sequence, "random")
         pop.append([molecule, molecule.stability()])
     iterations = 0
@@ -53,4 +56,4 @@ def geneteic(sequence):
 
 
 if __name__ == '__main__':
-    geneteic("PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP")
+    geneteic("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH")

@@ -344,7 +344,7 @@ class Molecule(object):
                                 stability -= 5
                             else:
                                 stability -= 1
-        print(stability)
+        # print(stability)
         return int(stability / 2)
 
 
