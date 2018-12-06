@@ -1,40 +1,63 @@
 # Resultaten
 
-## structuur:
+## Mappenstructuur
 
-De results zijn opgedeeld per algoritme waarin mappen zijn gegeven voor de verschillende moleculen.
+De resultaten zijn opgedeeld per algoritme waarin mappen zijn gegeven voor de verschillende moleculen. Toelichting op de resultaten is hieronder te vinden, net als een analyse van de pijpunten van het probleem.
 
-## toelichting:
+## Resultaten: Toelichting
 
-### Depth first:
+### Depth First
 Met depth first zijn de eerste twee moleculen hun beste configuratie gevonden. deze resulaten zijn te zien in hun mappen.
 
-#### Depth first vs Randomsample:
+#### Depth First vs Random Sample
 In molecule 2 kunnen we Depth first vergelijken met random sample.
 ![Depth vs Random pic](randomvsdepth.png)
 
 We kunnen uit deze figuren opmaken dat onze random sample distributie gemiddelde (-1.37215) hoger is dan het gemiddelde van de totale solution space (-0.811233166). Dit komt door de manier waarop de random solutions gegenereerd worden, namelijk per aminozuur.
 
-#### Depth first vs annealing:
+#### Depth First vs Simulated Annealing
 Omdat we met een depth first algoritme de totale statespace van molecuul 2 hebben verkent kunnen we aan molecule 2 nog zien hoe goed onze annealing algoritme het doet. Volgens depth first is de beste stability -9. Deze hebben we ook gevonden met annealing.
 
 Beste annealing oplossing:
 ![anealing best molecule 2](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_2/pics/best.png?raw=true)
 
-### Randomsample vs annealing:
+### Random Sample vs Simulated Annealing
 Bij de grotere moleculen is er geen depth first oplossing beschikbaar dus moeten we de annealing oplossing vergelijken met de random sample distributie.
 
-##### Molecule 3:
+##### Molecule 3
 De beste annealing oplossing die we hebben gevonden is van stabiliteit van -12 (zie plaatje) dit is drie stability punten lager dan gevonden in de willkeurige oplossingen distributie (n = 100.000). Dit vertelt ons dat we een stabiliteit hebben gevonden die een erg lage oplossingsdichtheid heeft.
-
 
 ![anealing best molecule 2](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_3/pictures/best.png?raw=true)
 
-#### Molecule 4:
+#### Molecule 4
 In molecule 4 hebben we uitgebreider het verschil getest tussen beide algoritmes. het verschil in de distributies is hieronder te zien:
 ![anealing vs sample](annealandsample.png)
 
-
-
 De beste oplossing gevonden is -20 deze is 7 stabiliteit punten beter dan de randomsample geeft.
 ![annealing best](https://github.com/koenkoen1/OriBunshi/blob/master/results/Anneal/Molecule_4/pictures/best.png?raw=true)
+
+## Analyse Pijnpunten van het Probleem
+Bij het vergaren van resultaten zijn verscheidene zaken opgevallen, die ons doen inzien waar de pijnpunten liggen bij het oplossen van dit probleem. Hieronder worden die opvallende zaken per algoritme besproken.
+
+### Depth First
+Het gebruikte depth first algoritme is heerlijk, in het opzicht dat het gegarandeerd een beste oplossing oplevert. Dit is natuurlijk een prachtige zekerheid om te hebben, maar die wordt ook duur verkocht: het algoritme kost bakken met tijd. Voor de eiwitten van 36 aminozuren en langerheeft het algoritme dan ook geen oplossingen opgeleverd, omdat het daar simpelweg te lang voor zou moeten draaien.
+
+Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwitlengtes uit de probleestelling de grootte van de toestandsruimte en de daarbij behorende draaitijd van het depth first algoritme zijn berekend. Hoe deze toestandsruimtegroottes zijn berekend is te lezen in de README in de hoofdmap van deze GitHub. (link?)
+![Tabel: Eiwitlengte en berekende draaitijd depth first](Link naar afbeelding)
+
+Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn! (afbeelding?) De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt bevestigd door de resultaten. Zie de toelichting hierboven.)
+
+### Greedy
+Bij het geteste greedyfold algoritme, viel het op dat vershillende moleculen zeer snel in een locaal minimum vast komen te zitten. Dit is te wijten aan het inwendige spiegelvlak van de symmetrische aminozuurketens, dat ervoor zorgt dat zulke eiwitten na twee vouwen al in een aardige configuratie terechtkomen, zoals te zien in de afbeelding hieronder. Vooruitkijken zou dit algoritme waarschijnlijk ook niet helpen, aangezien de eiwitten een aardig groot aantal vouwingen zouden moeten ondergaan om uit dit eerste locale minimum te ontsnappen.
+
+![Voorbeeld symmetrisch eiwit in greedyfold](Link naar afbeelding)
+
+###Steepest Ascend Hill Climber
+Net als het greedy algoritme, heeft het hill climber algoritme last van locale minima. De resultaten uit 100 rondes van het hill climber algoritme leveren een gemiddelde oplossingsstabiliteit van -... op, met een standard deviatie van ... . Deze standaard deviatie suggereert grote/kleine spreiding van de oplossingen. --> Veel locale minima iig. Grillig oplossingenlandschap. Wauw!
+
+### Simulated Annealing
+
+
+### Population Based
+![Population based: 3 uur durende run](Link naar afbeelding)
+In de afbeelding hierboven zijn van een drie uur durende run van het population based algoritme ... en de gemiddelde stabiliteit van alle generaties uitgezet tegen de iteraties. Zoals heel duidelijk te zien is, wordt zeer snel een gemiddelde stabiliteit van -16 bereikt, die de ghele daaropvolgende draaitijd niet meer verbeterd wordt. Dit komt waarschijnlijk doordat, met de gebruikte elitaire (top 50% resultaten) selectiemethode, het algoritme zeer snel enkel nog kinderen van één en dezelfde generatie genereert en dus in wezen vastzit in een locaal minimum. De implementatie van een andere selectiemethode zou hier een oplossing voor kunnen vormen.
