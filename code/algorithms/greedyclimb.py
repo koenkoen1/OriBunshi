@@ -10,20 +10,20 @@ directions = ["Left", "Right"]
 
 def climb(molecule):
     """
-    A maximum ascent hillclimber algorithm, which takes a molecule object and
-    modifies it according to the algorithm.
+    A maximum ascent hillclimber algorithm.
+
+    Takes a molecule object and checks all solutions with a distance of one
+    turn. Then checks all solutions with a distance of two turns. If a better
+    solution is found, the molecule is updated. Stops when no changes are made
+    to the molecule.
     """
-    # tries out single turns
+
     while turn(1, molecule) or turn(2, molecule):
         continue
 
 def turn(turns, molecule):
     """
-    A function used by the maximum ascent hillclimber to test all configurations
-    that are a certain amount of turns away from the current molecule object.
-
-    It is implemented with recursion, with the stop condition being when no
-    turns can improve stability
+    Tests all configurations a certain amount of turns away from current object.
     """
     length = len(molecule.sequence)
     route = False
