@@ -29,7 +29,7 @@ De bovengrens komt voor in situaties waarbij geen enkele H en/of C aan elkaar gr
 
 
 ### Resultaten 
-De resultaten zijn te vinden in de map [results](https://github.com/koenkoen1/OriBunshi/results "results"]. In de README van deze map zijn daarnaast een toelichting op de resultaten en een analyse van de pijnpunten waar de algoritmen tegenaan lopen te vinden. 
+De resultaten zijn te vinden in de map [results](https://github.com/koenkoen1/OriBunshi/results "results"). In de README van deze map zijn daarnaast een toelichting op de resultaten en een analyse van de pijnpunten waar de algoritmen tegenaan lopen te vinden. 
 
 
 ### Vereisten (Prerequisites)
