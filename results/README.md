@@ -52,7 +52,7 @@ Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwit
 | 36 | 1,1 * 1016 | ~60000 jaar |
 | 50 | 5,3 * 1022 | Te lang |
 
-Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn, zoals te zien in de rechtergrafiek van het figuur dat hierboven bij __Depth First vs Random Sample__ staat.
+Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn, zoals al te zien was in de rechtergrafiek van het figuur dat hierboven bij __Depth First vs Random Sample__ staat. In de tabel hieronder zijn de gevonden beste oplossing en de berekende oplossingsdichtheid van deze beste oplossing voor de met depth first opgeloste eiwitten getoond.
 
 | Eiwitlengte   | Beste stabiliteit | Beste-oplossingsdichtheid  |
 |----|----|------------|
@@ -60,7 +60,7 @@ Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden va
 | 14 | -6 | 0.0254%    |
 | 21 | -9 | 0.0000048% |
 
-De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt bevestigd door de resultaten. Zie de toelichting hierboven.)
+De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt ook bevestigd door de resultaten. Zie de toelichting hierboven.)
 
 ### Steepest Ascent Hill Climber
 Bij het geteste greedyclimb algoritme, viel het op dat vershillende moleculen zeer snel in een locaal minimum vast komen te zitten. Dit is te wijten aan het inwendige spiegelvlak van de symmetrische aminozuurketens, dat ervoor zorgt dat zulke eiwitten na twee vouwen al in een aardige configuratie terechtkomen, zoals te zien in de afbeelding hieronder. Vooruitkijken zou dit algoritme waarschijnlijk ook niet helpen, aangezien de eiwitten een aardig groot aantal vouwingen zouden moeten ondergaan om uit dit eerste locale minimum te ontsnappen.
@@ -74,5 +74,5 @@ Net als het steepest ascent hill climber algoritme, heeft het stochastische hill
 
 
 ### Population Based
-![Population based: 3 uur durende run](Link naar afbeelding)
-In de afbeelding hierboven zijn van een drie uur durende run van het population based algoritme ... en de gemiddelde stabiliteit van alle generaties uitgezet tegen de iteraties. Zoals heel duidelijk te zien is, wordt zeer snel een gemiddelde stabiliteit van -16 bereikt, die de ghele daaropvolgende draaitijd niet meer verbeterd wordt. Dit komt waarschijnlijk doordat, met de gebruikte elitaire (top 50% resultaten) selectiemethode, het algoritme zeer snel enkel nog kinderen van één en dezelfde generatie genereert en dus in wezen vastzit in een locaal minimum. De implementatie van een andere selectiemethode zou hier een oplossing voor kunnen vormen.
+![Population based: 100 populaties](https://github.com/koenkoen1/OriBunshi/blob/master/results/population_based0.png)
+In de afbeelding hierboven is van een run met 100 populaties van het population based algoritme de gemiddelde stabiliteit van alle generaties uitgezet tegen de iteraties. Zoals heel duidelijk te zien is, wordt zeer snel een gemiddelde stabiliteit van -16 bereikt, die de ghele daaropvolgende draaitijd niet meer verbeterd wordt. Dit komt waarschijnlijk doordat, met de gebruikte elitaire (top 50% resultaten) selectiemethode, het algoritme zeer snel enkel nog kinderen van één en dezelfde generatie genereert en dus in wezen vastzit in een locaal minimum. De implementatie van een andere selectiemethode zou hier een oplossing voor kunnen vormen.
