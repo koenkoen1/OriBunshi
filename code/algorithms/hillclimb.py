@@ -27,7 +27,7 @@ def hillclimb(molecule, save_data=False):
     oldmolecule = copy.deepcopy(molecule)
     k = 0
     data = []
-    while k < 100:
+    while k < 10:
         k += 1
         oldstability = molecule.stability()
         lowestmolecule = False
@@ -55,7 +55,7 @@ def hillclimb(molecule, save_data=False):
                   datetime.datetime.now(),
                   f'sequence = {molecule.sequence}']
 
-        write_csv("annealing", header, data)
+        write_csv("Hillclimb", header, data)
 
     if lowestmolecule:
         return lowestmolecule

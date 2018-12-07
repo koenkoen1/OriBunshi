@@ -66,7 +66,7 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 180:
+        if temperature < 38:
             k = kfunc(200)
             reheat += 1
 

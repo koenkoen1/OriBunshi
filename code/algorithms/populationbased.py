@@ -24,8 +24,8 @@ def geneteic(sequence):
     print(datetime.datetime.now())
     data = []
     pop = []
-    maxiterations = 100
-    for i in range(100):
+    maxiterations = 20
+    for i in range(300):
         molecule = Molecule(sequence, "random")
         pop.append([molecule, molecule.stability()])
     iterations = 0
