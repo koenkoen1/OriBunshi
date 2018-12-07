@@ -77,4 +77,5 @@ De stochastic Hill Climber is uitgebreid om uit de locale minima te kunnen ontsn
 Population based maakt gebruik van de stochastic Hill climber om van elk individu in de populatie twee kindren te maken die  een  betere (of de zelfde) stabiliteit hebben. Op deze manier is er minder kans dat het algoritme de zelfde locale minima in gaat zoals bij simulated annealing.
 
 ![Population based: 100 populaties](https://github.com/koenkoen1/OriBunshi/blob/master/results/population_based0.png)
+
 In de afbeelding hierboven is van een run met 100 populaties van het population based algoritme de gemiddelde stabiliteit van alle generaties uitgezet tegen de iteraties. Zoals heel duidelijk te zien is, wordt zeer snel een gemiddelde stabiliteit van -16 bereikt, die de ghele daaropvolgende draaitijd niet meer verbeterd wordt. Dit komt waarschijnlijk doordat, met de gebruikte elitaire (top 50% resultaten) selectiemethode, het algoritme zeer snel enkel nog kinderen van één en dezelfde generatie genereert en dus in wezen vastzit in een locaal minimum. De implementatie van een andere selectiemethode zou hier een oplossing voor kunnen vormen.
