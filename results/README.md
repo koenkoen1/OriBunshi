@@ -42,10 +42,25 @@ Bij het vergaren van resultaten zijn verscheidene zaken opgevallen, die ons doen
 ### Depth First
 Het gebruikte depth first algoritme is heerlijk, in het opzicht dat het gegarandeerd een beste oplossing oplevert. Dit is natuurlijk een prachtige zekerheid om te hebben, maar die wordt ook duur verkocht: het algoritme kost bakken met tijd. Voor de eiwitten van 36 aminozuren en langerheeft het algoritme dan ook geen oplossingen opgeleverd, omdat het daar simpelweg te lang voor zou moeten draaien.
 
-Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwitlengtes uit de probleestelling de grootte van de toestandsruimte en de daarbij behorende draaitijd van het depth first algoritme zijn berekend. Hoe deze toestandsruimtegroottes zijn berekend is te lezen in de README in de hoofdmap van deze GitHub. (link?)
-![Tabel: Eiwitlengte en berekende draaitijd depth first](Link naar afbeelding)
+Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwitlengtes uit de probleestelling de grootte van de toestandsruimte en de daarbij behorende draaitijd van het depth first algoritme zijn berekend. Hoe deze toestandsruimtegroottes zijn berekend is te lezen in de [hoofdmap van deze GitHub.](https://github.com/koenkoen1/OriBunshi "Project Hoofdmap"]
 
-Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn! (afbeelding?) De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt bevestigd door de resultaten. Zie de toelichting hierboven.)
+| Eiwitlengte | Toestandsruimte | Tijd   |
+|-------------|-----------------|--------|
+| 8           | 486             | <1 min |
+| 14 | 3,5 * 105 | 1 min |
+| 20 | 2,6 * 108 | 743 min (~12u) |
+| 36 | 1,1 * 1016 | ~60000 jaar |
+| 50 | 5,3 * 1022 | Te lang |
+
+Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn, zoals te zien in de rechtergrafiek van het figuur dat hierboven bij __Depth First vs Random Sample__ staat.
+
+| Eiwitlengte   | Beste stabiliteit | Beste-oplossingsdichtheid  |
+|----|----|------------|
+| 8  | -3 | 2.2%       |
+| 14 | -6 | 0.0254%    |
+| 21 | -9 | 0.0000048% |
+
+De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt bevestigd door de resultaten. Zie de toelichting hierboven.)
 
 ### Steepest Ascent Hill Climber
 Bij het geteste greedyclimb algoritme, viel het op dat vershillende moleculen zeer snel in een locaal minimum vast komen te zitten. Dit is te wijten aan het inwendige spiegelvlak van de symmetrische aminozuurketens, dat ervoor zorgt dat zulke eiwitten na twee vouwen al in een aardige configuratie terechtkomen, zoals te zien in de afbeelding hieronder. Vooruitkijken zou dit algoritme waarschijnlijk ook niet helpen, aangezien de eiwitten een aardig groot aantal vouwingen zouden moeten ondergaan om uit dit eerste locale minimum te ontsnappen.
