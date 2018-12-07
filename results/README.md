@@ -71,10 +71,12 @@ Bij het geteste greedyclimb algoritme, viel het op dat vershillende moleculen ze
 Net als het steepest ascent hill climber algoritme, heeft het stochastische hill climber algoritme last van locale minima. We hebben geprobeert om de steepest ascent hillclimber te verbeteren door in plaats van naar alle mogelijke zetten vanaf een situatie een random aantal turns te doen. dit werkt al beter dan de steepest ascent hill climber maar dit lost het probleem van de locale minima niet op.
 
 ### Simulated Annealing
-De stochastic Hill Climber is uitgebreid om uit de locale minima te kunnen ontsnappen. We hebben de hillclimber een kans gegeven om terug te vallen naar een slechtere configuratie om vanuit daar weer te te kijken of er een mogelijkheid is om naar een andere oplossing toe te werken. Dit is een simulated annealing algoritme. Om nog betere resulaten te krijgen is ook een reheating schema toegevoegd. Dit alles om locale minima te vermeiden.
+De stochastic Hill Climber is uitgebreid om uit de locale minima te kunnen ontsnappen. We hebben de hillclimber een kans gegeven om terug te vallen naar een slechtere configuratie om vanuit daar weer te te kijken of er een mogelijkheid is om naar een andere oplossing toe te werken. Dit is een simulated annealing algoritme. Om nog betere resulaten te krijgen is ook een reheating schema toegevoegd. Dit alles om locale minima te vermijden.
+
+Het simulated annealing algoritme zelf heeft ook zijn uitdagingen. Het kiezen van een optimaal cooling scheme kan het algoritme verbeteren, net als het optimaliseren van diens parameters. Er kan een algoritme op zich geschreven worden om het simulated annealing algoritme verder te verbeteren. 
 
 ### Population Based
-Population based maakt gebruik van de stochastic Hill climber om van elk individu in de populatie twee kindren te maken die  een  betere (of de zelfde) stabiliteit hebben. Op deze manier is er minder kans dat het algoritme de zelfde locale minima in gaat zoals bij simulated annealing.
+Population based maakt gebruik van de stochastic hill climber om van elk individu in de populatie twee kindren te maken die  een  betere (of de zelfde) stabiliteit hebben. Op deze manier is er minder kans dat het algoritme de zelfde locale minima in gaat zoals bij simulated annealing.
 
 ![Population based: 100 populaties](https://github.com/koenkoen1/OriBunshi/blob/master/results/population_based0.png)
 
