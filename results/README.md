@@ -42,7 +42,7 @@ Bij het vergaren van resultaten zijn verscheidene zaken opgevallen, die ons doen
 ### Depth First
 Het gebruikte depth first algoritme is heerlijk, in het opzicht dat het gegarandeerd een beste oplossing oplevert. Dit is natuurlijk een prachtige zekerheid om te hebben, maar die wordt ook duur verkocht: het algoritme kost bakken met tijd. Voor de eiwitten van 36 aminozuren en langerheeft het algoritme dan ook geen oplossingen opgeleverd, omdat het daar simpelweg te lang voor zou moeten draaien.
 
-Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwitlengtes uit de probleestelling de grootte van de toestandsruimte en de daarbij behorende draaitijd van het depth first algoritme zijn berekend. Hoe deze toestandsruimtegroottes zijn berekend is te lezen in de [hoofdmap van deze GitHub.](https://github.com/koenkoen1/OriBunshi "Project Hoofdmap"]
+Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwitlengtes uit de probleestelling de grootte van de toestandsruimte en de daarbij behorende draaitijd van het depth first algoritme zijn berekend. Hoe deze toestandsruimtegroottes zijn berekend is te lezen in de [hoofdmap van deze GitHub.](https://github.com/koenkoen1/OriBunshi "Project Hoofdmap")
 
 | Eiwitlengte | Toestandsruimte | Tijd   |
 |-------------|-----------------|--------|
