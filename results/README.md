@@ -47,13 +47,13 @@ Dit wordt geïllustreerd in de volgende tabel, waarin bij de verschillende eiwit
 
 Met de resultaten van het depth first algoritme, zijn de oplossingsdichtheden van de opgeloste eiwitten uitgerekend. Deze blijken ontzettend laag te zijn! (afbeelding?) De kans om een beste oplossing tegen te komen is daarmee erg klein. Met een random sampler zullen we dus bijvoorbeeld waarschijnlijk niet een beste oplossing tegenkomen. (Dat wordt bevestigd door de resultaten. Zie de toelichting hierboven.)
 
-### Greedy
-Bij het geteste greedyfold algoritme, viel het op dat vershillende moleculen zeer snel in een locaal minimum vast komen te zitten. Dit is te wijten aan het inwendige spiegelvlak van de symmetrische aminozuurketens, dat ervoor zorgt dat zulke eiwitten na twee vouwen al in een aardige configuratie terechtkomen, zoals te zien in de afbeelding hieronder. Vooruitkijken zou dit algoritme waarschijnlijk ook niet helpen, aangezien de eiwitten een aardig groot aantal vouwingen zouden moeten ondergaan om uit dit eerste locale minimum te ontsnappen.
+### Steepest Ascent Hill Climber
+Bij het geteste greedyclimb algoritme, viel het op dat vershillende moleculen zeer snel in een locaal minimum vast komen te zitten. Dit is te wijten aan het inwendige spiegelvlak van de symmetrische aminozuurketens, dat ervoor zorgt dat zulke eiwitten na twee vouwen al in een aardige configuratie terechtkomen, zoals te zien in de afbeelding hieronder. Vooruitkijken zou dit algoritme waarschijnlijk ook niet helpen, aangezien de eiwitten een aardig groot aantal vouwingen zouden moeten ondergaan om uit dit eerste locale minimum te ontsnappen.
 
-![Voorbeeld symmetrisch eiwit in greedyfold](Link naar afbeelding)
+![Voorbeeld symmetrisch eiwit in greedyclimb](https://github.com/koenkoen1/OriBunshi/blob/master/results/maximum_ascent_back_breaking.png?raw=true)
 
-###Steepest Ascend Hill Climber
-Net als het greedy algoritme, heeft het hill climber algoritme last van locale minima. De resultaten uit 100 rondes van het hill climber algoritme leveren een gemiddelde oplossingsstabiliteit van -... op, met een standard deviatie van ... . Deze standaard deviatie suggereert grote/kleine spreiding van de oplossingen. --> Veel locale minima iig. Grillig oplossingenlandschap. Wauw!
+### Stochastic Hill Climber
+Net als het steepest ascent hill climber algoritme, heeft het stochastische hill climber algoritme last van locale minima. De resultaten uit 100 rondes van het hill climber algoritme leveren een gemiddelde oplossingsstabiliteit van -... op, met een standard deviatie van ... . Deze standaard deviatie suggereert grote/kleine spreiding van de oplossingen. --> Veel locale minima iig. Grillig oplossingenlandschap. Wauw!
 
 ### Simulated Annealing
 
