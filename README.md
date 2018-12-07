@@ -28,6 +28,10 @@ waarin <img src="https://latex.codecogs.com/gif.latex?H" title="H" /> en <img sr
 De bovengrens komt voor in situaties waarbij geen enkele H en/of C aan elkaar grenzen. De ondergrens is bepaald vanuit het gegeven dat elk H en C aminozuur maximaal twee ongebonden buren kan hebben, behalve de aminozuren aan de uiteinden, die er drie hebben. Voor een niet-uiteinde H levert dit een minimale stabiliteit van -2 op, als de H aan twee H's of C's grenst, en voor een niet-uiteinde C een minimum van -10, als de C aan twee C's grenst. Aangezien elke stabiliserende verbinding twee aminozuren betreft, moet de minimale stabiliteit per aminozuur nog gehalveerd worden. Dus een H levert maximaal -1 op en een C maximaal -5. Omdat de uiteinden nog een extra buur hebben, kan daar maximaal nog een winst van (-5 + -5) / 2 behaald worden, in het geval dat de uiteinden twee C aminozuren zijn. Dat alles tezamen levert de hierboven getoonde ondergrens.
 
 
+### Resultaten 
+De resultaten zijn te vinden in de map [results](https://github.com/koenkoen1/OriBunshi/results "results"]. In de README van deze map zijn daarnaast een toelichting op de resultaten en een analyse van de pijnpunten waar de algoritmen tegenaan lopen te vinden. 
+
+
 ### Vereisten (Prerequisites)
 
 Deze codebase is volledig geschreven in [Python3.7.1](https://www.python.org/downloads/). In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
@@ -38,7 +42,7 @@ pip install -r requirements.txt
 
 ### Structuur (Structure)
 
-Alle Python scripts staan in de folder Code. In de map Data zitten alle input waardes en in de map resultaten worden alle resultaten opgeslagen door de code.
+Alle Python scripts staan in de folder Code. In de map Data zitten alle input waardes en in de map Results worden alle resultaten opgeslagen door de code.
 
 ### Test (Testing)
 
