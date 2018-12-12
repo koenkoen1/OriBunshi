@@ -70,4 +70,4 @@ def populationbased(sequence, popsize, gen, save_data=False):
 
 
 if __name__ == '__main__':
-    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 150, 25)
+    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 10, 25)

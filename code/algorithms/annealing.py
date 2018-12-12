@@ -46,31 +46,33 @@ def anneal(molecule, save_data=False):
     It requires a Molecule object and optionally a boolean to indicate whether
     the resulting data should be saved.
     """
+    call = 1
     loweststability = 1
     lowestmolecule = Molecule('H', 'direct')
     oldmolecule = copy.deepcopy(molecule)
+    currentstability = molecule.stability()
     k = 0
     temperature = tempfunc(k)
     reheat = 0
     data = []
-    maxreheat = 8
+    maxreheat = 3
     while reheat < maxreheat:
         k += 1
-        print(f"Temp: {temperature}")
-        oldstability = molecule.stability()
-        print(f"stability: {oldstability}")
+        oldstability = currentstability
+        call += 1
 
-        save_iter = [temperature, oldstability]
+        save_iter = [call, oldstability]
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
         randomturns(molecule, random.randint(1, 3))
         molecule.force_vadil()
         currentstability = molecule.stability()
+        call += 1
 
-        if molecule.stability() < oldstability:
+        if currentstability < oldstability:
             temperature = tempfunc(k)
-            if molecule.stability() < loweststability:
+            if currentstability < loweststability:
                 lowestmolecule = copy.deepcopy(molecule)
                 loweststability = currentstability
         else:
@@ -81,9 +83,10 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
-        if temperature < 38:
+        if temperature < 40:
             k = kfunc(200)
             reheat += 1
+            print(reheat)
 
     # write data to csv file if save option was chosen
     if save_data:
@@ -95,3 +98,6 @@ def anneal(molecule, save_data=False):
         write_csv("annealing", header, data)
 
     return lowestmolecule
+
+if __name__ == '__main__':
+    anneal(Molecule("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", "direct"), True)
