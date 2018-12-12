@@ -18,17 +18,20 @@ from greedyfold import spiralfold
 from write_csv import write_csv
 from hillclimb import hillclimb
 from operator import itemgetter
-import datetime
 
 HILLCLIMBITER = 10
 
-def populationbased(sequence):
+def populationbased(sequence, popsize, gen):
+    """
+    Population based algorithmself.
+    Usage: (sequence, populationsize, generationsize)
+    """
     print(datetime.datetime.now())
     call = 0
     data = []
     pop = []
-    maxiterations = 25
-    for i in range(150):
+    maxiterations = gen
+    for i in range(popsize):
         molecule = Molecule(sequence, "random")
         pop.append([molecule, molecule.stability()])
     iterations = 0
@@ -61,4 +64,4 @@ def populationbased(sequence):
 
 
 if __name__ == '__main__':
-    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH")
+    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 150, 25)
