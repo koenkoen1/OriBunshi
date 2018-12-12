@@ -50,7 +50,7 @@ def anneal(molecule, save_data=False):
     """
     call = 1
     loweststability = 1
-    lowestmolecule = Molecule('H', 'direct')
+    lowestmolecule = copy.deepcopy(molecule)
     oldmolecule = copy.deepcopy(molecule)
     currentstability = molecule.stability()
     k = 0
@@ -72,7 +72,7 @@ def anneal(molecule, save_data=False):
         currentstability = molecule.stability()
         call += 1
 
-        if currentstability < oldstability:
+        if currentstability <= oldstability:
             temperature = tempfunc(k)
             if currentstability < loweststability:
                 lowestmolecule = copy.deepcopy(molecule)
@@ -85,6 +85,7 @@ def anneal(molecule, save_data=False):
             x = random.uniform(0,1)
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
+                currentstability = oldstability
         if temperature < 40:
             k = kfunc(200)
             reheat += 1
