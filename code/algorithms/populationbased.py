@@ -60,10 +60,11 @@ def populationbased(sequence, popsize, gen, save_data=False):
 
     print(datetime.datetime.now())
 
-    header = ['calls', 'stability',
-              datetime.datetime.now(),
-              f'sequence = {molecule.sequence}']
+    if save_data:
+        header = ['function evaluations', 'stability',
+                  datetime.datetime.now(),
+                  f'sequence = {molecule.sequence}']
 
-    write_csv("population", header, data)
+        write_csv("population", header, data)
 
     return pop[0][0]
