@@ -30,22 +30,36 @@ def bar(df, filepath, title):
     plt.clf()
 
 
-def line(df, filepath):
+def line(name, df, filepath):
     """
     Plots line subplots of both columns of given data frame, saves it at given
     filepath location.
     """
 
-    axes = df.plot(y=['temperature', 'stability'], subplots=True, sharex=True,
-                   figsize=(8, 6), legend=False)
-    axes[0].set_ylabel("Temperature")
-    axes[1].set_ylabel("Stability")
+    # make annaling plot
+    if name == 'annealing':
+        axes = df.plot(y=['temperature', 'stability'], subplots=True, sharex=True,
+                       figsize=(8, 6), legend=False)
+        axes[0].set_ylabel("Temperature")
+        axes[1].set_ylabel("Stability")
 
-    # layout
-    plt.suptitle("Simulated Annealing", fontsize=13, fontweight='bold')
+        # layout
+        plt.suptitle("Simulated Annealing", fontsize=13, fontweight='bold')
+        plt.xlabel("Iterations")
+
+    # make population based plot
+    else:
+        df.plot(x='calls', y='stability', figsize=(8, 6), legend=False)
+
+        # layout
+        plt.suptitle("Population based", fontsize=13, fontweight='bold')
+        plt.xlabel("Score function calls")
+        plt.ylabel("Stability")
+
+    # show molecule sequence
     plt.title(df.columns.values[3], fontsize=10)
-    plt.xlabel("Iterations")
 
+    # save plot
     filename = f"{filepath}.png"
     plt.savefig(filename)
     plt.clf()
@@ -89,8 +103,8 @@ def plot(name, filepath):
 
     df = make_numeric(df)
 
-    if name == 'annealing':
-        line(df, filepath[:-4])
+    if name == 'annealing' or name == 'population':
+        line(name, df, filepath[:-4])
     elif name == 'randomsample':
         df = remove_end_zero(df)
         bar(df, filepath[:-4], "Random Samples")
