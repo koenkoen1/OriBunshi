@@ -98,7 +98,7 @@ def main():
             break
 
         elif command[0] == "spiral":
-            spiralfold(molecule, len(sequence))
+            spiralfold(molecule)
             print(f"stability: {molecule.stability()}")
 
         elif command[0] == "climb":
