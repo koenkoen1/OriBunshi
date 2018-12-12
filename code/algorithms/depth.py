@@ -44,7 +44,7 @@ def depth(sequence):
         else:
             children(current, sequence)
 
-    # draws the solution space
+    # draws the solution space (in console)
     i = 0
     for stability in solutions:
         print(f"stabilty: {i}: {stability}")

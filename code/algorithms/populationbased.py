@@ -20,7 +20,7 @@ from hillclimb import hillclimb
 from operator import itemgetter
 import datetime
 
-def geneteic(sequence):
+def populationbased(sequence):
     print(datetime.datetime.now())
     data = []
     pop = []
@@ -56,4 +56,4 @@ def geneteic(sequence):
 
 
 if __name__ == '__main__':
-    geneteic("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH")
+    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH")
