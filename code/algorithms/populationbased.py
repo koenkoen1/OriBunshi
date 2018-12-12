@@ -67,7 +67,3 @@ def populationbased(sequence, popsize, gen, save_data=False):
     write_csv("population", header, data)
 
     return pop[0][0]
-
-
-if __name__ == '__main__':
-    populationbased("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 10, 25)
