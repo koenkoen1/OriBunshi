@@ -38,26 +38,30 @@ def line(name, df, filepath):
 
     # make annaling plot
     if name == 'annealing':
-        axes = df.plot(y=['temperature', 'stability'], subplots=True, sharex=True,
-                       figsize=(8, 6), legend=False)
+        axes = df.plot(x='function evaluations', y=['temperature', 'stability'],
+                       subplots=True, sharex=True, figsize=(8, 6), legend=False)
         axes[0].set_ylabel("Temperature")
         axes[1].set_ylabel("Stability")
 
         # layout
         plt.suptitle("Simulated Annealing", fontsize=13, fontweight='bold')
-        plt.xlabel("Iterations")
+        plt.xlabel("Function evaluations")
+
+        # show molecule sequence
+        plt.title(df.columns.values[4], fontsize=10)
 
     # make population based plot
     else:
-        df.plot(x='calls', y='stability', figsize=(8, 6), legend=False)
+        df.plot(x='function evaluations', y='stability', figsize=(8, 6),
+                legend=False)
 
         # layout
         plt.suptitle("Population based", fontsize=13, fontweight='bold')
-        plt.xlabel("Score function calls")
+        plt.xlabel("Function evaluations")
         plt.ylabel("Stability")
 
-    # show molecule sequence
-    plt.title(df.columns.values[3], fontsize=10)
+        # show molecule sequence
+        plt.title(df.columns.values[3], fontsize=10)
 
     # save plot
     filename = f"{filepath}.png"
