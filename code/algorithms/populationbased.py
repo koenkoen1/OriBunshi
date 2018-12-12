@@ -61,7 +61,7 @@ def populationbased(sequence, popsize, gen, save_data=False):
 
     print(datetime.datetime.now())
 
-      if save_data:
+    if save_data:
         header = ['function evaluations', 'stability',
                   datetime.datetime.now(),
                   f'sequence = {molecule.sequence}',
