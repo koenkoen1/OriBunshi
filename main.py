@@ -91,7 +91,10 @@ def main():
         # prompt user for command
         command = input("command: ").split()
 
-        if command[0] == "quit":
+        if not command:
+            continue
+
+        elif command[0] == "quit":
             break
 
         elif command[0] == "spiral":
