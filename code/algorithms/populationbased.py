@@ -21,6 +21,7 @@ from operator import itemgetter
 
 HILLCLIMBITER = 10
 
+
 def populationbased(sequence, popsize, gen, save_data=False):
     """
     Population based algorithmself.
@@ -60,16 +61,12 @@ def populationbased(sequence, popsize, gen, save_data=False):
 
     print(datetime.datetime.now())
 
-<<<<<<< HEAD
-    header = ['function evaluations', 'stability',
-              datetime.datetime.now(),
-              f'sequence = {molecule.sequence}']
-=======
-    if save_data:
+      if save_data:
         header = ['function evaluations', 'stability',
                   datetime.datetime.now(),
-                  f'sequence = {molecule.sequence}']
->>>>>>> 28e97d8fe66e39a75fe1136566f52f76833688c0
+                  f'sequence = {molecule.sequence}',
+                  f'population size = {popsize}',
+                  f'generations = {gen}']
 
         write_csv("population", header, data)
 
