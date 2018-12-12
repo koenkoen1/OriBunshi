@@ -1,9 +1,9 @@
-def spiralfold(molecule, length):
+def spiralfold(molecule):
     """
-    Requires the molecule object and the length of the amino acid sequence.
-    Folds protein into spiral-like form. Returns folded molecule.
+    Alters a provided molecule object
     """
     i = 1
+    length = len(molecule.sequence)
     while i < length - 1:
         while molecule.check_vadility():
             molecule.turn(i, "Right")
