@@ -42,7 +42,7 @@ def copylocations(molecule1, molecule2):
         molecule1.acids[index].coordinates = amino_acid.coordinates
 
 
-def anneal(molecule, save_data=False):
+def anneal(molecule, reheat_times, reheat_temp, save_data=False):
     """
     A simulated annealing algorithm.
     It requires a Molecule object and optionally a boolean to indicate whether
@@ -57,7 +57,7 @@ def anneal(molecule, save_data=False):
     temperature = tempfunc(k)
     reheat = 0
     data = []
-    maxreheat = 3
+    maxreheat = reheat_times
     while reheat < maxreheat:
         k += 1
         oldstability = currentstability
@@ -86,7 +86,7 @@ def anneal(molecule, save_data=False):
             if acceptprobability < x:
                 copylocations(molecule, oldmolecule)
                 currentstability = oldstability
-        if temperature < 40:
+        if temperature < reheat_temp:
             k = kfunc(200)
             reheat += 1
             print(reheat)
@@ -96,11 +96,14 @@ def anneal(molecule, save_data=False):
         header = ['temperature', 'function evaluations', 'stability',
                   datetime.datetime.now(),
                   f'sequence = {molecule.sequence}',
-                  f'start temperature = {BEGINTEMP}']
+                  f'start temperature = {BEGINTEMP}',
+                  f'reheat_times = {reheat_times}',
+                  f'reheat_temp = {reheat_temp}']
 
         write_csv("annealing", header, data)
 
     return lowestmolecule
+
 
 if __name__ == '__main__':
     anneal(Molecule("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", "direct"), True)
