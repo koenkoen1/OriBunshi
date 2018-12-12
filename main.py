@@ -28,8 +28,8 @@ def load_sequence():
     if method == 'custom':
         sequence = "O"
         # ask for sequence, reject letters other than H and P
-        while any(c not in 'HP' for c in sequence):
-            sequence = input("sequence(consisting of H's and P's): ")
+        while any(c not in 'HPC' for c in sequence):
+            sequence = input("sequence(consisting of H's, C's, and P's): ")
         print(f"\ncurrent sequence is {sequence}")
         return sequence
 
