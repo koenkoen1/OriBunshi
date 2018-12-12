@@ -143,13 +143,13 @@ def main():
             molecule.draw()
 
         elif command[0] == "population":
-            iterations = ''
+            popsize = ''
             gens = ''
             save_data = False
 
             # check for errors and convert to convert variables to proper format
             try:
-                iterations = int(command[1])
+                popsize = int(command[1])
             except ValueError:
                 print(f"Error: {command[1]} is not a number")
                 continue
@@ -176,7 +176,7 @@ def main():
             except IndexError:
                 pass
 
-            molecule = populationbased(sequence, iterations, gens, save_data)
+            molecule = populationbased(sequence, popsize, gens, save_data)
             molecule.draw()
 
         elif command[0] == "sample":
