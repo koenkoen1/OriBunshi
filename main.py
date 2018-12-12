@@ -13,6 +13,7 @@ from molecule import Molecule
 from randomturns import randomturns
 from annealing import anneal
 from randomsample import randomsample
+from populationbased import populationbased
 
 directions = ["Left", "Right"]
 
@@ -117,6 +118,35 @@ def main():
             molecule = anneal(molecule, save_data)
             molecule.draw()
 
+        elif command[0] == "population":
+            iterations = ''
+            gens = ''
+            save_data = False
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                iterations = int(command[1])
+                gens = int(command[2])
+            except ValueError:
+                print(f"Error: {command[1]} or {command[2]} is not a number")
+                continue
+            except IndexError:
+                print("Usage: population iterations generations (save)")
+                continue
+
+            # check if the save command was given, if so let pop save data
+            try:
+                if command[3] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[3]} is not accepted."
+                          "Usage: population iterations generations (save)")
+            except IndexError:
+                pass
+
+            molecule = populationbased(sequence, iterations, gens, save_data)
+            molecule.draw()
+
         elif command[0] == "sample":
             iterations = ''
             save_data = False
@@ -192,16 +222,18 @@ def main():
             molecule.draw()
 
         elif command[0] == 'help':
-            print("turn: turns the molecule (ie: turn 2 Left)")
-            print("random: turns the molecule randomly (usage: random 10)")
-            print("draw: draws the molecule (usage: draw)")
-            print("spiral: turns the molecule into a spiral (usage: spiral)")
-            print("climb: performs a 'maximum ascent hillclimber' algorithm on"+
-                  " the molecule (usage: climb)")
-            print("anneal: performs the 'simulated annealing' algorithm on the"+
-                  " molecule (usage: anneal (save))")
-            print("sample: get best out of given number of samples")
-            print("quit: quits the application")
+            print("turn: turns the molecule (ie: turn 2 Left)" \
+                  "\nrandom: turns the molecule randomly (usage: random 10)" \
+                  "\ndraw: draws the molecule (usage: draw)" \
+                  "\nspiral: turns the molecule into a spiral (usage: spiral)" \
+                  "\nclimb: performs a 'maximum ascent hillclimber' algorithm" \
+                  " on the molecule (usage: climb)" \
+                  "\nanneal: performs the 'simulated annealing' algorithm on " \
+                  "the molecule (usage: anneal (save))" \
+                  "\nsample: get best out of given number of samples" \
+                  "\npopulation: run a population based algorithm on the " \
+                  "molecule (usage: population (save))" \
+                  "\nquit: quits the application")
         else:
             print("invalid command")
 
