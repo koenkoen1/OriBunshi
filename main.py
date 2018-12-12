@@ -7,7 +7,6 @@ sys.path.append(os.path.join(directory, "code", "algorithms"))
 sys.path.append(os.path.join(directory, "results"))
 
 from depth import depth
-from greedyadd import greedyadd
 from greedyclimb import climb
 from greedyfold import spiralfold
 from molecule import Molecule
@@ -65,15 +64,10 @@ def load_molecuel(sequence):
     """
 
     # prompt user for molecule loading method and validate input
-    method = input("Molecule loading method" \
-                   "(direct, acids, greedyadd, depth, random): ")
+    method = input("Molecule loading method (direct, acids, depth, random): ")
     molecule = 0
     if method == 'direct' or method == 'acids':
         molecule = Molecule(sequence, method)
-    elif method == 'greedyadd':
-        molecule = Molecule([], "direct")
-        greedyadd(molecule, sequence)
-        print(f"stability: {molecule.stability()}")
     elif method == "depth":
         molecule = depth(sequence)
     elif method == "random":
