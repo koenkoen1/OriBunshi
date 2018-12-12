@@ -22,7 +22,7 @@ def copylocations(molecule1, molecule2):
         molecule1.acids[index].coordinates = amino_acid.coordinates
 
 # non determinstic hilclimber algorithm
-def hillclimb(molecule, save_data=False):
+def hillclimb(molecule, iterations, save_data=False):
 
     # make an molecule and counter for lowest stability
     loweststability = 1
@@ -32,7 +32,7 @@ def hillclimb(molecule, save_data=False):
 
     # if this bool is false at the end it means no better molecule was found
     lowestmolecule = False
-    while k < 10:
+    while k < iterations:
         k += 1
 
         # save the molecule state
@@ -58,7 +58,7 @@ def hillclimb(molecule, save_data=False):
                 lowestmolecule = copy.deepcopy(molecule)
                 loweststability = currentstability
 
-        # return to the beginning state
+        # else return to the beginning state
         else:
             copylocations(molecule, oldmolecule)
 
