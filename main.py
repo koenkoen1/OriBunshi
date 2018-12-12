@@ -131,11 +131,11 @@ def main():
 
             # check if the save command was given, if so let anneal save data
             try:
-                if command[1] == "save":
+                if command[3] == "save":
                     save_data = True
                 else:
                     print(f"Error: {command[1]} is not accepted." \
-                          "Usage: anneal reheat_times reheat_temp (save)")
+                          "\nUsage: anneal reheat_times reheat_temp (save)")
             except IndexError:
                 pass
 
