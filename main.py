@@ -103,19 +103,40 @@ def main():
             print(f"stability: {molecule.stability()}")
 
         elif command[0] == "anneal":
+            reheat_times = ''
+            reheat_temp = ''
             save_data = False
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                reheat_times = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("Usage: anneal reheat_times reheat_temp (save)")
+                continue
+
+            try:
+                reheat_temp = int(command[2])
+            except ValueError:
+                print(f"Error: {command[2]} is not a number")
+                continue
+            except IndexError:
+                print("Usage: anneal reheat_times reheat_temp (save)")
+                continue
 
             # check if the save command was given, if so let anneal save data
             try:
                 if command[1] == "save":
                     save_data = True
                 else:
-                    print(f"Error: {command[1]} is not accepted."
-                          "Usage: anneal (save)")
+                    print(f"Error: {command[1]} is not accepted." \
+                          "Usage: anneal reheat_times reheat_temp (save)")
             except IndexError:
                 pass
 
-            molecule = anneal(molecule, save_data)
+            molecule = anneal(molecule, reheat_times, reheat_temp, save_data)
             molecule.draw()
 
         elif command[0] == "population":
@@ -126,9 +147,17 @@ def main():
             # check for errors and convert to convert variables to proper format
             try:
                 iterations = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("Usage: population popsize generations (save)")
+                continue
+
+            try:
                 gens = int(command[2])
             except ValueError:
-                print(f"Error: {command[1]} or {command[2]} is not a number")
+                print(f"Error: {command[2]} is not a number")
                 continue
             except IndexError:
                 print("Usage: population popsize generations (save)")
