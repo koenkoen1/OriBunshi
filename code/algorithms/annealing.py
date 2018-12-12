@@ -61,7 +61,6 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
     while reheat < maxreheat:
         k += 1
         oldstability = currentstability
-        call += 1
 
         save_iter = [temperature, call, oldstability]
         data.append(save_iter)
