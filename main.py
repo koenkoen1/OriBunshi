@@ -131,7 +131,7 @@ def main():
                 print(f"Error: {command[1]} or {command[2]} is not a number")
                 continue
             except IndexError:
-                print("Usage: population iterations generations (save)")
+                print("Usage: population popsize generations (save)")
                 continue
 
             # check if the save command was given, if so let pop save data
@@ -140,7 +140,7 @@ def main():
                     save_data = True
                 else:
                     print(f"Error: {command[3]} is not accepted."
-                          "Usage: population iterations generations (save)")
+                          "Usage: population popsize generations (save)")
             except IndexError:
                 pass
 
@@ -232,7 +232,7 @@ def main():
                   "the molecule (usage: anneal (save))" \
                   "\nsample: get best out of given number of samples" \
                   "\npopulation: run a population based algorithm on the " \
-                  "molecule (usage: population (save))" \
+                  "molecule (usage: population popsize generations (save))" \
                   "\nquit: quits the application")
         else:
             print("invalid command")
