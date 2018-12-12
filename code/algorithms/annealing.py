@@ -16,22 +16,25 @@ from write_csv import write_csv
 
 BEGINTEMP = 200
 
+
 def tempfunc(k):
-    """Calculates temperature of simulated annealing algorithm"""
+    """
+    Calculates temperature of simulated annealing algorithm.
+    """
     return  (BEGINTEMP / (1 + math.log10(1 + k)))
+
 
 def kfunc(temp):
     """
     Calculates what the amount of iterations would be at a certain temperature.
-
     This function is used for reheating.
     """
     return 10 ** (BEGINTEMP/temp - 1) - 1
 
+
 def copylocations(molecule1, molecule2):
     """
     Copies coordinates of the amino acids of one molecule to another molecule.
-
     This function is used for resetting the molecule to the backup or for
     updating the backup to a new configuration.
     """
@@ -42,7 +45,6 @@ def copylocations(molecule1, molecule2):
 def anneal(molecule, save_data=False):
     """
     A simulated annealing algorithm.
-
     It requires a Molecule object and optionally a boolean to indicate whether
     the resulting data should be saved.
     """
@@ -61,7 +63,7 @@ def anneal(molecule, save_data=False):
         oldstability = currentstability
         call += 1
 
-        save_iter = [call, oldstability]
+        save_iter = [temperature, call, oldstability]
         data.append(save_iter)
 
         copylocations(oldmolecule, molecule)
@@ -90,7 +92,7 @@ def anneal(molecule, save_data=False):
 
     # write data to csv file if save option was chosen
     if save_data:
-        header = ['temperature', 'stability',
+        header = ['temperature', 'function evaluations', 'stability',
                   datetime.datetime.now(),
                   f'sequence = {molecule.sequence}',
                   f'start temperature = {BEGINTEMP}']
