@@ -16,13 +16,22 @@ from write_csv import write_csv
 
 
 
-# function that copies the coordinates from another molecule
 def copylocations(molecule1, molecule2):
+    """
+    Copies coordinates of the amino acids of one molecule to another molecule.
+    This function is used for resetting the molecule to the backup or for
+    updating the backup to a new configuration.
+    """
     for index, amino_acid in enumerate(molecule2.acids):
         molecule1.acids[index].coordinates = amino_acid.coordinates
 
-# non determinstic hilclimber algorithm
 def hillclimb(molecule, iterations, save_data=False):
+    """
+    Non-determinstic hilclimber algorithm.
+    It requires a Molecule object, the amount of iterations that should be
+    performed and optionally a boolean to indicate whether the resulting data
+    should be saved.
+    """
 
     # make an molecule and counter for lowest stability
     loweststability = 1
