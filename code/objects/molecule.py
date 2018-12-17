@@ -31,7 +31,7 @@ class Molecule(object):
         for amino_acid in acids:
             self.acids.append(amino_acid)
 
-            if not self.check_vadility():
+            if not self.check_validity():
                 self.acids.pop()
                 return False
             if update_seq:
@@ -40,7 +40,7 @@ class Molecule(object):
         return True
 
 
-    def check_vadility(self, return_conflicts = False):
+    def check_validity(self, return_conflicts = False):
         """
         Checks if molecule configuration is valid, by checking for nodes with
         the same coordinates. Returns a boolean.
@@ -139,14 +139,14 @@ class Molecule(object):
         plt.show()
 
 
-    def force_vadil(self):
+    def force_valid(self):
         """
         Forces molecule in valid configuration after invalid turn. Returns True
         if successful, else False.
         """
 
         # find indexes of first collision
-        indexes = self.check_vadility(True);
+        indexes = self.check_validity(True);
 
         # continue until there are no collisions
         while indexes:
@@ -158,29 +158,29 @@ class Molecule(object):
             compare = indexes[1]
 
             self.turn(indexes[1] - 1, dir[0])
-            indexes = self.check_vadility(True)
+            indexes = self.check_validity(True)
 
             # prevent direct movement back to previous configuration
             if indexes and indexes[1] == compare:
                 self.turn(indexes[1] - 1, dir[1])
-                indexes = self.check_vadility(True)
+                indexes = self.check_validity(True)
 
                 # if turning index[1] + 1 proves unsuccessful, try index[0] + 1
                 if indexes and indexes[1] == compare:
                     compare = indexes[0]
                     self.turn(indexes[0] + 1, dir[0])
-                    indexes = self.check_vadility(True)
+                    indexes = self.check_validity(True)
 
                     # prevent direct movement back to previous configuration
                     if indexes and indexes[0] == compare:
                         self.turn(indexes[0] + 1, dir[1])
-                        indexes = self.check_vadility(True)
+                        indexes = self.check_validity(True)
 
                         # if index[0] + 1 also unsuccessful, turn random index
                         if indexes and indexes[0] == compare:
                             self.turn(random.randint(indexes[0] + 1, indexes[1]),
                                       dir[0])
-                            indexes = self.check_vadility(True)
+                            indexes = self.check_validity(True)
         return True
 
 
@@ -225,7 +225,7 @@ class Molecule(object):
                         self.acids.append(temp_acid)
 
                         # check if coordinates are free, if so add amino acid
-                        if self.check_vadility():
+                        if self.check_validity():
                             valid_xy = True
                             acid = temp_acid
                             print("Amino acid added.")
@@ -259,14 +259,12 @@ class Molecule(object):
             x += 1
             coordinates = (x, y)
 
-        # print(self)
-
-
     def load_random(self, sequence):
         """
         Loads a random configuration of molecule's sequence.
         """
         self.sequence = ""
+
         # load first two acids at (0, 0) and (1, 0)
         self.add_acids([Amino_Acid(sequence[0], (0, 0)),
                         Amino_Acid(sequence[1], (1, 0))], True)
@@ -276,8 +274,6 @@ class Molecule(object):
         # load rest of acids at random neighbouring place to previous acid
         for letter in copy_seq:
 
-            # print(letter)
-
             # get random direction to place next acid into
             dir = [0, 1, 2, 3]
             random.shuffle(dir)
@@ -285,7 +281,7 @@ class Molecule(object):
             # iterate until successful add of new acid
             for i in range(4):
                 x, y  = self.acids[len(self.acids) - 1].coordinates
-                # print(x, y)
+
 
                 # translate direction into coordinate change
                 if dir[i] == 0:
@@ -306,7 +302,7 @@ class Molecule(object):
                 elif i == 3:
                     self.acids.append(Amino_Acid(letter, (x, y)))
                     self.sequence += letter
-                    self.force_vadil()
+                    self.force_valid()
 
         return True
 
@@ -344,7 +340,6 @@ class Molecule(object):
                                 stability -= 5
                             else:
                                 stability -= 1
-        # print(stability)
         return int(stability / 2)
 
 
@@ -417,7 +412,7 @@ class Molecule(object):
         """
 
         # find indexes of first collision
-        indexes = self.check_vadility(True);
+        indexes = self.check_validity(True);
 
         i = 1
         # continue until there are no collisions
@@ -425,11 +420,11 @@ class Molecule(object):
             dir = ['Left', 'Right']
             random.shuffle(dir)
             self.turn(indexes[0] + i, dir[0])
-            indexes = self.check_vadility(True);
+            indexes = self.check_validity(True);
             if not indexes:
                 break
             self.turn(indexes[1] - i, dir[0])
-            indexes = self.check_vadility(True);
+            indexes = self.check_validity(True);
             if not indexes:
                 break
             i += 1

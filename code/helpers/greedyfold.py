@@ -5,7 +5,7 @@ def spiralfold(molecule):
     i = 1
     length = len(molecule.sequence)
     while i < length - 1:
-        while molecule.check_vadility():
+        while molecule.check_validity():
             molecule.turn(i, "Right")
         molecule.turn(i, "Left")
         i += 1

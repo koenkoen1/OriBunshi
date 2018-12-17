@@ -14,7 +14,7 @@ from randomturns import randomturns
 from greedyfold import spiralfold
 from write_csv import write_csv
 from greedyclimb import climb
-from annealing import copylocations 
+from annealing import copylocations
 
 sequence = "PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP"
 #  rip dit
@@ -87,7 +87,7 @@ def transform(locations):
             print(location[0])
         molecule.acids.append(Amino_Acid(sequence[index + 1], (x, y)))
         molecule.sequence += sequence[index + 1]
-    if not  molecule.check_vadility():
+    if not  molecule.check_validity():
         molecule.force_vadil()
         locations = notate(molecule)
         print("lol")

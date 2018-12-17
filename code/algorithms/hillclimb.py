@@ -33,7 +33,7 @@ def hillclimb(molecule, iterations, save_data=False):
         randomturns(molecule, random.randint(1, 3))
 
         # if the molecule is not valid try again
-        while not molecule.check_vadility():
+        while not molecule.check_validity():
             copylocations(molecule, oldmolecule)
             randomturns(molecule, random.randint(1, 3))
 
