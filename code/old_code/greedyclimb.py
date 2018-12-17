@@ -1,11 +1,3 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
-from molecule import Molecule
-
 directions = ["Left", "Right"]
 
 def climb(molecule):
@@ -50,8 +42,3 @@ def turn(turns, molecule):
         return True
 
     return False
-
-if __name__ == '__main__':
-    molecule = Molecule('PPPHHPPHHPPPPPHHHHHHHPPHHPPPPHHPPHPP', 'direct')
-    climb(molecule)
-    molecule.draw()

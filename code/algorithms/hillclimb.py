@@ -1,29 +1,10 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
 import copy
 import datetime
 import math
 import random
-from amino_acid import Amino_Acid
-from molecule import Molecule
 from randomturns import randomturns
-from greedyfold import spiralfold
 from write_csv import write_csv
-
-
-
-def copylocations(molecule1, molecule2):
-    """
-    Copies coordinates of the amino acids of one molecule to another molecule.
-    This function is used for resetting the molecule to the backup or for
-    updating the backup to a new configuration.
-    """
-    for index, amino_acid in enumerate(molecule2.acids):
-        molecule1.acids[index].coordinates = amino_acid.coordinates
+from copylocations import copylocations
 
 def hillclimb(molecule, iterations, save_data=False):
     """
@@ -84,7 +65,3 @@ def hillclimb(molecule, iterations, save_data=False):
         return lowestmolecule
     else:
         return molecule
-
-if __name__ == '__main__':
-    molecule = shortanneal(Molecule("HHPHHPHP", "direct"))
-    molecule.draw()

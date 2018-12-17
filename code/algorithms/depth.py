@@ -1,10 +1,3 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
-
 import copy
 from amino_acid import Amino_Acid
 from molecule import Molecule

@@ -1,20 +1,6 @@
-# 2018-12-06 02:53:12.483872
-# 2018-12-05 23:40:23.967193
-
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
-import copy
 import datetime
-import math
 import random
-from amino_acid import Amino_Acid
 from molecule import Molecule
-from randomturns import randomturns
-from greedyfold import spiralfold
 from write_csv import write_csv
 from hillclimb import hillclimb
 from operator import itemgetter

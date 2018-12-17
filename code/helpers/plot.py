@@ -1,9 +1,3 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
