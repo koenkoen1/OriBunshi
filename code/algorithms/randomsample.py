@@ -6,8 +6,6 @@ sys.path.append(os.path.join(parentdir, "objects"))
 
 import copy
 import datetime
-import math
-from amino_acid import Amino_Acid
 from molecule import Molecule
 from write_csv import write_csv
 

@@ -1,5 +1,4 @@
 import random
-import copy
 
 def randomturns(molecule, x):
     """

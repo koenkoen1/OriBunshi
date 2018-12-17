@@ -1,15 +1,8 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
 
 import copy
 import datetime
 import math
 import random
-from amino_acid import Amino_Acid
-from molecule import Molecule
 from randomturns import randomturns
 from greedyfold import spiralfold
 from write_csv import write_csv
@@ -102,7 +95,3 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
         write_csv("annealing", header, data)
 
     return lowestmolecule
-
-
-if __name__ == '__main__':
-    anneal(Molecule("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", "direct"), True)
