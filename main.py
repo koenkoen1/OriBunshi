@@ -10,14 +10,10 @@ from depth import depth
 from greedyclimb import climb
 from greedyfold import spiralfold
 from molecule import Molecule
-from randomturns import randomturns
 from annealing import anneal
 from hillclimb import hillclimb
 from randomsample import randomsample
 from populationbased import populationbased
-
-directions = ["Left", "Right"]
-
 
 def load_sequence():
     """
@@ -87,6 +83,7 @@ def main():
     """
     sequence = load_sequence()
     molecule = load_molecuel(sequence)
+    directions = ["Left", "Right"]
 
     while True:
         # prompt user for command
@@ -234,22 +231,6 @@ def main():
             molecule = randomsample(molecule, iterations, save_data)
             molecule.draw()
 
-        elif command[0] == "random":
-            iterations = ''
-
-            # check for errors and convert to convert variables to proper format
-            try:
-                iterations = int(command[1])
-            except ValueError:
-                print(f"Error: {command[1]} is not a number")
-                continue
-            except IndexError:
-                print("use: random iterations")
-                continue
-
-            randomturns(molecule, iterations)
-            print(f"stability: {molecule.stability()}")
-
         # plot a graph to visualize protein
         elif command[0] == "draw":
             molecule.draw()
@@ -282,7 +263,7 @@ def main():
             molecule.draw()
 
         elif command[0] == 'help':
-            print("turn: turns the molecule (ie: turn 2 Left)" \
+            print("turn: turns the molecule (usage: turn Left 2)" \
                   "\nrandom: turns the molecule randomly (usage: random 10)" \
                   "\ndraw: draws the molecule (usage: draw)" \
                   "\nspiral: turns the molecule into a spiral (usage: spiral)" \
