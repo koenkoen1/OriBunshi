@@ -259,14 +259,12 @@ class Molecule(object):
             x += 1
             coordinates = (x, y)
 
-        # print(self)
-
-
     def load_random(self, sequence):
         """
         Loads a random configuration of molecule's sequence.
         """
         self.sequence = ""
+
         # load first two acids at (0, 0) and (1, 0)
         self.add_acids([Amino_Acid(sequence[0], (0, 0)),
                         Amino_Acid(sequence[1], (1, 0))], True)
@@ -276,8 +274,6 @@ class Molecule(object):
         # load rest of acids at random neighbouring place to previous acid
         for letter in copy_seq:
 
-            # print(letter)
-
             # get random direction to place next acid into
             dir = [0, 1, 2, 3]
             random.shuffle(dir)
@@ -285,7 +281,7 @@ class Molecule(object):
             # iterate until successful add of new acid
             for i in range(4):
                 x, y  = self.acids[len(self.acids) - 1].coordinates
-                # print(x, y)
+
 
                 # translate direction into coordinate change
                 if dir[i] == 0:
@@ -344,7 +340,6 @@ class Molecule(object):
                                 stability -= 5
                             else:
                                 stability -= 1
-        # print(stability)
         return int(stability / 2)
 
 
