@@ -8,26 +8,24 @@ from copylocations import copylocations
 
 def hillclimb(molecule, iterations, save_data=False):
     """
-    Non-determinstic hilclimber algorithm.
+    Stochastic hilclimber algorithm.
     It requires a Molecule object, the amount of iterations that should be
     performed and optionally a boolean to indicate whether the resulting data
     should be saved.
     """
 
-    # make an molecule and counter for lowest stability
+    # make a molecule and counter for lowest stability
     loweststability = 1
     oldmolecule = copy.deepcopy(molecule)
-    k = 0
     data = []
 
     # if this bool is false at the end it means no better molecule was found
     lowestmolecule = False
-    while k < iterations:
-        k += 1
 
+    for i in range(iterations)
         # save the molecule state
         oldstability = molecule.stability()
-        save_iter = [k, oldstability]
+        save_iter = [i, oldstability]
         data.append(save_iter)
         copylocations(oldmolecule, molecule)
 

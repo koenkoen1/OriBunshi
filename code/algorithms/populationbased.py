@@ -1,49 +1,35 @@
 # Population based algorithm, takes in a sequence, generation size and amount of iterations
 # returns the best molecule found and is able to save data to a csv
 
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
-import copy
 import datetime
-import math
-import random
-from amino_acid import Amino_Acid
 from molecule import Molecule
-from randomturns import randomturns
-from greedyfold import spiralfold
 from write_csv import write_csv
 from hillclimb import hillclimb
 from operator import itemgetter
-
-HILLCLIMBITER = 10
-
 
 def populationbased(sequence, popsize, gen, save_data=False):
     """
     Population based algorithmself.
     Usage: (sequence, populationsize, generationsize)
     """
+    # constant for hillclimber iterations
+    HILLCLIMBITER = 10
+
     # prints the current time
     print(datetime.datetime.now())
 
-    # Produce a variable to keep track of the amount of stability calls
+    # Make a data holder for the write_csv
+    data = []
+
+    # iteration and function-call counters
+    iterations = 0
     call = 0
 
-    # Make a data holder for the write_csv and empty population
-    data = []
+    # make the population
     pop = []
-
-    # make the population and calculate their stability
     for i in range(popsize):
         molecule = Molecule(sequence, "random")
         pop.append([molecule, 0])
-
-    # variable to keep track of the iterations
-    iterations = 0
 
     # while stopcondition is not reached (amount of generations made)
     while iterations < gen:
@@ -51,40 +37,33 @@ def populationbased(sequence, popsize, gen, save_data=False):
         # list for new population
         newpop = []
 
-        # get all the molecules
+        # get all the molecules in generation
         list = [list[0] for list in pop]
 
-        #  for every molecule
+        # iterate over every molecule in generation
         for molecule in list:
 
-            # hillclimb twice so two different molecules are made
+            #  perform stochastic hillclimber twice
             molecule1 = hillclimb(molecule, HILLCLIMBITER)
             molecule2 = hillclimb(molecule, HILLCLIMBITER)
 
-            # stability was called in hillclimb
-            call += HILLCLIMBITER * 2
-
-            # append the molecules to the new population
+            # append the created molecules to the new population
             newpop.append([molecule1, molecule1.stability()])
             newpop.append([molecule2, molecule2.stability()])
 
-            # stability was called
-            call += 2
+            # update function-calls
+            call += HILLCLIMBITER * 2 + 2
 
-        # overwrite the old population
+        # new population consists of the best half molecule created
         pop = newpop
-
-        # sort the population based on the stability of the population
         pop = sorted(pop, key=itemgetter(1))
-
-        # eliminate the lower half of the population
         pop = pop[:int(len(pop)/2)]
 
         # save all the stabilities and average them for results
         datalist = [item[1] for item in pop]
         data.append([call, sum(datalist) / len(datalist)])
 
-        # increase the iterations because this is the end of a generation
+        # increase the iterations
         iterations += 1
 
     # print end time

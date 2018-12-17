@@ -11,7 +11,7 @@ from greedyfold import spiralfold
 from write_csv import write_csv
 from copylocations import copylocations
 
-# Defines the beginning temperature should not be adjusted
+# Defines the beginning temperature, should not be adjusted
 BEGINTEMP = 200
 
 # math functions
@@ -35,28 +35,24 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
     It requires a Molecule object, reheating times, reheat temperature and optionally a boolean to indicate whether
     the resulting data should be saved.
     """
-    # placeholder for lowest stability (stability cannot be higher than 0 so
-    # this will always be overwritten in the first iteration)
-    loweststability = 1
-
     # produce two molecules identical to the original molecule
     lowestmolecule = copy.deepcopy(molecule)
     oldmolecule = copy.deepcopy(molecule)
 
+    # placeholder for lowest stability (stability cannot be higher than 0 so
+    # this will always be overwritten in the first iteration)
+    loweststability = 1
+
     # calculate the current stability
     currentstability = molecule.stability()
 
-    # a variable to keep track of the calls to stability
-    call = 1
-
-    # iteration variable
+    # iteration, reheat and function-call counters
     k = 0
+    reheat = 0
+    call = 1
 
     # temperature variable
     temperature = tempfunc(k)
-
-    # reheat variable
-    reheat = 0
 
     # data list for write_csv
     data = []
@@ -67,20 +63,16 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
         # increase iterations
         k += 1
 
-        # before the change stability
+        # copy information about the molecule that is to be altered
         oldstability = currentstability
+        copylocations(oldmolecule, molecule)
 
         #  save the current data about the algorithm
         save_iter = [temperature, call, oldstability]
         data.append(save_iter)
 
-        #  copy the location coordinates of molecule to oldmolecule
-        copylocations(oldmolecule, molecule)
-
-        # make some random turns
+        # make some random turns which are forced to be valid
         randomturns(molecule, random.randint(1, 3))
-
-        # force the molecule in a valid position (this is better than reverting the change)
         molecule.force_vadil()
 
         # update the current stability
@@ -95,19 +87,17 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
                 lowestmolecule = copy.deepcopy(molecule)
                 loweststability = currentstability
 
-        # if its worse than the old stability
+        # if the stability is worse than the old stability
         else:
 
-            # produce the chance to accept the new molecule anyways
+            # calculate the chance to accept the new molecule
             acceptprobability = math.exp(((oldstability -
                                            currentstability) * 170)
                                          / temperature)
             x = random.uniform(0,1)
 
-            # if not accepted
+            # if not accepted, return to previous configuration
             if acceptprobability < x:
-
-                # return to old locations and stability
                 copylocations(molecule, oldmolecule)
                 currentstability = oldstability
 
