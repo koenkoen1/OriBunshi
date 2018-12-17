@@ -26,7 +26,7 @@ def turn(turns, molecule):
                 molecule.turn(i + turn, directions[j])
 
             # checks if new configuration is an improvement, record it if it is
-            if (molecule.check_vadility() and
+            if (molecule.check_validity() and
                 molecule.stability() < currentstability):
                 currentstability = molecule.stability()
                 route = [i, directions[j]]

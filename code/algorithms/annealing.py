@@ -79,7 +79,7 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
 
         # make some random turns and force to vaild
         randomturns(molecule, random.randint(1, 3))
-        molecule.force_vadil()
+        molecule.force_valid()
 
         # update the current stability
         currentstability = molecule.stability()
