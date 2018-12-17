@@ -1,5 +1,5 @@
-# 2018-12-06 02:53:12.483872
-# 2018-12-05 23:40:23.967193
+# Population based algorithm, takes in a sequence, generation size and amount of iterations
+# returns the best molecule found and is able to save data to a csv
 
 import os
 import sys
