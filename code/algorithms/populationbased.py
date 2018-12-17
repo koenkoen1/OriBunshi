@@ -27,7 +27,10 @@ def populationbased(sequence, popsize, gen, save_data=False):
     Population based algorithmself.
     Usage: (sequence, populationsize, generationsize)
     """
+    # prints the current time
     print(datetime.datetime.now())
+
+    # Produce a variable to keep track of the amount of stability calls
     call = 0
     data = []
     pop = []
