@@ -1,9 +1,3 @@
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(directory)
-sys.path.append(os.path.join(parentdir, "objects"))
-
 import copy
 import datetime
 from molecule import Molecule
@@ -41,7 +35,3 @@ def randomsample(input_molecule, iterations, save_data=False):
         write_csv("randomsample", header, solutions)
 
     return best_solution
-
-
-if __name__ == '__main__':
-    randomsample("HHPHPHPHPHHHHPHPPPHPPPHPPPPHPPPHPPPHPHHHHPHPHPHPHH", 100000)
