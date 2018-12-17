@@ -2,12 +2,13 @@ import os
 import sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
-sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
+sys.path.append(os.path.join(directory, "code", "helpers"))
+sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "results"))
 
+
 from depth import depth
-from greedyclimb import climb
 from greedyfold import spiralfold
 from molecule import Molecule
 from annealing import anneal
@@ -98,10 +99,6 @@ def main():
 
         elif command[0] == "spiral":
             spiralfold(molecule)
-            print(f"stability: {molecule.stability()}")
-
-        elif command[0] == "steep_climb":
-            climb(molecule)
             print(f"stability: {molecule.stability()}")
 
         elif command[0] == "stoch_climb":
@@ -268,8 +265,6 @@ def main():
                   "\nrandom: turns the molecule randomly (usage: random 10)" \
                   "\ndraw: draws the molecule (usage: draw)" \
                   "\nspiral: turns the molecule into a spiral (usage: spiral)" \
-                  "\nsteep_climb: performs a 'maximum ascent hillclimber' " \
-                  "algorithm on the molecule (usage: steep_climb)" \
                   "\nstoch_climb: performs a 'stochastic hill climber " \
                   "algorithm' on the molecule (usage: stoch_climb iterations "\
                   "(save))"
