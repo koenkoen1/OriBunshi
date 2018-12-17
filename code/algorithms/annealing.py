@@ -77,10 +77,8 @@ def anneal(molecule, reheat_times, reheat_temp, save_data=False):
         #  copy the location coordinates of molecule to oldmolecule
         copylocations(oldmolecule, molecule)
 
-        # make some random turns
+        # make some random turns and force to vaild
         randomturns(molecule, random.randint(1, 3))
-
-        # force the molecule in a valid position (this is better than reverting the change)
         molecule.force_vadil()
 
         # update the current stability
