@@ -52,6 +52,7 @@ def load_sequence():
             return options[key]
 
     else:
+        # ask again if method is invalid
         return load_sequence()
 
 
