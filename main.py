@@ -7,7 +7,6 @@ sys.path.append(os.path.join(directory, "code", "helpers"))
 sys.path.append(os.path.join(directory, "code", "objects"))
 sys.path.append(os.path.join(directory, "results"))
 
-
 from depth import depth
 from greedyfold import spiralfold
 from molecule import Molecule
@@ -105,7 +104,7 @@ def main():
             iterations = ''
             save_data = False
 
-            # check for errors and convert to convert variables to proper format
+            # check for errors and convert variables to proper format
             try:
                 iterations = int(command[1])
             except ValueError:
@@ -120,8 +119,9 @@ def main():
                 if command[2] == "save":
                     save_data = True
                 else:
-                    print(f"Error: {command[1]} is not accepted." \
+                    print(f"Error: {command[2]} is not accepted." \
                           "\nUsage: stoch_climb iterations (save)")
+                    continue
             except IndexError:
                 pass
 
@@ -133,16 +133,7 @@ def main():
             reheat_temp = ''
             save_data = False
 
-            # check for errors and convert to convert variables to proper format
-            try:
-                reheat_times = int(command[1])
-            except ValueError:
-                print(f"Error: {command[1]} is not a number")
-                continue
-            except IndexError:
-                print("Usage: anneal reheat_times reheat_temp (save)")
-                continue
-
+            # check for errors and convert variables to proper format
             try:
                 reheat_temp = int(command[2])
             except ValueError:
@@ -152,13 +143,20 @@ def main():
                 print("Usage: anneal reheat_times reheat_temp (save)")
                 continue
 
+            try:
+                reheat_times = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+
             # check if the save command was given, if so let anneal save data
             try:
                 if command[3] == "save":
                     save_data = True
                 else:
-                    print(f"Error: {command[1]} is not accepted." \
+                    print(f"Error: {command[3]} is not accepted." \
                           "\nUsage: anneal reheat_times reheat_temp (save)")
+                    continue
             except IndexError:
                 pass
 
@@ -170,16 +168,7 @@ def main():
             gens = ''
             save_data = False
 
-            # check for errors and convert to convert variables to proper format
-            try:
-                popsize = int(command[1])
-            except ValueError:
-                print(f"Error: {command[1]} is not a number")
-                continue
-            except IndexError:
-                print("Usage: population popsize generations (save)")
-                continue
-
+            # check for errors and convert variables to proper format
             try:
                 gens = int(command[2])
             except ValueError:
@@ -187,6 +176,12 @@ def main():
                 continue
             except IndexError:
                 print("Usage: population popsize generations (save)")
+                continue
+
+            try:
+                popsize = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
                 continue
 
             # check if the save command was given, if so let pop save data

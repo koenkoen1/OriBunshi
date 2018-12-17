@@ -22,7 +22,7 @@ def hillclimb(molecule, iterations, save_data=False):
     # if this bool is false at the end it means no better molecule was found
     lowestmolecule = False
 
-    for i in range(iterations)
+    for i in range(iterations):
         # save the molecule state
         oldstability = molecule.stability()
         save_iter = [i, oldstability]
