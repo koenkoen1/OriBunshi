@@ -1,6 +1,6 @@
 def spiralfold(molecule):
     """
-    Alters a provided molecule object
+    Alters a provided molecule object to a spiral-like shape
     """
     i = 1
     length = len(molecule.sequence)

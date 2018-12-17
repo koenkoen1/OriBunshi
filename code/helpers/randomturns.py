@@ -9,7 +9,7 @@ def randomturns(molecule, x):
     i = 0
     while i < x:
 
-        #make a random tuns
+        # make random turns
         randomnode = random.randint(1, len(molecule.acids) - 1)
         randomdirection = random.randint(0, 1)
         if randomdirection == 0:

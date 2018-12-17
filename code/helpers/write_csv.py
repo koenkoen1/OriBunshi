@@ -32,7 +32,7 @@ def write_csv(name, header, data):
         # write header
         writer.writerow(header)
 
-        # iterate over and write movies
+        # iterate over and write iterations
         for iteration in data:
             writer.writerow(iteration)
 
