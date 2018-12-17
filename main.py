@@ -12,6 +12,7 @@ from greedyfold import spiralfold
 from molecule import Molecule
 from randomturns import randomturns
 from annealing import anneal
+from hillclimb import hillclimb
 from randomsample import randomsample
 from populationbased import populationbased
 
@@ -101,9 +102,36 @@ def main():
             spiralfold(molecule)
             print(f"stability: {molecule.stability()}")
 
-        elif command[0] == "climb":
+        elif command[0] == "steep_climb":
             climb(molecule)
             print(f"stability: {molecule.stability()}")
+
+        elif command[0] == "stoch_climb":
+            iterations = ''
+            save_data = False
+
+            # check for errors and convert to convert variables to proper format
+            try:
+                iterations = int(command[1])
+            except ValueError:
+                print(f"Error: {command[1]} is not a number")
+                continue
+            except IndexError:
+                print("Usage: stoch_climb iterations (save)")
+                continue
+
+            # check if the save command was given, if so save data
+            try:
+                if command[2] == "save":
+                    save_data = True
+                else:
+                    print(f"Error: {command[1]} is not accepted." \
+                          "\nUsage: stoch_climb iterations (save)")
+            except IndexError:
+                pass
+
+            hillclimb(molecule, iterations, save_data)
+            molecule.draw()
 
         elif command[0] == "anneal":
             reheat_times = ''
@@ -258,8 +286,11 @@ def main():
                   "\nrandom: turns the molecule randomly (usage: random 10)" \
                   "\ndraw: draws the molecule (usage: draw)" \
                   "\nspiral: turns the molecule into a spiral (usage: spiral)" \
-                  "\nclimb: performs a 'maximum ascent hillclimber' algorithm" \
-                  " on the molecule (usage: climb)" \
+                  "\nsteep_climb: performs a 'maximum ascent hillclimber' " \
+                  "algorithm on the molecule (usage: steep_climb)" \
+                  "\nstoch_climb: performs a 'stochastic hill climber " \
+                  "algorithm' on the molecule (usage: stoch_climb iterations "\
+                  "(save))"
                   "\nanneal: performs the 'simulated annealing' algorithm on " \
                   "the molecule (usage: anneal (save))" \
                   "\nsample: get best out of given number of samples" \
