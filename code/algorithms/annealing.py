@@ -6,6 +6,7 @@ import random
 from randomturns import randomturns
 from greedyfold import spiralfold
 from write_csv import write_csv
+from copylocations import copylocations
 
 BEGINTEMP = 200
 
@@ -16,24 +17,12 @@ def tempfunc(k):
     """
     return  (BEGINTEMP / (1 + math.log10(1 + k)))
 
-
 def kfunc(temp):
     """
     Calculates what the amount of iterations would be at a certain temperature.
     This function is used for reheating.
     """
     return 10 ** (BEGINTEMP/temp - 1) - 1
-
-
-def copylocations(molecule1, molecule2):
-    """
-    Copies coordinates of the amino acids of one molecule to another molecule.
-    This function is used for resetting the molecule to the backup or for
-    updating the backup to a new configuration.
-    """
-    for index, amino_acid in enumerate(molecule2.acids):
-        molecule1.acids[index].coordinates = amino_acid.coordinates
-
 
 def anneal(molecule, reheat_times, reheat_temp, save_data=False):
     """
